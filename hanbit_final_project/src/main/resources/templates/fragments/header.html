@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/* 
+		 필요한 html 요소만 정의한다 		 
+		 th:fragment="headerFragment" 는 반드시 명시하도록 한다 
+ */-->
+ <!--================start Header Area =================-->
+ <nav th:fragment="headerFragment">
+            <div class="main_menu">
+            	<nav class="navbar navbar-expand-lg navbar-light">
+					<div class="container box_1620">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<a class="navbar-brand logo_h" href="index.html" th:href="@{/}"><img src="img/logo.png" alt=""></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+							<ul class="nav navbar-nav menu_nav justify-content-center">
+								<li class="nav-item active"><a class="nav-link" href="index.html" th:href="@{/}">홈으로</a></li> 
+								<li class="nav-item"><a class="nav-link" href="about-us.html" th:href="@{/noticeBoard}">알림게시판</a></li> 
+								<li class="nav-item"><a class="nav-link" href="service.html">매칭게시판</a>
+								<li class="nav-item"><a class="nav-link" href="contact.html">자유게시판</a></li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li class="nav-item"><a href="#">마이페이지</a></li>
+								<li class="nav-item"><a href="#">로그아웃</a></li>
+								<li class="nav-item"><a href="#">로그인</a></li>
+							</ul>
+						</div> 
+					</div>
+            	</nav>
+            </div>
+ </nav>
+ <!--================End Header Area =================-->
+</html>
