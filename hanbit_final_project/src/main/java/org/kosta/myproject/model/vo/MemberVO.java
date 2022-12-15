@@ -27,6 +27,7 @@ public class MemberVO implements Serializable{
 	private String workHistory;
 	private String location;
 	private String workType;
+	
 	// 회원가입시 필요한 생성자
 	public MemberVO(String id, String password, String name, String nick, String question, String answer, int tel,
 			int enabled) {
