@@ -13,4 +13,8 @@ public class HomeController {
 	public String noticeBoardList() {
 		return "noticeBoard/noticeBoardList";
 	}
+	@RequestMapping("matchBoard")
+	public String matchBoardList() {
+		return "matchBoard/matchBoard";
+	}
 }

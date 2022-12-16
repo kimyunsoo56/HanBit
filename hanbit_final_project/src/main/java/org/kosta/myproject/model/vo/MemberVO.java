@@ -22,6 +22,7 @@ public class MemberVO implements Serializable{
 	private String answer;
 	private int tel;
 	private int enabled;
+	private int memberType;
 	private int licenseNo;
 	private String gender;
 	private String workHistory;

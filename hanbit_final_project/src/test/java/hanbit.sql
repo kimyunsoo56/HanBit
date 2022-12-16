@@ -8,6 +8,7 @@ CREATE TABLE hanbit_member(
 	answer VARCHAR2(100) NOT NULL,
 	tel NUMBER NOT NULL UNIQUE,
 	enabled NUMBER DEFAULT 1 NOT NULL,
+	member_type NUMBER DEFAULT 1 NOT NULL, 
 	license_no NUMBER UNIQUE,
 	gender VARCHAR2(100) CHECK(gender IN('남성','여성')),
 	work_history VARCHAR2(100),
@@ -17,15 +18,6 @@ CREATE TABLE hanbit_member(
 DROP TABLE hanbit_member;
 SELECT * FROM hanbit_member;
 
--- 한빛 권한 테이블 생성
-CREATE TABLE hanbit_authorities(
-	id VARCHAR2(100) NOT NULL,
-	authority VARCHAR2(30) NOT NULL,
-	CONSTRAINT hanbit_authorities_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
-	CONSTRAINT hanbit_member_authorities PRIMARY KEY(id,authority)
-)
-DROP TABLE hanbit_authorities;
-SELECT * FROM hanbit_authorities;
 
 -- 한빛 알림 게시판 테이블 생성
 CREATE TABLE hanbit_notice_board(
