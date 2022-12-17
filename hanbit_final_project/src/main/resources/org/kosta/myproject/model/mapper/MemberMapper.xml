@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.model.mapper.MemberMapper">
+<sql id="selectMember">
+	SELECT id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type
+	FROM hanbit_member
+</sql>
+<select id="findMemberById" parameterType="string" resultType="org.kosta.myproject.model.vo.MemberVO">
+	<include refid="selectMember"></include>
+	WHERE id=#{value}
+</select>
+<insert id="registerMember" parameterType="org.kosta.myproject.model.vo.MemberVO">
+	INSERT INTO hanbit_member(id,password,name,nick,question,answer,tel) VALUES(#{id},#{password},#{name},#{nick},#{question},#{answer},#{tel})
+</insert>
+<select id="checkNick" parameterType="string" resultType="int">
+	SELECT COUNT(*) FROM hanbit_member WHERE nick=#{value}
+</select>
+<select id="checkTel" parameterType="string" resultType="int">
+	SELECT COUNT(*) FROM hanbit_member WHERE tel=#{value}
+</select>
 </mapper>
