@@ -31,11 +31,13 @@ public class MemberController {
 		model.addAttribute("questionList", question);
 		return "member/register-form";
 	}
+	// 회원가입 폼
 	@PostMapping("registerMember")
 	public String register(MemberVO memberVO) {
 		memberService.register(memberVO);
 		return "redirect:registerMemberResult";
 	}
+	// 회원가입
 	@RequestMapping("registerMemberResult")
 	public String registerMemberResult() {
 		return "member/register-result";
@@ -61,10 +63,12 @@ public class MemberController {
 		int checkTel=memberService.checkTel(tel);
 		return checkTel;
 	}
+	// 아이디 찾기 폼
 	@RequestMapping("findIdForm")
 	public String findIdForm() {
 		return "member/findid-form";
-	}
+	} 
+	// 아이디 찾기
 	@RequestMapping("findId")
 	public String findId(String name,String tel,Model model) {
 		String viewName=null;
@@ -77,6 +81,7 @@ public class MemberController {
 		}
 		return viewName;
 	}
+	// 비밀번호 찾기 폼
 	@RequestMapping("findPasswordForm")
 	public String findPasswordForm(Model model) {
 		List<String> question=new ArrayList<>();
@@ -90,6 +95,7 @@ public class MemberController {
 		model.addAttribute("questionList", question);
 		return "member/findpassword-form";
 	}
+	// 비밀번호 찾기
 	@RequestMapping("findPassword")
 	public String findPassword(String id,String name,String tel,String question,String answer,Model model) {
 		String viewName=null;
@@ -101,5 +107,50 @@ public class MemberController {
 			viewName="member/findpassword-ok";
 		}
 		return viewName;
+	}
+	// 요양보호사 등록 폼
+	@RequestMapping("registerCareWorkerForm")
+	public String registerCareWorkerForm(Model model) {
+		// 성별
+		List<String> gender=new ArrayList<>();
+		gender.add("남성");
+		gender.add("여성");
+		model.addAttribute("genderList", gender);
+		// 경력
+		List<String> workHistory=new ArrayList<>();
+		workHistory.add("신입");
+		workHistory.add("1년 미만");
+		workHistory.add("1년~3년");
+		workHistory.add("3년~5년");
+		workHistory.add("5~7년");
+		workHistory.add("7년~10년");
+		workHistory.add("10년 이상");
+		model.addAttribute("workHistoryList", workHistory);
+		// 지역
+		List<String> location=new ArrayList<>();
+		location.add("서울특별시");
+		location.add("경기도");
+		location.add("인천광역시");
+		location.add("강원도");
+		location.add("충청북도");
+		location.add("충청남도");
+		location.add("대전광역시");
+		location.add("세종특별자치시");
+		location.add("전라북도");
+		location.add("전라남도");
+		location.add("광주광역시");
+		location.add("경상북도");
+		location.add("경상남도");
+		location.add("부산광역시");
+		location.add("대구광역시");
+		location.add("울산광역시");
+		location.add("제주특별자치도");
+		model.addAttribute("locationList", location);
+		// 근무타입
+		List<String> workType=new ArrayList<>();
+		workType.add("자택근무");
+		workType.add("병원근무");
+		model.addAttribute("workTypeList", workType);
+		return "member/register-careworker-form";
 	}
 }
