@@ -14,4 +14,8 @@ public interface MemberMapper {
 
 	int checkTel(String tel);
 
+	String findId(String name, String tel);
+
+	String findPassword(String id, String name, String tel, String question, String answer);
+
 }

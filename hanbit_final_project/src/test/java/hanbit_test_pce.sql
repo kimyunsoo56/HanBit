@@ -8,3 +8,7 @@ INSERT INTO hanbit_member(id,password,name,nick,question,answer,tel) VALUES('jav
 DELETE FROM hanbit_member WHERE id='zzzzz'; 
 
 SELECT COUNT(*) FROM hanbit_member WHERE nick='아이유';
+
+SELECT id FROM hanbit_member WHERE name='박진수' AND tel='01028355343';
+
+SELECT password FROM hanbit_member WHERE id='spring' AND name='박진수' AND tel='01028355343' AND question='나의 출신 초등학교는?' AND answer='문성초';

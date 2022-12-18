@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/member_layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+        <div layout:fragment="content">
+        	<br>
+      		<div class="row g-4">
+        	 <div class="col-lg12 offset-lg-4 col-md-8">
+        	 	<h1>회원님의 아이디는</h1>
+        	 	<h1><span th:text="${memberId}" style="color: #009FE1;"></span> 입니다</h1>
+        	 	<br>
+        	 	<a class="banner_btn2" th:href="@{/findPasswordForm}">비밀번호 찾기</a>
+        	 	&nbsp;<a class="banner_btn" href="">로그인 하기</a>
+	        </div>
+	       </div>
+	       <br>
+        </div>
+ <!--================End layout Area =================-->

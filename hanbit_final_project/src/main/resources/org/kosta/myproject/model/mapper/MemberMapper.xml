@@ -18,4 +18,11 @@
 <select id="checkTel" parameterType="string" resultType="int">
 	SELECT COUNT(*) FROM hanbit_member WHERE tel=#{value}
 </select>
+<select id="findId" parameterType="string" resultType="string">
+	SELECT id FROM hanbit_member WHERE name=#{name} AND tel=#{tel}
+</select>
+<select id="findPassword" parameterType="string" resultType="string">
+	SELECT password FROM hanbit_member WHERE id=#{id} AND name=#{name}
+	AND tel=#{tel} AND question=#{question} AND answer=#{answer}
+</select>
 </mapper>

@@ -30,4 +30,14 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.checkTel(tel);
 	}
 
+	@Override
+	public String findId(String name, String tel) {
+		return memberMapper.findId(name, tel);
+	}
+
+	@Override
+	public String findPassword(String id, String name, String tel, String question, String answer) {
+		return memberMapper.findPassword(id, name, tel, question, answer);
+	}
+
 }

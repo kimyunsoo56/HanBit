@@ -20,9 +20,9 @@
 	        	&nbsp;&nbsp;<span id="checkIdResult"></span><br>
 	        	
 	        	<h5>비밀번호</h5>
-	        	<input class="form-control-lg" type="password" name="password" placeholder="비밀번호를 입력하세요" required="required" id="checkPassword1"><br>
+	        	<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword1"><br>
 	        	<h5>비밀번호 확인</h5>
-	        	<input class="form-control-lg" type="password" placeholder="비밀번호를 입력하세요" required="required" id="checkPassword2">
+	        	<input class="form-control-lg" type="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword2">
 	        	&nbsp;&nbsp;<span id="checkPasswordResult"></span><br>
 	        	
 	        	<h5>이름</h5>
@@ -102,12 +102,17 @@
 	        			
 	        			// 비밀번호 체크
 	        			$("#checkPassword2").keyup(function() {
-	    					if($("#checkPassword1").val()!=$("#checkPassword2").val()){
-		        				$("#checkPasswordResult").html("<font color=red>비밀번호가 일치하지 않습니다</font>");
-		        				checkResultPassword="N"
-	    					}else{
-		        				$("#checkPasswordResult").html("<font color=blue>비밀번호가 일치합니다</font>");
-		        				checkResultPassword="Y"
+	        				if($("#checkPassword1").val().trim().length<6){
+    							$("#checkPasswordResult").html("<font color=red>6자 이상 입력하세요</font>");
+    							checkResultPassword="N"
+	        				}else{
+		    					if($("#checkPassword1").val()!=$("#checkPassword2").val()){
+			        				$("#checkPasswordResult").html("<font color=red>비밀번호가 일치하지 않습니다</font>");
+			        				checkResultPassword="N"
+		    					}else{
+				        			$("#checkPasswordResult").html("<font color=blue>비밀번호가 일치합니다</font>");
+				        			checkResultPassword="Y"
+		    					}//else
 	    					}//else
 	        			});//keyupPassword 
 	        			

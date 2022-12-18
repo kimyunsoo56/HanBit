@@ -31,7 +31,6 @@ public class MemberController {
 		model.addAttribute("questionList", question);
 		return "member/register-form";
 	}
-	// 
 	@PostMapping("registerMember")
 	public String register(MemberVO memberVO) {
 		memberService.register(memberVO);
@@ -41,22 +40,66 @@ public class MemberController {
 	public String registerMemberResult() {
 		return "member/register-result";
 	}
+	// 아이디 중복체크 Ajax
 	@RequestMapping("registerCheckId")
 	@ResponseBody
 	public MemberVO registerCheckId(String id) {
 		MemberVO checkId=memberService.findMemberById(id);
 		return checkId;
 	}
+	// 닉네임 중복체크 Ajax
 	@RequestMapping("registerCheckNick")
 	@ResponseBody
 	public int registerCheckNick(String nick) {
 		int checkNick=memberService.checkNick(nick);
 		return checkNick;
 	}
+	// 연락처 중복체크 Ajax
 	@RequestMapping("registerCheckTel")
 	@ResponseBody
 	public int registerCheckTel(String tel) {
 		int checkTel=memberService.checkTel(tel);
 		return checkTel;
+	}
+	@RequestMapping("findIdForm")
+	public String findIdForm() {
+		return "member/findid-form";
+	}
+	@RequestMapping("findId")
+	public String findId(String name,String tel,Model model) {
+		String viewName=null;
+		String findId=memberService.findId(name,tel);
+		if(findId==null) {
+			viewName="member/findid-fail";
+		}else {
+			model.addAttribute("memberId", findId);
+			viewName="member/findid-ok";
+		}
+		return viewName;
+	}
+	@RequestMapping("findPasswordForm")
+	public String findPasswordForm(Model model) {
+		List<String> question=new ArrayList<>();
+		question.add("가장 기억에 남는 장소는?");
+		question.add("나의 좌우명은?");
+		question.add("나의 보물 제1호는?");
+		question.add("인상 깊게 읽은 책 이름은?");
+		question.add("내가 존경하는 인물은?");
+		question.add("나의 출신 초등학교는?");
+		question.add("나의 노래방 애창곡은?");
+		model.addAttribute("questionList", question);
+		return "member/findpassword-form";
+	}
+	@RequestMapping("findPassword")
+	public String findPassword(String id,String name,String tel,String question,String answer,Model model) {
+		String viewName=null;
+		String findPassword=memberService.findPassword(id,name,tel,question,answer);
+		if(findPassword==null) {
+			viewName="member/findpassword-fail";
+		}else {
+			model.addAttribute("memberPassword", findPassword);
+			viewName="member/findpassword-ok";
+		}
+		return viewName;
 	}
 }
