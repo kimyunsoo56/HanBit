@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/member_layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+<th:block th:if="${session.mvo==null}">
+	<form method="post" action="#" th:action="@{login}">
+		<input type="text" name="id"  placeholder="아이디 " required="required"><br>
+		<input type="password" name="password"  placeholder="패스워드" required="required"><br>
+		<button type="submit">로그인</button>
+	</form>
+		<br><br>
+		<a href="" th:href="@{/registerForm}">회원가입</a>
+	</th:block>
+		<br>
+		<br>
+</div>
+<!--================End layout Area =================-->

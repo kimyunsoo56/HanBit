@@ -20,7 +20,7 @@ public class MemberVO implements Serializable{
 	private String nick;
 	private String question;
 	private String answer;
-	private int tel;
+	private String tel;
 	private int enabled;
 	private int memberType;
 	private int licenseNo;
@@ -30,7 +30,7 @@ public class MemberVO implements Serializable{
 	private String workType;
 	
 	// 회원가입시 필요한 생성자
-	public MemberVO(String id, String password, String name, String nick, String question, String answer, int tel,
+	public MemberVO(String id, String password, String name, String nick, String question, String answer, String tel,
 			int enabled) {
 		super();
 		this.id = id;

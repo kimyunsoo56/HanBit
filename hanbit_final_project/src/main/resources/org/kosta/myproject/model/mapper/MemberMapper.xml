@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.model.mapper.MemberMapper">
+<select id="login" parameterType="org.kosta.myproject.model.vo.MessageVO" resultType="org.kosta.myproject.model.vo.MemberVO">
+select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id=#{id} and password=#{password}
+</select>
 </mapper>
