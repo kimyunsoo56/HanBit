@@ -9,7 +9,7 @@ public class HomeController {
 	public String home() {
 		return "index";
 	}
-	@RequestMapping("noticeBoard")
+	@RequestMapping("noticeBoardList")
 	public String noticeBoardList() {
 		return "noticeBoard/noticeBoardList";
 	}
