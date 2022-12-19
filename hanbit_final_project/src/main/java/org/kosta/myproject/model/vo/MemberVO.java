@@ -41,8 +41,11 @@ public class MemberVO implements Serializable{
 		this.tel = tel;
 	}
 	// 요양보호사 등록 시 필요한 생성자
-	public MemberVO(int licenseNo, String gender, String workHistory, String location, String workType) {
+	public MemberVO(String id, int memberType, int licenseNo, String gender, String workHistory, String location,
+			String workType) {
 		super();
+		this.id = id;
+		this.memberType = memberType;
 		this.licenseNo = licenseNo;
 		this.gender = gender;
 		this.workHistory = workHistory;

@@ -31,4 +31,11 @@ select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,
 	SELECT password FROM hanbit_member WHERE id=#{id} AND name=#{name}
 	AND tel=#{tel} AND question=#{question} AND answer=#{answer}
 </select>
+<select id="checkLicenseNo" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM hanbit_member WHERE license_no=#{value}
+</select>
+<update id="registerCareWorker" parameterType="org.kosta.myproject.model.vo.MemberVO">
+	UPDATE hanbit_member SET member_type=2,license_no=#{licenseNo},
+	gender=#{gender},work_history=#{workHistory},location=#{location},work_type=#{workType} WHERE id=#{id}
+</update>
 </mapper>

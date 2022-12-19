@@ -166,9 +166,9 @@ public class MemberController {
 		model.addAttribute("workHistoryList", workHistory);
 		// 지역
 		List<String> location=new ArrayList<>();
-		location.add("서울특별시");
-		location.add("경기도");
-		location.add("강원도");
+		location.add("서울");
+		location.add("경기");
+		location.add("강원");
 		location.add("충북");
 		location.add("충남");
 		location.add("전북");
@@ -183,5 +183,24 @@ public class MemberController {
 		workType.add("병원근무");
 		model.addAttribute("workTypeList", workType);
 		return "member/register-careworker-form";
+	}
+	// 자격증 번호 중복체크
+	@RequestMapping("registerCheckLicenseNo")
+	@ResponseBody
+	public int registerCheckLicenseNo(int licenseNo) {
+		int checkLicenseNo=memberService.checkLicenseNo(licenseNo);
+		return checkLicenseNo;
+	}
+	@PostMapping("registerCareWorker")
+	public String registerCareWorker(MemberVO memberVO,HttpServletRequest request) {
+		HttpSession session=request.getSession(false);
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		memberService.registerCareWorker(memberVO);
+		session.setAttribute("mvo", mvo);
+		return "redirect:registerCareWorkerResult";
+	}
+	@RequestMapping("registerCareWorkerResult")
+	public String registerCareWorkerResult() {
+		return "member/register-careworker-result";
 	}
 }

@@ -48,6 +48,12 @@ public class HanbitJunitTestPce {
 		String password=memberMapper.findPassword(id,name,tel,question,answer);
 		Assertions.assertNotNull(password);
 	}
+	// 요양보호사 등록 테스트
+	@Test
+	void registerCareWorker() {
+		MemberVO memberVO=new MemberVO("2222", 2, 2222222, "여성", "신입", "서울", "자택근무");
+		memberMapper.registerCareWorker(memberVO);
+	}
 }
 
 

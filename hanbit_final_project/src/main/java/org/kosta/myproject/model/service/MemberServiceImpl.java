@@ -49,5 +49,15 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.findPassword(id, name, tel, question, answer);
 	}
 
+	@Override
+	public int checkLicenseNo(int licenseNo) {
+		return memberMapper.checkLicenseNo(licenseNo);
+	}
+
+	@Override
+	public void registerCareWorker(MemberVO memberVO) {
+		memberMapper.registerCareWorker(memberVO);
+	}
+
 }
 
