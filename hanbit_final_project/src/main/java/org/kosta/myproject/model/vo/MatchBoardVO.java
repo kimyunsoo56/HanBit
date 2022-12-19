@@ -11,4 +11,5 @@ public class MatchBoardVO {
 	private int hits;
 	private String image;
 	private MemberVO memberVO;
+	
 }

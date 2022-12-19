@@ -13,21 +13,21 @@
         <h4> ※ 요양 보호사의 정보를 확인하여 원하는 요양 보호사와 매칭할 수 있는 게시판입니다 ※ </h4> <br><br>
          <div class="row">
          <br>
-       <h4>지역</h4>
-        <select>
-        <option>전체</option>
-        <option value="서울">서울</option>
-        <option value="인천">인천</option>
-        <option value="경기">경기</option>
-        <option value="부산">부산</option>
-        <option value="대구">대구</option>
-        <option value="광주">광주</option>
-        <option value="대전">대전</option>
-        <option value="울산">울산</option>
-        <option value="세종">세종</option>
-        <option value="강원">강원</option>
-        <option value="충북">충북</option>
-        <option value="충남">충남</option>
+       <h4>지역</h4> &nbsp; &nbsp;
+        <select id="loc">
+        <option value="0">전체</option>
+        <option th:value="서울">서울</option>
+        <option th:value="인천">인천</option>
+        <option th:value="경기도">경기</option>
+        <option th:value="부산">부산</option>
+        <option th:value="대구">대구</option>
+        <option th:value="광주">광주</option>
+        <option th:value="대전">대전</option>
+        <option th:value="울산">울산</option>
+        <option th:value="세종">세종</option>
+        <option th:value="강원">강원</option>
+        <option th:value="충북">충북</option>
+        <option th:value="충남">충남</option>
         <option value="전북">전북</option>
         <option value="전남">전남</option>
         <option value="경북">경북</option>
@@ -36,14 +36,74 @@
         </select>
         
              &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp;     
-          <h4>성별</h4>
-        <select>
-        <option>무관</option>
+          <h4>성별</h4> &nbsp; &nbsp;
+        <select id="gen">
+        <option value="0">무관</option>
         <option value="남자">남자</option>
         <option value="여자">여자</option>
         </select>
+        &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp;     
+        <h4>근무형태</h4>  &nbsp; &nbsp;
+        <select id="wtype">
+        <option value="0">전체</option> 
+        <option value="자택근무">자택근무</option>
+        <option value="병원근무">병원근무</option>
+        </select>
+        
+        &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp; 
+        
+        <button type="button" id="searchList">검색</button>
+        
+        
          
     </div>
+    <br><br>
+    
+    <table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>NO</th><th>지역</th><th>제목</th><th>작성자</th><th>작성시간</th><th>조회수</th>
+		</tr>
+	</thead>
+	<tbody id="matchTbody">
+		<tr th:each="match:${matchList}">
+			<td th:text="${match.matchNo}"></td>
+			<td th:text="${match.memberVO.location}"></td>
+			<td> <a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
+			<td th:text="${match.memberVO.name}"></td>
+			<td th:text="${match.timePosted}"></td>
+		  <td th:text="${match.hits}"></td>   
+		</tr>
+	</tbody>
+</table>
+<br>
+<form th:action="@{WriteMatchBoardForm}">
+<button>
+글쓰기
+</button>
+
+</form>
+
+<script type="text/javascript">
+		$(function(){
+			$("#searchList").click(function() {				
+				let location=$("#loc").val();
+				let gender=$("#gen").val();
+				let workType=$("#wtype").val();
+				$.ajax({
+					type:"get",
+					url:"findMatchListBylgw",
+					//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
+					data:"memberVO.location="+location+"&memberVO.gender="+gender +"&memberVO.workType="+workType,
+					success:function(list){						
+						$("#matchTbody").replaceWith(list);//replaceWith
+					}
+				});//ajax
+			});//click
+		});//ready
+	</script>
+
+
         </div>
       
  <!--================End layout Area =================-->

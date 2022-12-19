@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.myproject.model.mapper.MatchBoardMapper">
+<resultMap type="org.kosta.myproject.model.vo.MatchBoardVO" id="matchResultMap">
+      <result column="id"  property="memberVO.id"/> 
+      <result column="name"  property="memberVO.name"/> 
+      <result column="location"  property="memberVO.location"/> 
+      <result column="nick"  property="memberVO.nick"/> 
+      <result column="gender"  property="memberVO.gender"/>
+      <result column="work_history"  property="memberVO.workHistory"/>
+      <result column="work_type"  property="memberVO.workType"/> 
+      <result column="tel"  property="memberVO.tel"/> 
+   </resultMap>
+
+<select id="matchBoardList" resultMap="matchResultMap">
+select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
+from hanbit_match_board_msk b
+inner join hanbit_member_msk m on b.id=m.id
+
+</select>
+
+<select id="matchDetail" parameterType="int" resultMap="matchResultMap">
+select b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type,m.work_history,m.tel,m.nick
+from hanbit_match_board_msk b
+inner join hanbit_member_msk m on b.id=m.id
+where b.match_no=#{value}
+
+</select>
+
+<select id="findMatchListBylgw" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultMap="matchResultMap">
+select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
+from hanbit_match_board_msk b
+inner join hanbit_member_msk m on b.id=m.id
+<where>
+<if test="memberVO!=null and memberVO.location!=0">
+m.location=#{memberVO.location}
+</if>
+<if test="memberVO!=null and memberVO.gender!=0">
+and m.gender=#{memberVO.gender}
+</if>
+<if test="memberVO!=null and memberVO.workType!=0">
+and m.work_type=#{memberVO.workType}
+</if>
+</where>
+
+
+</select>
+</mapper>

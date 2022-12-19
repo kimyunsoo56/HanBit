@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+
+	<h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
+	<br> <br> 
+	제목 :
+	<h4 th:text="${matchDetail.title}"></h4>
+	<br> <br> 
+	작성시간 :
+	<h4 th:text="${matchDetail.timePosted}">작성시간</h4>
+	<br><br>
+	 닉네임 :
+	<h4 th:text="${matchDetail.memberVO.nick}">닉네임</h4>
+	<br><br>
+	 조회수 :
+	<h4 th:text="${matchDetail.hits}">조회수</h4>
+    <br><br>
+     사진 :
+	<h4 th:text="${matchDetail.image}">사진나오는부분!</h4>
+	<br><br>
+	이름과 소개글:
+	<h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4> 요양보호사입니다!
+	<h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
+
+	<br> <br>
+	성별 :
+	<h4 th:text="${matchDetail.memberVO.gender}">성별 나오는 부분</h4>
+	<br>
+	근무이력:
+	<h4 th:text="${matchDetail.memberVO.workHistory}">근무이력 나오는 부분</h4>
+	<br>
+	지역 :
+	<h4 th:text="${matchDetail.memberVO.location}">지역 나오는 부분</h4>
+	<br>
+	근무형태:
+	<h4 th:text="${matchDetail.memberVO.workType}">근무 형태 나오는 부분</h4>
+	<br>
+	연락처 :
+	<h4 th:text="${matchDetail.memberVO.tel}">연락처 나오는 부분</h4>
+	<br>
+	<br>
+	<button>쪽지보내기</button>
+	<a th:href="@{/MatchBoardList}">목록으로</a>
+	<button>찜</button>
+
+</div>
+
+<!--================End layout Area =================-->

@@ -1,6 +1,7 @@
 package org.kosta.myproject.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,8 +14,5 @@ public class HomeController {
 	public String noticeBoardList() {
 		return "noticeBoard/noticeBoardList";
 	}
-	@RequestMapping("matchBoard")
-	public String matchBoardList() {
-		return "matchBoard/matchBoard";
-	}
+	
 }
