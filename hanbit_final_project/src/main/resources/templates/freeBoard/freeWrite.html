@@ -9,7 +9,7 @@
 </head>
  <!--================Start layout Area =================-->
 <div layout:fragment="content">
-  <form action="${pageContext.request.contextPath}/write.do" method="post" id="write_form">
+ <form th:action="@{write}" method="post">
  <table class="table" >
     <tr>
     <td>제목 &nbsp;&nbsp;
@@ -18,16 +18,18 @@
     </tr>   
     <tr>
      <td>     
-     <textarea cols="90" rows="15" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
-     </td>
+    <textarea rows="10" cols="70" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
+   
+ </td>
     </tr> 
      </table>    
-     <div class="btnArea">
+
+
      <button type="submit" class="btn" >확인</button>  
      <button type="reset" class="btn" >취소</button>   
-    </div>  
-  </form>
+     </form>
   
+
      <!-- jQuery Ajax -->
      <script type="text/javascript">
      	$(document).ready(function() {

@@ -14,7 +14,6 @@ public interface FreeBoardMapper {
 
 	FreeBoardVO getFreeDetail(int freeNo);
 
-
-	
+	void addHits(int freeNo);
 
 }

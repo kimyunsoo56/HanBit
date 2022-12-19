@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛_자유게시판 게시글 상세보기 페이지</title>
+</head>
+ <!--================Start layout Area =================-->
+<div layout:fragment="content">
+ 
+<script type="text/javascript">
+    $(document).ready(function(){
+    	
+    	$("#deleteForm").submit(function() {
+			return confirm("게시글을 삭제하시겠습니까?");
+		});//deleteForm
+		
+		$("#updateForm").submit(function() {
+			return confirm("게시글을 수정하시겠습니까?");
+		});//updateForm
+    
+    });//ready	
+</script>
+</head>
+
+<!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
+
+
+			 <p th:text="${freeDetail.freeNo}">글번호</p>
+			<p th:text="${freeDetail.title}">제목</p>
+			<p th:text="${freeDetail.memberVO.nick}">작성자</p>
+			<p th:text="${freeDetail.hits}">조회수</p>
+            <p th:text="${freeDetail.content}">내용</p>
+            <p th:text="${freeDetailcategory}">카테고리</p>	
+
+			<p th:text="${freeDetail.content}"></p>
+			
+
+		<!-- <tr>
+			<td colspan="5" class="btnArea">
+			 <c:if test="${requestScope.pvo.memberVO.id==sessionScope.mvo.id}">
+			 <button form="deleteForm" type="submit">삭제</button>
+			 <button form="updateForm" type="submit">수정</button>
+			 
+			 삭제 form
+			 <form action="deletePost.do" id="deleteForm" method="POST">
+			 	<input type="hidden" name="no" value="${requestScope.pvo.no}">			
+			 </form>
+			 
+			 수정 form
+			 <form action="updateView.do" id="updateForm" method="POST">
+			 	<input type="hidden" name="no" value="${requestScope.pvo.no}">			
+			 </form>			 
+			 </c:if>
+			 </td>
+		</tr> -->
+
+    </div>
+
+
+ <!--================End layout Area =================-->
