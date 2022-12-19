@@ -23,7 +23,7 @@
     </thead>
     <tbody>
         <tr th:each="board:${FreeBoardList}">
-            <td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}" th:text="${board.no}"></a></td>
+            <td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}" th:text="${board.freeNo}"></a></td>
             <td th:text="${board.memberVO.nick}"></td>
             <td th:text="${board.title}"></td>
             <td th:text="${board.timePosted}"></td>
