@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+	<br>
+	<br>
+<h4 th:text="${detail.title}"></h4><br>
+<p th:text="${detail.category}"></p>
+<p th:text="${detail.memberVO.nick}"></p>
+<p th:text="${detail.timePosted}"></p>
+<p th:text="${detail.hits}"></p><br>
+<p th:text="${detail.content}"></p><br>
+<p th:text="${detail.image}"></p><br>
+
+</div>
+<!--================End layout Area =================-->

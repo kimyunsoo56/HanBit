@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.myproject.model.mapper.NoticeBoardMapper">
+
+
+	<!-- 0. 총 게시물 수 -->
+	<select id="getTotalPostCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM   hanbit_notice_board 
+	</select>
+
+	<!-- has a 관계 표현 -->
+ 	<resultMap type="org.kosta.myproject.model.vo.NoticeBoardVO" id="noticeboardRM">
+		<result property="memberVO.id" column="id"/>
+		<result property="memberVO.nick" column="nick"/>
+	</resultMap> 
+ 
+	<!-- 게시물 리스트 조회 -->
+	<select id="noticeBoardList" parameterType="org.kosta.myproject.model.service.PagingBean" resultMap="noticeboardRM">
+		SELECT nb.notice_no, nb.title, nb.time_posted, nb.hits, m.id, m.nick 
+		FROM (  
+			SELECT row_number() over(order by notice_no desc) as rnum, notice_no, title, sysdate, hits, id, time_posted
+			FROM   hanbit_notice_board ) nb, hanbit_member m  
+		WHERE  nb.id=m.id and rnum between #{startRowNumber} AND #{endRowNumber} 
+		ORDER BY notice_no DESC  
+	</select>
+	
+		<!-- 게시물 리스트 조회 -->
+	<select id="noticeBoardList1" resultMap="noticeboardRM">
+		SELECT hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits
+		FROM hanbit_notice_board hnb
+		INNER JOIN hanbit_member hm ON hnb.id=hm.id
+	</select>
+	
+	<!-- 게시물 상세보기 조회 -->
+	<select id="noticeBoardDetailView" parameterType="int" resultMap="noticeboardRM">
+		SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image
+		FROM hanbit_notice_board hnb
+		INNER JOIN hanbit_member hm ON hnb.id=hm.id
+		WHERE hnb.notice_no = #{value}
+	</select>
+	
+	<!-- 게시물 카테고리별 조회 -->
+	
+	
+	<!-- 글쓰기 -->
+	<insert id="writeNoticeBoardForm" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT hanbit_notice_board_seq.nextval
+			FROM   dual
+		</selectKey>
+		INSERT INTO hanbit_notice_board(noticeNo, title, nick, time_posted, content, image) 
+		VALUES(#{noticeNo}, #{title}, #{memberVO.nick}, sysdate, #{content}, #{image}
+	</insert>
+ 
+</mapper>
