@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+        <div layout:fragment="content">
+       
+        <h4> ※   '마이페이지' - '요양 보호사 등록' - '이력서 등록'에서 작성하신 이력서가 본문에 추가됩니다.   ※  </h4> <br><br>
+         
+         <form>
+         제목 : <input type="text">
+         <br><br>
+         이력서
+         <br><br>
+         소개글
+         <br>
+          <textarea rows="8" cols="75" placeholder="소개글을 입력해주세요!"></textarea>
+
+
+		</form>
+        </div>
+      
+ <!--================End layout Area =================-->
