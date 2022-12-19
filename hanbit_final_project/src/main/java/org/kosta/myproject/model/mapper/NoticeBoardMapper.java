@@ -21,7 +21,7 @@ public interface NoticeBoardMapper {
 	// noticeBoardDetailView 게시물 상세보기
 	NoticeBoardVO noticeBoardDetailView(int noticeNo);
 
-	// writeNoticeBoardForm 글쓰기
-	void writeNoticeBoardForm(NoticeBoardVO noticeBoardVO);
+	// writeNoticeBoard 글쓰기
+	void writeNoticeBoard(NoticeBoardVO noticeBoardVO);
 
 }

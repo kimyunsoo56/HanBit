@@ -46,10 +46,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardMapper.noticeBoardDetailView(noticeNo);
 	}
 
+	// 글쓰기 ( 세션 연결 ) 
+	@Override
+	public void writeNoticeBoard(NoticeBoardVO noticeBoardVO) {
+		noticeBoardMapper.writeNoticeBoard(noticeBoardVO);	
+	}
+
 	// 글쓰기
 	@Override
-	public void writeNoticeBoardForm (NoticeBoardVO noticeBoardVO) {
-		noticeBoardMapper.writeNoticeBoardForm(noticeBoardVO);
+	public void writeNoticeBoardForm(NoticeBoardVO noticeBoardVO) {
 	}
 
 }

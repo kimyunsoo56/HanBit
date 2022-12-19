@@ -19,6 +19,10 @@ List<NoticeBoardVO> noticeBoardList1();
 // noticeBoardDetailView 게시물 상세보기
 NoticeBoardVO noticeBoardDetailView(int noticeNo);
 
+// writeNoticeBoardForm 게시물 작성 
 void writeNoticeBoardForm(NoticeBoardVO noticeBoardVO);
+
+// WriteNoticeBoard 게시물 작성 (세션 연결)
+void writeNoticeBoard(NoticeBoardVO noticeBoardVO);
 
 }

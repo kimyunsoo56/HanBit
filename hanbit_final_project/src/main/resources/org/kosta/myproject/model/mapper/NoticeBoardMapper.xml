@@ -13,6 +13,7 @@
  	<resultMap type="org.kosta.myproject.model.vo.NoticeBoardVO" id="noticeboardRM">
 		<result property="memberVO.id" column="id"/>
 		<result property="memberVO.nick" column="nick"/>
+		<result property="memberVO.enabled" column="enabled"/>
 	</resultMap> 
  
 	<!-- 게시물 리스트 조회 -->
@@ -44,13 +45,23 @@
 	
 	
 	<!-- 글쓰기 -->
-	<insert id="writeNoticeBoardForm" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+<!-- 	<insert id="writeNoticeBoard" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
+		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
 			SELECT hanbit_notice_board_seq.nextval
 			FROM   dual
 		</selectKey>
-		INSERT INTO hanbit_notice_board(noticeNo, title, nick, time_posted, content, image) 
-		VALUES(#{noticeNo}, #{title}, #{memberVO.nick}, sysdate, #{content}, #{image}
+		INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,category, image, id)
+		VALUES(#{noticeNo}, #{title}, #{content}, sysdate, #{category}, #{image}, #{memberVO.id})
 	</insert>
+  -->
  
+ 	<!-- 글쓰기 ( 관리자만 글 작성 가능 ) -->
+ 	<insert id="writeNoticeBoard" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
+		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
+			SELECT hanbit_notice_board_seq.nextval
+			FROM   dual
+		</selectKey>
+		INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,category, image, id)
+		VALUES(#{noticeNo}, #{title}, #{content}, sysdate, #{category}, #{image}, #{memberVO.id})
+	</insert>
 </mapper>

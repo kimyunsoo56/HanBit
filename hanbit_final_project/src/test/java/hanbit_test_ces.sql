@@ -67,6 +67,14 @@ ORDER BY hnb.notice_no DESC
 SELECT hanbit_notice_board_seq.nextval
 FROM   dual
 
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category, image, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목', '내용',sysdate, 0, '건강 정보', '이미지', 'admin')
+
+
+
+
 select * from hanbit_member;
 select * from hanbit_notice_board;
+
+
 

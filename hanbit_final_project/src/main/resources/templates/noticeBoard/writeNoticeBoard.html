@@ -9,7 +9,7 @@
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
 	<h4>※ 알림 글쓰기※</h4>
-	<form th:action = "registerNotice">
+	  <form th:action="writeNoticeBoard" method="post" id="write_form">
 	<br>
 	<select>
 		<option value= "알림 정보">알림 정보</option>
@@ -20,8 +20,18 @@
      <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
      <br>
 	 <textarea cols="90" rows="15" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
-
-		<button type = "submit">등록</button> 
+		<button type = "submit" >
+		등록
+		</button> 
 	</form>
+	 <!-- jQuery Ajax -->
+     <script type="text/javascript">
+     	$(document).ready(function() {
+     		$("#write_form").submit(function() {
+     			return confirm("글을 등록하시겠습니까?"); 
+			});//submit
+     	}); //ready
+     
+     </script>
 </div>
 <!--================End layout Area =================-->
