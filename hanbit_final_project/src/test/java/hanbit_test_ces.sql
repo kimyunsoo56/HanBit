@@ -2,6 +2,9 @@
 INSERT INTO hanbit_member(id, password, name, nick, question, answer, tel, enabled, member_type, license_no, gender, work_history, location, work_type) 
 VALUES ('admin', 'a', '관리자', '관리자', '질문', '대답', 010, 1, 3, 1111, '여성', '이력', '수원', '자택근무');
 
+UPDATE hanbit_member SET enabled=3 WHERE id='admin';
+UPDATE hanbit_member SET member_type=1 WHERE id='admin';
+
 -- 알림 게시판 게시글 생성
 INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,hits, category, image, id)  
 VALUES (hanbit_notice_board_seq.nextval, '테스트1', '안녕하세요', SYSDATE, 0, '공지사항', 'te.png', 'admin');
@@ -41,6 +44,15 @@ SELECT hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hit
 FROM hanbit_notice_board hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 
+-- 알림 게시판 게시물 리스트 출력 (rnum 추가한 버전)
+SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+FROM (
+SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
+notice_no, title, SYSDATE AS time_posted, hits, category, id
+FROM hanbit_notice_board ) hnb
+INNER JOIN hanbit_member hm ON hnb.id=hm.id
+ORDER BY hnb.notice_no DESC
+
 -- 알림 게시판 게시물 디테일 뷰 출력
 SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image
 FROM hanbit_notice_board hnb
@@ -54,14 +66,26 @@ INNER JOIN hanbit_member hm ON hnb.id=hm.id
 WHERE hnb.category = '공지사항' 
 
 -- 알림 게시판 카테고리 별 조회 (rnum 추가한 버전)
-SELECT  hnb.rnum, hnb.notice_no, hnb.category, hnb.title,  hm.nick, hnb.time_posted, hnb.hits
+SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+FROM (
+SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
+notice_no, title, SYSDATE AS time_posted, hits, category, id
+FROM hanbit_notice_board WHERE category = '공지사항' 
+) hnb
+INNER JOIN hanbit_member hm ON hnb.id=hm.id
+ORDER BY hnb.notice_no DESC
+
+
+SELECT  hnb.rnum,  hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits
 FROM(
-SELECT ROW_NUMBER() OVER(ORDER BY hnb.notice_no DESC) AS rnum, notice_no, category, title, nick, SYSDATE, hits
-AS hnb.time_posted, hnb.hits, hnb.category FROM hanbit_notice_board WHERE hnb.category = '공지사항' 
+SELECT ROW_NUMBER() OVER(ORDER BY notice_no DESC) AS rnum, notice_no, id, category, title, nick, SYSDATE 
+AS time_posted, hits, category FROM hanbit_notice_board WHERE category = '공지사항' 
 ) hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 WHERE rnum BETWEEN 1 AND 5
 ORDER BY hnb.notice_no DESC 
+
+
 
 -- 알림 게시판 글쓰기
 SELECT hanbit_notice_board_seq.nextval

@@ -20,7 +20,18 @@
      <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
      <br>
 	 <textarea cols="90" rows="15" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
-		<button type = "submit" >
+		<br><br>
+	 <div class="form-group row">
+        <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
+          <div class="col-sm-10">
+            <div class="custom-file" id="inputFile">
+              <input name="file" type="file" class="custom-file-input" id="customFile" />
+        		 <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
+            </div>
+         </div>
+      </div>
+        		<br><br>
+		<button type = "submit" > 
 		등록
 		</button> 
 	</form>
@@ -33,5 +44,13 @@
      	}); //ready
      
      </script>
+     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+      $('.custom-file-input').on('change', function () {
+        var fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+      });
+    </script>
 </div>
 <!--================End layout Area =================-->

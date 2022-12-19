@@ -10,17 +10,16 @@
 <div layout:fragment="content">
 
 	<h4>※ 요양 보호사의 정보를 확인하여 원하는 요양 보호사와 매칭할 수 있는 게시판입니다 ※</h4>
-	<br>
-	<br>
+	<br> <br>
 	<div class="row">
+		<br> <select id="category">
+			<option value="전체 보기">전체 보기</option>
+			<option value="공지사항">공지사항</option>
+			<option value="건강 정보">건강 정보</option>
+			<option value="알림 정보">알림 정보</option>
+		</select> <br>
 		<br>
-		<select id="category">
-        <option value="전체 보기">전체 보기</option>
-        <option value="공지사항">공지사항</option>
-        <option value="건강 정보">건강 정보</option>
-        <option value="알림 정보">알림 정보</option>
-        </select>
-        <br><br><br>
+		<br>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -35,7 +34,8 @@
 			<tbody>
 				<tr th:each="nb:${nblvo}">
 					<td th:text="${nb.noticeNo}"></td>
-					<td> <a th:href="@{/noticeDetail?noticeNo=} + ${nb.noticeNo}" th:text="${nb.title}"></a></td>
+					<td><a th:href="@{/noticeDetail?noticeNo=} + ${nb.noticeNo}"
+						th:text="${nb.title}"></a></td>
 					<td th:text="${nb.memberVO.nick}"></td>
 					<td th:text="${nb.timePosted}"></td>
 					<td th:text="${nb.hits}"></td>
@@ -44,11 +44,13 @@
 			</tbody>
 		</table>
 		<br>
-		<form th:action="@{writeNoticeForm}">
-			<button type = "submit">
-				글쓰기
-			</button>
-		</form>
+		<th:block th:if="${session.mvo.memberType=3}">
+			<form th:action="@{writeNoticeForm}">
+				<button>글쓰기</button>
+			</form>
+		</th:block>
+		<h4 th:text = "${session.mvo.memberType}"></h4>
+		<h4 th:text = "${session.mvo.id}"></h4>
 	</div>
 </div>
 <!--================End layout Area =================-->

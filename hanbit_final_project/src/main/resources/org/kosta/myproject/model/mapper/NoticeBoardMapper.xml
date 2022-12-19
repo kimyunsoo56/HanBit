@@ -13,25 +13,33 @@
  	<resultMap type="org.kosta.myproject.model.vo.NoticeBoardVO" id="noticeboardRM">
 		<result property="memberVO.id" column="id"/>
 		<result property="memberVO.nick" column="nick"/>
-		<result property="memberVO.enabled" column="enabled"/>
 	</resultMap> 
  
 	<!-- 게시물 리스트 조회 -->
-	<select id="noticeBoardList" parameterType="org.kosta.myproject.model.service.PagingBean" resultMap="noticeboardRM">
-		SELECT nb.notice_no, nb.title, nb.time_posted, nb.hits, m.id, m.nick 
+	<select id="noticeBoardList1" parameterType="org.kosta.myproject.model.service.PagingBean" resultMap="noticeboardRM">
+		
+<!-- 		SELECT nb.notice_no, nb.title, nb.time_posted, nb.hits, m.id, m.nick 
 		FROM (  
 			SELECT row_number() over(order by notice_no desc) as rnum, notice_no, title, sysdate, hits, id, time_posted
 			FROM   hanbit_notice_board ) nb, hanbit_member m  
 		WHERE  nb.id=m.id and rnum between #{startRowNumber} AND #{endRowNumber} 
-		ORDER BY notice_no DESC  
+		ORDER BY notice_no DESC   -->
+SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+FROM (
+SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
+notice_no, title, SYSDATE AS time_posted, hits, category, id
+FROM hanbit_notice_board ) hnb
+INNER JOIN hanbit_member hm ON hnb.id=hm.id
+ORDER BY hnb.notice_no DESC
+		
 	</select>
 	
 		<!-- 게시물 리스트 조회 -->
-	<select id="noticeBoardList1" resultMap="noticeboardRM">
+<!-- 	<select id="noticeBoardList1" resultMap="noticeboardRM">
 		SELECT hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits
 		FROM hanbit_notice_board hnb
 		INNER JOIN hanbit_member hm ON hnb.id=hm.id
-	</select>
+	</select> -->
 	
 	<!-- 게시물 상세보기 조회 -->
 	<select id="noticeBoardDetailView" parameterType="int" resultMap="noticeboardRM">
