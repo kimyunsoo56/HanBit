@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><!--/*  layout 선언부 추가    */-->
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><!--/*  layout 선언부 추가    */-->
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -19,6 +19,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         
@@ -26,32 +27,19 @@
         <header class="header_area">
            <div th:replace="fragments/header::headerFragment"></div>
         </header>
-       	 <!--================End Header Area =================-->
-       	 
-          <!--================Home Banner Area =================-->
-        <section class="banner_area">
-            <div class="banner_inner d-flex align-items-center">
-				<div class="container">
-					<div class="banner_content">
-					<!-- for문으로 해당 게시판 이름이 나오도록 -->
-						<h2>로그인</h2>
-						<div class="page_link">
-							<a href="index.html" th:href="@{/}">홈으로</a>
-							<a href="about-us.html" th:href="@{/noticeBoard}">회원가입</a>
-						</div>
-					</div>
-				</div>
-            </div>
-        </section>
-        <!--================End Home Banner Area =================-->
-           <br><br>   
+           <!--================End Header Area =================-->
+           
+           <br><br><br><br><br><br><br>
+           
         <!--================Start layout Area =================-->
         <div layout:fragment="content" class="container"></div>
         <!--================End layout Area =================-->
-           <br><br>  
-        <!--================ start footer Area  =================-->	
+        
+           <br><br><br><br><br><br>
+           
+        <!--================ start footer Area  =================-->   
        <div th:replace="fragments/footer::footerFragment"></div>
-		<!--================ End footer Area  =================-->
+      <!--================ End footer Area  =================-->
         
         
         

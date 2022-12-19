@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,5 +43,16 @@ public class MemberController {
 					session.invalidate();
 				return "redirect:/";
 	 }
+	  @RequestMapping("/myPage")
+		 public String myPage() {
+			 return "member/myPage";
+		 }
+	  @PostMapping("/myPageDetail")
+		 public String myPageDetail(HttpSession session,Model model,String id) {
+		  System.out.println("받아오냐");
+		  model.addAttribute("memberVO", memberService.myPageDetail(id));
+		   System.out.println("아이디 받아온다" + id + session);
+			 return "member/myPageDetailList";
+	  }
+	  
 }
-

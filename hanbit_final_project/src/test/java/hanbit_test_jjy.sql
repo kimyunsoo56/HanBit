@@ -1,7 +1,7 @@
 -- 한빛 회원 테이블 
 SELECT * FROM hanbit_member;
 
-select 
+commit
 
 hanbit_member(
 	id	VARCHAR2(100) PRIMARY KEY,
@@ -22,3 +22,6 @@ hanbit_member(
 
 select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id='spring' and password='a';
 
+select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id='spring';
+
+insert into (id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type)

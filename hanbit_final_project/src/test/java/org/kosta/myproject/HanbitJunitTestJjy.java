@@ -1,5 +1,6 @@
 package org.kosta.myproject;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.MemberMapper;
@@ -29,5 +30,11 @@ public class HanbitJunitTestJjy {
 		memberVO.setPassword("a");
 		MemberVO resultVO=memberMapper.login(memberVO);
 		System.out.println(resultVO);
+	}
+	@Test
+	public void myPageDetail() {
+		String id="java";
+		MemberVO memberVO=memberMapper.myPageDetail(id);
+		Assertions.assertNotNull(memberVO);
 	}
 }

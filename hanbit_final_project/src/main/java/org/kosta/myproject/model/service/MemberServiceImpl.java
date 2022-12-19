@@ -16,6 +16,9 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO login(MemberVO memberVO) {
 		return memberMapper.login(memberVO);
 	}
-	
 
+	@Override
+	public MemberVO myPageDetail(String id) {
+		return memberMapper.myPageDetail(id);
+	}
 }

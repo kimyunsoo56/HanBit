@@ -8,4 +8,8 @@ public interface MemberMapper {
 
 	MemberVO login(MemberVO memberVO);
 
+	public MemberVO myPageDetail(String id);
+
+
+
 }

@@ -7,5 +7,7 @@ import org.springframework.stereotype.Service;
 public interface MemberService {
 
 	MemberVO login(MemberVO memberVO);
+
+	MemberVO myPageDetail(String id);
 	
 }
