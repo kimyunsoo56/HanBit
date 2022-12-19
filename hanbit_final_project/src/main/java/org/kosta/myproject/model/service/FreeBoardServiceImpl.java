@@ -28,7 +28,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public Object getFreeDetail(int freeNo) {
+	public FreeBoardVO getFreeDetail(int freeNo) {
 		return freeBoardMapper.getFreeDetail(freeNo);
 	}
 

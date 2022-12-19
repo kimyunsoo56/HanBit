@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+import lombok.RequiredArgsConstructor;
 
+@Controller
+@RequiredArgsConstructor
 public class FreeBoardController {
 
-	private FreeBoardService freeBoardService;
-	public FreeBoardController(FreeBoardService freeBoardService){
-	    this.freeBoardService = freeBoardService;
-	}
+	private final FreeBoardService freeBoardService;
+
+	
 	//글목록
 	@GetMapping("freeBoardList")
 	public String findAll(Model model) {

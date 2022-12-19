@@ -12,7 +12,7 @@ public interface FreeBoardMapper {
 
 	List<FreeBoardVO> findAll();
 
-	Object getFreeDetail(int freeNo);
+	FreeBoardVO getFreeDetail(int freeNo);
 
 
 	
