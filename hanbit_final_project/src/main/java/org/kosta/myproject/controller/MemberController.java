@@ -191,6 +191,7 @@ public class MemberController {
 		int checkLicenseNo=memberService.checkLicenseNo(licenseNo);
 		return checkLicenseNo;
 	}
+	// 요양보호사 등록
 	@PostMapping("registerCareWorker")
 	public String registerCareWorker(MemberVO memberVO,HttpServletRequest request) {
 		HttpSession session=request.getSession(false);
@@ -199,6 +200,7 @@ public class MemberController {
 		session.setAttribute("mvo", mvo);
 		return "redirect:registerCareWorkerResult";
 	}
+	// 요양보호사 등록 결과
 	@RequestMapping("registerCareWorkerResult")
 	public String registerCareWorkerResult() {
 		return "member/register-careworker-result";

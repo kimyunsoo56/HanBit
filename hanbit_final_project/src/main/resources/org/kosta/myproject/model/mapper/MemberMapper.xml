@@ -38,4 +38,9 @@ select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,
 	UPDATE hanbit_member SET member_type=2,license_no=#{licenseNo},
 	gender=#{gender},work_history=#{workHistory},location=#{location},work_type=#{workType} WHERE id=#{id}
 </update>
+<update id="updateMember" parameterType="org.kosta.myproject.model.vo.MemberVO">
+	UPDATE hanbit_member SET password=#{password,jdbcType=VARCHAR},name=#{name,jdbcType=VARCHAR},nick=#{nick,jdbcType=VARCHAR},question=#{question,jdbcType=VARCHAR},
+	answer=#{answer,jdbcType=VARCHAR},tel=#{tel,jdbcType=VARCHAR},license_no=#{licenseNo,jdbcType=NUMERIC},gender=#{gender,jdbcType=VARCHAR},
+	work_history=#{workHistory,jdbcType=VARCHAR},location=#{location,jdbcType=VARCHAR},work_type=#{workType,jdbcType=VARCHAR} WHERE id=#{id,jdbcType=VARCHAR}
+</update>
 </mapper>

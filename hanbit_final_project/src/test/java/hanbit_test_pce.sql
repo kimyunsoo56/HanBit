@@ -17,3 +17,6 @@ SELECT COUNT(*) FROM hanbit_member WHERE license_no=1111
 
 UPDATE hanbit_member SET member_type=2,license_no=1111111111,
 gender='여성',work_history='신입',location='서울',work_type='자택근무' WHERE id='1111';
+
+UPDATE hanbit_member SET password='a',name='박범',nick='범선생',question='가장 기억에 남는 장소는?',answer='오리',
+tel='01098765432',license_no=1234567,gender='남성',work_history='신입',location='경기',work_type='자택근무' WHERE id='java3';

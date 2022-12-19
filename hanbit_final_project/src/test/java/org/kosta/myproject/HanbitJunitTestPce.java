@@ -54,6 +54,12 @@ public class HanbitJunitTestPce {
 		MemberVO memberVO=new MemberVO("2222", 2, 2222222, "여성", "신입", "서울", "자택근무");
 		memberMapper.registerCareWorker(memberVO);
 	}
+	// 회원 정보 수정 테스트
+	@Test
+	void updateMemberForm() {
+		MemberVO memberVO=new MemberVO("spring", "aa", "장지영", "오리", "나의 노래방 애창곡은?", "편의점", "01098516852", 0, null, null, null, null);
+		memberMapper.updateMember(memberVO);
+	}
 }
 
 

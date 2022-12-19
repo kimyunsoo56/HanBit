@@ -26,4 +26,6 @@ public interface MemberMapper {
 
 	void registerCareWorker(MemberVO memberVO);
 
+	void updateMember(MemberVO memberVO);
+
 }
