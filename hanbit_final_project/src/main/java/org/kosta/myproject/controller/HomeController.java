@@ -17,4 +17,16 @@ public class HomeController {
 	public String matchBoardList() {
 		return "matchBoard/matchBoard";
 	}
+	@RequestMapping("freeBoardList")
+	public String freeBoard() {
+		return "freeBoard/freeBoardList";
+	}
+	@RequestMapping("freeDetail")
+	public String freeDetail() {
+		return "freeBoard/freeDetail";
+	}
+	@RequestMapping("freeWrite")
+	public String freeWrite() {
+		return "freeBoard/freeWrite";
+	}
 }

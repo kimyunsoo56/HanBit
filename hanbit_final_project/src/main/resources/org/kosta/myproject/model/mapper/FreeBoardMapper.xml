@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.myproject.model.mapper.FreeBoardMapper">
+
+	<!-- 총 게시물 수 -->
+	<select id="getTotalPostCount" resultType="int">
+		SELECT COUNT(*)
+		FROM   spring_board_inst
+	</select>
+	
+	<!-- has a 관계 표현 -->
+	<resultMap type="org.kosta.myproject.model.vo.FreeBoardVO" id="freeBoardList">
+		<result column="id" property="memberVO.id"/>
+		<result column="nick" property="memberVO.nick"/>
+	</resultMap>
+	
+	<!--  게시물 목록조회 -->
+ 	<select id="findAll" resultMap="freeBoardList">
+		select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits
+		from hanbit_free_board hfb
+		inner join hanbit_member hm ON hfb.id=hm.id
+	</select> 
+
+	<!--  게시물 상세보기 -->
+   <select id="getFreeDetail" resultMap="freeBoardList">
+   		select hfb.free_no, hfb.category, hfb.title, hfb.content, hm.nick, hfb.time_posted, hfb.hits
+		from hanbit_free_board hfb
+		inner join hanbit_member hm ON hfb.id=hm.id
+		where hfb.free_no=#{value}
+   </select>
+	<!--  게시물 등록 -->
+	<insert id="write" parameterType="org.kosta.myproject.model.vo.FreeBoardVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE"> 
+			SELECT hanbit_free_board_seq.nextval
+			FROM   dual
+		</selectKey>
+		insert into hanbit_free_board (free_no,title,content,time_posted,hits,category,image,id)
+		values(#{no}, #{title}, #{content}, sysdate,#{hits},#{category},null,#{memberVO.id})
+	</insert>
+	
+	<!-- 2. 게시물 삭제 -->
+	<delete id="deleteFree">
+ 	delete from hanbit_free_board where free_no=#{value}
+	</delete>
+
+</mapper>

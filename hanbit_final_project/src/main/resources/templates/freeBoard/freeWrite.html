@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+<div layout:fragment="content">
+  <form action="${pageContext.request.contextPath}/write.do" method="post" id="write_form">
+ <table class="table" >
+    <tr>
+    <td>제목 &nbsp;&nbsp;
+     <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required">
+    </td>
+    </tr>   
+    <tr>
+     <td>     
+     <textarea cols="90" rows="15" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
+     </td>
+    </tr> 
+     </table>    
+     <div class="btnArea">
+     <button type="submit" class="btn" >확인</button>  
+     <button type="reset" class="btn" >취소</button>   
+    </div>  
+  </form>
+  
+     <!-- jQuery Ajax -->
+     <script type="text/javascript">
+     	$(document).ready(function() {
+     		
+     		//submit 버튼의 아이디를 처리할 때는 form의 아이디로 select한다.
+     		$("#write_form").submit(function() {
+     			//취소를 누르면 return false로 submit되지 않는다.
+     			return confirm("글을 등록하시겠습니까?"); 
+			});//submit
+     		
+     	});ready
+     
+     </script>
+     
+
+</div>
+ <!--================End layout Area =================-->

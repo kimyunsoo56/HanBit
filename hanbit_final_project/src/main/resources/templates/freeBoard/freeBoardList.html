@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+<div layout:fragment="content">
+<table>
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>작성일자</th>
+            <th>조회수</th>
+            <th>내용</th>
+            <th>카테고리</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="board:${FreeBoardList}">
+            <td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}" th:text="${board.no}"></a></td>
+            <td th:text="${board.memberVO.nick}"></td>
+            <td th:text="${board.title}"></td>
+            <td th:text="${board.timePosted}"></td>
+            <td th:text="${board.hits}"></td>
+            <td th:text="${board.content}"></td>
+            <td th:text="${board.category}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+ <!--================End layout Area =================-->
