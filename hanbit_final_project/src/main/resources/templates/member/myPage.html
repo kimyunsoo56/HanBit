@@ -7,16 +7,15 @@
 <title>한빛</title>
 </head>
 <!--================Start layout Area =================-->
-<div layout:fragment="content">
-	<nav class="navbar navbar-expand-sm bg-light justify-content-center">
-		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="#" th:href="@{/myPageDetail?id=}+${session.mvo.id}">회원정보조회</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">회원정보수정</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">요양보호사등록</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">작성글목록</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">찜목록</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">회원탈퇴</a></li>
-		</ul>
-	</nav>
-</div>
+		<div layout:fragment="content">
+			<div class="row g-4">
+	        	 <div class="col-lg12 offset-lg-4 col-md-8">
+					<h2><a style="color: #a7cb00" href="#" th:href="@{/myPageDetail?id=}+${session.mvo.id}">회원정보조회</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#" th:href="@{/registerCareWorkerForm}">요양보호사등록</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#">작성글목록 조회</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#">찜목록 조회</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#">회원탈퇴</a></h2>
+				</div>
+			</div>
+		</div>
 <!--================End layout Area =================-->

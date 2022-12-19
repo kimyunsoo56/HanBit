@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/member_layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+        <div layout:fragment="content">
+	        <div class="row g-4">
+                <div class="col-lg12 offset-lg-4 col-md-8">
+	        	<h1 style="color: #a7cb00">요양보호사 등록</h1>
+	        	<br>
+	        	<form action="" th:action="@{/registerCareWorker}" method="post" id="registerCareWorkerForm">
+	        	<h5>자격증 번호</h5>
+	        	<input class="form-control-lg" type="text" name="licenseNo" placeholder="- 를 제외하고 입력하세요" required="required" id="checkLicenseNo">
+	        	&nbsp;&nbsp;<button type="button" id="checkLicenseNoBtn" class="btn btn-outline-success btn-lg">자격 확인</button>
+	        	&nbsp;&nbsp;<span id="checkIdResult"></span><br>
+	        	<h5>성별</h5>
+	        	<select name="gender" required="required">
+	        		<option value="">성별</option>
+	        		<option th:each="gender: ${genderList}" th:value="${gender}" th:text="${gender}"></option>
+	        	</select>
+	        	<br><br>
+	        	<h5>경력</h5>
+	        	<select name="workHistory" required="required">
+	        		<option value="">경력</option>
+	        		<option th:each="workHistory: ${workHistoryList}" th:value="${workHistory}" th:text="${workHistory}"></option>
+	        	</select>
+	        	<br><br>
+	        	<h5>근무 지역</h5>
+	        	<select name="workHistory" required="required">
+	        		<option value="">근무 지역</option>
+	        		<option th:each="location: ${locationList}" th:value="${location}" th:text="${location}"></option>
+	        	</select>
+	        	<br><br>
+	        	<h5>근무 타입</h5>
+	        	<select name="workHistory" required="required">
+	        		<option value="">근무 타입</option>
+	        		<option th:each="workType: ${workTypeList}" th:value="${workType}" th:text="${workType}"></option>
+	        	</select>
+	        	<br><br>
+	  			<div class="col-sm-5 text-center">
+	  			<button type="submit" class="btn btn-outline-success btn-lg">등록하기</button>
+	        	</div>
+	        	</form>
+        		</div>
+        	</div>
+        </div>
+ <!--================End layout Area =================-->

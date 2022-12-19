@@ -10,4 +10,18 @@ public interface MemberService {
 
 	MemberVO myPageDetail(String id);
 	
+
+	MemberVO findMemberById(String id);
+
+	int register(MemberVO memberVO);
+
+	int checkNick(String nick);
+
+	int checkTel(String tel);
+
+	String findId(String name, String tel);
+
+	String findPassword(String id, String name, String tel, String question, String answer);
+
+
 }

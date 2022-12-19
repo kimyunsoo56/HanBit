@@ -7,17 +7,29 @@
 <title>한빛</title>
 </head>
 <!--================Start layout Area =================-->
-<div layout:fragment="content">
-<th:block th:if="${session.mvo==null}">
-	<form method="post" action="#" th:action="@{login}">
-		아이디 : <input type="text" name="id"  placeholder="아이디 " required="required"><br>
-		비밀번호 : <input type="password" name="password"  placeholder="패스워드" required="required"><br>
-		<button type="submit">로그인</button>
-	</form>
-		<br><br>
-		<a href="" th:href="@{/registerForm}">회원가입</a>
-	</th:block>
-		<br>
-		<br>
-</div>
+		<div layout:fragment="content">
+			<div class="row g-4">
+		    	<div class="col-lg12 offset-lg-4 col-md-8">
+					<th:block th:if="${session.mvo==null}">
+					<h1 style="color: #a7cb00">로그인</h1>
+		        	<br>
+					<form method="post" action="#" th:action="@{/login}">
+						<h5>아이디</h5>
+						<input class="form-control-lg" type="text" name="id"  placeholder="아이디를 입력하세요 " required="required">
+						<h5>비밀번호</h5>
+						<input class="form-control-lg" type="password" name="password"  placeholder="비밀번호를 입력하세요" required="required">
+						&nbsp;<button type="submit" class="btn btn-outline-success btn-lg">로그인</button>
+					</form>
+						<br>
+						<a class="banner_btn2" href="" th:href="@{/findIdForm}">아이디 찾기</a>&nbsp;&nbsp;&nbsp;
+						<a class="banner_btn2" href="" th:href="@{/findPasswordForm}">비밀번호 찾기</a>
+						<br><br>
+						아직 회원이 아니신가요?&nbsp;&nbsp;&nbsp;
+						<a class="banner_btn2" href="" th:href="@{/registerForm}">회원가입</a><br>
+					</th:block>
+				<br>
+				<br>
+				</div>
+				</div>
+		</div>
 <!--================End layout Area =================-->

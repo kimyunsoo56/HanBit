@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.model.mapper.MemberMapper">
+<sql id="selectMember">
+	SELECT id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type
+	FROM hanbit_member
+</sql>
 <select id="login" parameterType="org.kosta.myproject.model.vo.MessageVO" resultType="org.kosta.myproject.model.vo.MemberVO">
 select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id=#{id} and password=#{password}
 </select>
 <select id="myPageDetail" parameterType="string" resultType="org.kosta.myproject.model.vo.MemberVO">
 select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id=#{value}
+</select>
+<select id="findMemberById" parameterType="string" resultType="org.kosta.myproject.model.vo.MemberVO">
+	<include refid="selectMember"></include>
+	WHERE id=#{value}
+</select>
+<insert id="registerMember" parameterType="org.kosta.myproject.model.vo.MemberVO">
+	INSERT INTO hanbit_member(id,password,name,nick,question,answer,tel) VALUES(#{id},#{password},#{name},#{nick},#{question},#{answer},#{tel})
+</insert>
+<select id="checkNick" parameterType="string" resultType="int">
+	SELECT COUNT(*) FROM hanbit_member WHERE nick=#{value}
+</select>
+<select id="checkTel" parameterType="string" resultType="int">
+	SELECT COUNT(*) FROM hanbit_member WHERE tel=#{value}
+</select>
+<select id="findId" parameterType="string" resultType="string">
+	SELECT id FROM hanbit_member WHERE name=#{name} AND tel=#{tel}
+</select>
+<select id="findPassword" parameterType="string" resultType="string">
+	SELECT password FROM hanbit_member WHERE id=#{id} AND name=#{name}
+	AND tel=#{tel} AND question=#{question} AND answer=#{answer}
 </select>
 </mapper>
