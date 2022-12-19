@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/member_layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+        <div layout:fragment="content">
+	        <div class="row g-4">
+                <div class="col-lg12 offset-lg-4 col-md-8">
+	        	<h1 style="color: #a7cb00">회원가입</h1>
+	        	<br>
+	        	<form action="" th:action="@{/registerMember}" method="post" id="registerForm">
+	        	<h5>아이디</h5>
+	        	<input class="form-control-lg" type="text" name="id" placeholder="4~20 이내로 입력하세요" required="required" id="checkId">
+	        	&nbsp;&nbsp;<button type="button" id="checkIdBtn" class="btn btn-outline-success btn-lg">아이디 중복확인</button>
+	        	&nbsp;&nbsp;<span id="checkIdResult"></span><br>
+	        	
+	        	<h5>비밀번호</h5>
+	        	<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword1"><br>
+	        	<h5>비밀번호 확인</h5>
+	        	<input class="form-control-lg" type="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword2">
+	        	&nbsp;&nbsp;<span id="checkPasswordResult"></span><br>
+	        	
+	        	<h5>이름</h5>
+	        	<input class="form-control-lg" type="text" name="name" placeholder="이름을 입력하세요" required="required"><br>
+	        	
+	        	<h5>닉네임</h5>
+	        	<input class="form-control-lg" type="text" name="nick" placeholder="닉네임을 입력하세요" required="required" id="checkNick">
+	        	&nbsp;&nbsp;<button type="button" id="checkNickBtn" class="btn btn-outline-success btn-lg">닉네임 중복확인</button>
+	        	&nbsp;&nbsp;<span id="checkNickResult"></span><br>
+				
+				<h5>개별질문</h5>
+				<select name="question" required="required">
+					<option value="">개별질문</option>
+					<option th:each="question: ${questionList}" th:value="${question}" th:text="${question}"></option>
+				</select> 
+				<br><br>
+				
+				<h5>질문답변</h5>
+				<input class="form-control-lg" type="text" name="answer" placeholder="질문답변을 입력하세요" required="required">
+				<br>
+				
+				<h5>연락처</h5>
+				<input class="form-control-lg" type="text" name="tel" placeholder="- 를 제외하고 입력하세요" required="required" id="checkTel">
+	  			&nbsp;&nbsp;<button type="button" id="checkTelBtn" class="btn btn-outline-success btn-lg">연락처 중복확인</button>
+	  			&nbsp;&nbsp;<span id="checkTelResult"></span><br><br>
+	  			
+	  			<div class="col-sm-5 text-center">
+	  			<button type="submit" class="btn btn-outline-success btn-lg">회원가입</button>
+	        	</div>
+	        	</form>
+	        	<script type="text/javascript">
+	        		$(document).ready(function() {
+	        			let checkResultId="N";
+	        			let checkResultPassword="N";
+	        			let checkResultNick="N";
+	        			let checkResultTel="N";
+	        			// 중복체크 했는지 확인하는 부분
+	        			$("#registerForm").submit(function() {
+	        				if(checkResultId=="N"){
+	        					alert("아이디 중복확인을 해주세요");
+	        					return false;
+	        				}else if(checkResultPassword=="N"){
+	        					alert("비밀번호 확인을 해주세요");
+	        					return false;
+	        				}else if(checkResultNick=="N"){
+	        					alert("닉네임 중복확인을 해주세요");
+	        					return false;
+	        				}else if(checkResultTel=="N"){
+	        					alert("연락처 중복확인을 해주세요");
+	        					return false;
+	        				}
+	        			});//submit */
+	        			
+	        			// 아이디 중복체크
+	        			$("#checkIdBtn").click(function() {
+	        				let checkId=$("#checkId").val().trim();
+	        				$.ajax({
+	        					type:"get",
+	        					url:"registerCheckId",
+	        					data:"id="+checkId,
+	        					success:function(result){
+	        						if(checkId.trim().length<4||checkId.trim().length>21){
+    									$("#checkIdResult").html("<font color=red>4자 이상 20자 이하로 입력하세요</font>");
+    									checkResultId="N"
+	        						}else{
+    									if(result){
+	        								$("#checkIdResult").html("<font color=red>이미 사용중인 아이디입니다</font>");
+	        								checkResultId="N"
+    									}else{
+	        								$("#checkIdResult").html("<font color=blue>사용 가능한 아이디입니다</font>");
+	        								checkResultId="Y";
+    									}//else
+	        						}//else
+	        					}//success
+	        				});//ajax
+	        			});//clickId
+	        			
+	        			// 비밀번호 체크
+	        			$("#checkPassword2").keyup(function() {
+	        				if($("#checkPassword1").val().trim().length<6){
+    							$("#checkPasswordResult").html("<font color=red>6자 이상 입력하세요</font>");
+    							checkResultPassword="N"
+	        				}else{
+		    					if($("#checkPassword1").val()!=$("#checkPassword2").val()){
+			        				$("#checkPasswordResult").html("<font color=red>비밀번호가 일치하지 않습니다</font>");
+			        				checkResultPassword="N"
+		    					}else{
+				        			$("#checkPasswordResult").html("<font color=blue>비밀번호가 일치합니다</font>");
+				        			checkResultPassword="Y"
+		    					}//else
+	    					}//else
+	        			});//keyupPassword 
+	        			
+	        			// 닉네임 중복체크
+	        			$("#checkNickBtn").click(function() {
+	        				let checkNick=$("#checkNick").val().trim();
+	        				$.ajax({
+	        					type:"get",
+	        					url:"registerCheckNick",
+	        					data:"nick="+checkNick,
+	        					success:function(result){
+    								if(result){
+	        							$("#checkNickResult").html("<font color=red>이미 사용중인 닉네임입니다</font>");
+	        							checkResultNick="N"
+    								}else{
+	        							$("#checkNickResult").html("<font color=blue>사용 가능한 닉네임입니다</font>");
+	        							checkResultNick="Y"
+    								}
+	        					}//success
+	        				});//ajax
+	        			});//clickNick
+
+	        			// 연락처 중복체크
+	        			$("#checkTelBtn").click(function() {
+	        				let checkTel=$("#checkTel").val().trim();
+	        				$.ajax({
+	        					type:"get",
+	        					url:"registerCheckTel",
+	        					data:"tel="+checkTel,
+	        					success:function(result){
+	        						if(checkTel.trim().length!=11){
+    									$("#checkTelResult").html("<font color=red>연락처를 다시 확인해주세요</font>");
+    									checkResultTel="N"
+	        						}else{
+	    								if(result){
+		        							$("#checkTelResult").html("<font color=red>이미 사용중인 연락처입니다</font>");
+		        							checkResultTel="N"
+	    								}else{
+		        							$("#checkTelResult").html("<font color=blue>사용 가능한 연락처입니다</font>");
+		        							checkResultTel="Y"
+	    								}//else
+	        						}//else
+	        					}//success
+	        				});//ajax		
+	        			});//checkTel
+	        		});//ready
+	        	</script>
+        		</div>
+        	</div>
+        </div>
+ <!--================End layout Area =================-->

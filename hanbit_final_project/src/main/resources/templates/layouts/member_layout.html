@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><!--/*  layout 선언부 추가    */-->
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><!--/*  layout 선언부 추가    */-->
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -19,6 +19,7 @@
         <!-- main css -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         
@@ -26,17 +27,23 @@
         <header class="header_area">
            <div th:replace="fragments/header::headerFragment"></div>
         </header>
-       	 <!--================End Header Area =================-->
-       	 
-           <br><br>   
+
+           <!--================End Header Area =================-->
+           
+
+           <br><br><br><br><br><br><br>
            
         <!--================Start layout Area =================-->
         <div layout:fragment="content" class="container"></div>
         <!--================End layout Area =================-->
-           <br><br>  
+        
+           <br><br><br><br><br><br>
+           
+        <!--================ start footer Area  =================-->   
+=======
         <!--================ start footer Area  =================-->	
        <div th:replace="fragments/footer::footerFragment"></div>
-		<!--================ End footer Area  =================-->
+      <!--================ End footer Area  =================-->
         
         
         
