@@ -41,12 +41,42 @@ public class MemberVO implements Serializable{
 		this.tel = tel;
 	}
 	// 요양보호사 등록 시 필요한 생성자
-	public MemberVO(int licenseNo, String gender, String workHistory, String location, String workType) {
+	public MemberVO(String id, int memberType, int licenseNo, String gender, String workHistory, String location,
+			String workType) {
 		super();
+		this.id = id;
+		this.memberType = memberType;
 		this.licenseNo = licenseNo;
 		this.gender = gender;
 		this.workHistory = workHistory;
 		this.location = location;
 		this.workType = workType;
 	}
+	// 회원정보 수정시 필요한 생성자
+	public MemberVO(String id, String password, String name, String nick, String question, String answer, String tel,
+			int licenseNo, String gender, String workHistory, String location, String workType) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.nick = nick;
+		this.question = question;
+		this.answer = answer;
+		this.tel = tel;
+		this.licenseNo = licenseNo;
+		this.gender = gender;
+		this.workHistory = workHistory;
+		this.location = location;
+		this.workType = workType;
+	}
+	// 회원 탈퇴 시 필요한 생성자
+	public MemberVO(String id, String password, String question, String answer, int enabled) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.question = question;
+		this.answer = answer;
+		this.enabled = enabled;
+	}
+
 }

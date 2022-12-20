@@ -1,6 +1,5 @@
 package org.kosta.myproject.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,13 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	 private final MemberService memberService;
-	
-	 @RequestMapping("/loginForm")
+	//로그인 폼
+	 @RequestMapping("loginForm")
 	 public String loginForm() {
 		 return "member/login-form";
 	 }
-	 
-	 @PostMapping("/login")
+	 // 로그인
+	 @PostMapping("login")
 	 public String login(MemberVO memberVO,HttpServletRequest request) {
 		 MemberVO resultVO=memberService.login(memberVO);
 		 if(resultVO==null) { 
@@ -37,22 +37,26 @@ public class MemberController {
 				return "redirect:/";
 			}
 	 }
-	  @PostMapping("/logout") 
+	 // 로그아웃
+	  @PostMapping("logout") 
 			public String logout(HttpServletRequest request) {
 				HttpSession session=request.getSession(false);
 				if(session!=null) 
 					session.invalidate();
 				return "redirect:/";
 	 }
-	  @RequestMapping("/myPage")
+	  // 마이페이지 
+	  @RequestMapping("myPage")
 		 public String myPage() {
 			 return "member/myPage";
 		 }
-	  @PostMapping("/myPageDetail")
-		 public String myPageDetail(HttpSession session,Model model,String id) {
-		  System.out.println("받아오냐");
-		  model.addAttribute("memberVO", memberService.myPageDetail(id));
-		   System.out.println("아이디 받아온다" + id + session);
+	  // 회원정보상세조회
+	  @GetMapping("/myPageDetail")
+		 public String myPageDetail(HttpServletRequest request,Model model) {
+		  HttpSession session=request.getSession(false);
+		  MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
+		 // String id=memberVO.getId();        
+		  session.setAttribute("mvo", memberVO);
 			 return "member/myPageDetailList";
 	  }
 	// register form 에서 for문 돌릴 select 부분을 model에 담아서 넘겨줌
@@ -91,7 +95,7 @@ public class MemberController {
 	@RequestMapping("registerCheckNick")
 	@ResponseBody
 	public int registerCheckNick(String nick) {
-		int checkNick=memberService.checkNick(nick);
+		int checkNick = memberService.checkNick(nick);
 		return checkNick;
 	}
 	// 연락처 중복체크 Ajax
@@ -166,9 +170,9 @@ public class MemberController {
 		model.addAttribute("workHistoryList", workHistory);
 		// 지역
 		List<String> location=new ArrayList<>();
-		location.add("서울특별시");
-		location.add("경기도");
-		location.add("강원도");
+		location.add("서울");
+		location.add("경기");
+		location.add("강원");
 		location.add("충북");
 		location.add("충남");
 		location.add("전북");
@@ -184,4 +188,71 @@ public class MemberController {
 		model.addAttribute("workTypeList", workType);
 		return "member/register-careworker-form";
 	}
+	 @RequestMapping("deleteMemberForm")
+	 public String deleteMemberForm(Model model) {
+		 List<String> delectquestion=new ArrayList<>();
+		 delectquestion.add("가장 기억에 남는 장소는?");
+		 delectquestion.add("나의 좌우명은?");
+		 delectquestion.add("나의 보물 제1호는?");
+		 delectquestion.add("인상 깊게 읽은 책 이름은?");
+		 delectquestion.add("내가 존경하는 인물은?");
+		 delectquestion.add("나의 출신 초등학교는?");
+		 delectquestion.add("나의 노래방 애창곡은?");
+		 model.addAttribute("delectquestionList", delectquestion);
+		 return "member/deleteMember-form";
+	 }
+	 // 회원탈퇴 쿼리문은 메서드명은 회원 탈퇴라 delect이고 쿼리문은 update 
+		/*
+		 * @PostMapping("deleteMember") public String deleteMember(MemberVO memberVO,
+		 * HttpServletRequest request) { MemberService.delectMember(memberVO); MemberVO
+		 * memberVO=(MemberVO) session.getAttribute("mvo"); HttpSession
+		 * session=request.getSession(false); if() {
+		 * 
+		 * }else {
+		 * 
+		 * return "member/deleteMember-result"; } }
+		 */
+	// 회원 정보 수정 폼
+		@RequestMapping("updateMemberForm")
+		public String updateMemberForm(Model model) {
+			// 개별질문
+			List<String> question = new ArrayList<>();
+			question.add("가장 기억에 남는 장소는?");
+			question.add("나의 좌우명은?");
+			question.add("나의 보물 제1호는?");
+			question.add("인상 깊게 읽은 책 이름은?");
+			question.add("내가 존경하는 인물은?");
+			question.add("나의 출신 초등학교는?");
+			question.add("나의 노래방 애창곡은?");
+			model.addAttribute("questionList", question);
+			// 경력
+			List<String> workHistory = new ArrayList<>();
+			workHistory.add("신입");
+			workHistory.add("1년 미만");
+			workHistory.add("1년~3년");
+			workHistory.add("3년~5년");
+			workHistory.add("5~7년");
+			workHistory.add("7년~10년");
+			workHistory.add("10년 이상");
+			model.addAttribute("workHistoryList", workHistory);
+			// 지역
+			List<String> location = new ArrayList<>();
+			location.add("서울");
+			location.add("경기");
+			location.add("강원");
+			location.add("충북");
+			location.add("충남");
+			location.add("전북");
+			location.add("전남");
+			location.add("경북");
+			location.add("경남");
+			location.add("제주");
+			model.addAttribute("locationList", location);
+			// 근무형태
+			List<String> workType = new ArrayList<>();
+			workType.add("자택근무");
+			workType.add("병원근무");
+			model.addAttribute("workTypeList", workType);
+			return "member/update-member-form";
+		}
 }
