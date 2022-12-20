@@ -37,4 +37,10 @@ public class HanbitJunitTestJjy {
 		MemberVO memberVO=memberMapper.myPageDetail(id);
 		Assertions.assertNotNull(memberVO);
 	}
+	@Test
+	public void delectMember() {
+		String password="a";
+		String question="나의 출신 초등학교는?";
+		String answer="문성초";
+	}
 }
