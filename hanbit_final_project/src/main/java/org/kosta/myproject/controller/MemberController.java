@@ -11,6 +11,7 @@ import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,13 +21,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	 private final MemberService memberService;
-	
-	 @RequestMapping("/loginForm")
+	//로그인 폼
+	 @RequestMapping("loginForm")
 	 public String loginForm() {
 		 return "member/login-form";
 	 }
-	 
-	 @PostMapping("/login")
+	 // 로그인
+	 @PostMapping("login")
 	 public String login(MemberVO memberVO,HttpServletRequest request) {
 		 MemberVO resultVO=memberService.login(memberVO);
 		 if(resultVO==null) { 
@@ -37,22 +38,26 @@ public class MemberController {
 				return "redirect:/";
 			}
 	 }
-	  @PostMapping("/logout") 
+	 // 로그아웃
+	  @PostMapping("logout") 
 			public String logout(HttpServletRequest request) {
 				HttpSession session=request.getSession(false);
 				if(session!=null) 
 					session.invalidate();
 				return "redirect:/";
 	 }
-	  @RequestMapping("/myPage")
+	  // 마이페이지 
+	  @RequestMapping("myPage")
 		 public String myPage() {
 			 return "member/myPage";
 		 }
-	  @PostMapping("/myPageDetail")
-		 public String myPageDetail(HttpSession session,Model model,String id) {
-		  System.out.println("받아오냐");
-		  model.addAttribute("memberVO", memberService.myPageDetail(id));
-		   System.out.println("아이디 받아온다" + id + session);
+	  // 회원정보상세조회
+	  @GetMapping("/myPageDetail")
+		 public String myPageDetail(HttpServletRequest request,Model model) {
+		  HttpSession session=request.getSession(false);
+		  MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
+		 // String id=memberVO.getId();        
+		  session.setAttribute("mvo", memberVO);
 			 return "member/myPageDetailList";
 	  }
 	// register form 에서 for문 돌릴 select 부분을 model에 담아서 넘겨줌
@@ -184,25 +189,21 @@ public class MemberController {
 		model.addAttribute("workTypeList", workType);
 		return "member/register-careworker-form";
 	}
-	// 자격증 번호 중복체크
-	@RequestMapping("registerCheckLicenseNo")
-	@ResponseBody
-	public int registerCheckLicenseNo(int licenseNo) {
-		int checkLicenseNo=memberService.checkLicenseNo(licenseNo);
-		return checkLicenseNo;
-	}
-	// 요양보호사 등록
-	@PostMapping("registerCareWorker")
-	public String registerCareWorker(MemberVO memberVO,HttpServletRequest request) {
-		HttpSession session=request.getSession(false);
-		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-		memberService.registerCareWorker(memberVO);
-		session.setAttribute("mvo", mvo);
-		return "redirect:registerCareWorkerResult";
-	}
-	// 요양보호사 등록 결과
-	@RequestMapping("registerCareWorkerResult")
-	public String registerCareWorkerResult() {
-		return "member/register-careworker-result";
-	}
+	 @RequestMapping("deleteMemberForm")
+	 public String deleteMemberForm(Model model) {
+		 List<String> delectquestion=new ArrayList<>();
+		 delectquestion.add("가장 기억에 남는 장소는?");
+		 delectquestion.add("나의 좌우명은?");
+		 delectquestion.add("나의 보물 제1호는?");
+		 delectquestion.add("인상 깊게 읽은 책 이름은?");
+		 delectquestion.add("내가 존경하는 인물은?");
+		 delectquestion.add("나의 출신 초등학교는?");
+		 delectquestion.add("나의 노래방 애창곡은?");
+		 model.addAttribute("delectquestionList", delectquestion);
+		 return "member/deleteMember-form";
+	 }
+	 @PostMapping("deleteMember")
+	 public String deleteMember() {
+		 return "member/deleteMember-result";
+	 }
 }
