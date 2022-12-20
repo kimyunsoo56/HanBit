@@ -190,6 +190,29 @@ public class MemberController {
       model.addAttribute("workTypeList", workType);
       return "member/register-careworker-form";
    }
+   // 자격증 번호 중복체크
+	@RequestMapping("registerCheckLicenseNo")
+	@ResponseBody
+	public int registerCheckLicenseNo(int licenseNo) {
+		int checkLicenseNo=memberService.checkLicenseNo(licenseNo);
+		return checkLicenseNo;
+	}
+	// 요양보호사 등록
+	@PostMapping("registerCareWorker")
+	public String registerCareWorker(MemberVO memberVO,HttpServletRequest request) {
+		HttpSession session=request.getSession(false);
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		memberService.registerCareWorker(memberVO);
+		String id=mvo.getId();
+		mvo=memberService.findMemberById(id);
+		session.setAttribute("mvo", mvo);
+		return "redirect:registerCareWorkerResult";
+	}
+	// 요양보호사 등록 결과
+	@RequestMapping("registerCareWorkerResult")
+	public String registerCareWorkerResult() {
+		return "member/register-careworker-result";
+	}
     @RequestMapping("deleteMemberForm")
     public String deleteMemberForm(Model model) {
        List<String> delectquestion=new ArrayList<>();
@@ -214,7 +237,7 @@ public class MemberController {
        * 
        * return "member/deleteMember-result"; } }
        */
-   // 회원 정보 수정 폼
+    	// 회원 정보 수정 폼
       @RequestMapping("updateMemberForm")
       public String updateMemberForm(Model model) {
          // 개별질문
@@ -256,5 +279,20 @@ public class MemberController {
          workType.add("병원근무");
          model.addAttribute("workTypeList", workType);
          return "member/update-member-form";
+      }
+      // 회원 정보 수정
+      @PostMapping("updateMember")
+      public String updateMember(MemberVO memberVO,HttpServletRequest request) {
+    	  HttpSession session=request.getSession(false);
+    	  MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+    	  memberService.updateMember(memberVO);
+    	  String id=mvo.getId();
+    	  mvo=memberService.findMemberById(id);
+    	  session.setAttribute("mvo", mvo);
+    	  return "redirect:updateMemberResult";
+      }
+      @RequestMapping("updateMemberResult")
+      public String updateMemberResult() {
+    	  return "member/update-member-result";
       }
 }

@@ -59,4 +59,9 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.registerCareWorker(memberVO);
 	}
 
+	@Override
+	public void updateMember(MemberVO memberVO) {
+		memberMapper.updateMember(memberVO);
+	}
+
 }

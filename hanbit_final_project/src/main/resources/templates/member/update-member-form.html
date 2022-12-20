@@ -10,7 +10,7 @@
 <div layout:fragment="content">
 	<div class="row g-4">
 		<div class="col-lg12 offset-lg-4 col-md-8">
-			<form action="">
+			<form action="" th:action="@{/updateMember}" method="post" id="updateForm">
 				<h1 style="color: #a7cb00">회원 정보 수정</h1>
 				<br>
 				<h5>아이디</h5>
@@ -20,24 +20,24 @@
 				<input class="form-control-lg" type="password" name="password" required="required" th:value="${session.mvo.password}">
 				
 				<h5>이름</h5>
-				<input class="form-control-lg" type="text" name="name"
-					required="required" th:value="${session.mvo.name}">
+				<input class="form-control-lg" type="text" name="name" required="required" th:value="${session.mvo.name}">
 				
 				<h5>닉네임</h5>
-				<input class="form-control-lg" type="text" name="nick"
-					required="required" th:value="${session.mvo.nick}">
+				<input class="form-control-lg" type="text" name="nick" required="required" th:value="${session.mvo.nick}">
 				
 				<h5>개별질문</h5> 
 					<select name="question" required="required">
-						<option value="" th:text="${session.mvo.question}">개별질문</option>
+						<option value="" th:text="${session.mvo.question}" th:value="${session.mvo.question}">개별질문</option>
 						<option th:each="question: ${questionList}" th:value="${question}" th:text="${question}"></option>
 					</select>
 				<br><br>
+				
 				<h5>답변</h5>
 				<input class="form-control-lg" type="text" name="answer" required="required" th:value="${session.mvo.answer}">
 				
 				<h5>연락처</h5>
 				<input class="form-control-lg" type="text" name="tel" required="required" th:value="${session.mvo.tel}">
+				
 				<th:block th:if="${session.mvo.memberType==2}">
 					<h5>자격증번호</h5>
 					<input class="form-control-lg" type="text" name="licenseNo" readonly="readonly" th:value="${session.mvo.licenseNo}">
@@ -47,27 +47,37 @@
 					
 					<h5>경력</h5>
 					<select name="workHistory" required="required">
-						<option value="" th:text="${session.mvo.workHistory}"></option>
+						<option value="" th:text="${session.mvo.workHistory}" th:value="${session.mvo.workHistory}"></option>
 						<option th:each="workHistory: ${workHistoryList}" th:value="${workHistory}" th:text="${workHistory}"></option>
 					</select>
 					<br><br>
 					<h5>근무지역</h5>
 					<select name="location" required="required">
-						<option value="" th:text="${session.mvo.location}">근무 지역</option>
+						<option value="" th:text="${session.mvo.location}" th:value="${session.mvo.location}">근무 지역</option>
 						<option th:each="location: ${locationList}" th:value="${location}" th:text="${location}"></option>
 					</select>
 					<br><br>
 					<h5>근무형태</h5>
 					<select name="workType" required="required">
-						<option value="" th:text="${session.mvo.workType}">근무 형태</option>
+						<option value="" th:text="${session.mvo.workType}" th:value="${session.mvo.workType}">근무 형태</option>
 						<option th:each="workType: ${workTypeList}" th:value="${workType}" th:text="${workType}"></option>
 					</select>
 					<br><br>
 				</th:block>
 				<div class="col-sm-5 text-center">
-					<button type="submit" class="btn btn-outline-success btn-lg">수정하기</button>
+					<button type="submit" class="btn btn-outline-success btn-lg" id="updateBtn">수정하기</button>
 				</div>
 			</form>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$("#updateBtn").click(function() {
+						let resultUpdate=confirm("수정하시겠습니까?")
+						if(resultUpdate==true){
+							$("#updateForm").submit();
+						}
+					});//click
+				});//ready
+			</script>
 		</div>
 	</div>
 </div>
