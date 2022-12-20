@@ -78,4 +78,5 @@ public class MemberVO implements Serializable{
 		this.answer = answer;
 		this.enabled = enabled;
 	}
+
 }
