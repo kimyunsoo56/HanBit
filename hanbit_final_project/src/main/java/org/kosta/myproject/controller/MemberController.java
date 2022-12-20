@@ -34,6 +34,8 @@ public class MemberController {
 			} else {
 				HttpSession session=request.getSession();
 				session.setAttribute("mvo", resultVO);
+				//조회수 증가 방지를 위한 작업
+				session.setAttribute("noList",  new ArrayList<Integer>());
 				return "redirect:/";
 			}
 	 }

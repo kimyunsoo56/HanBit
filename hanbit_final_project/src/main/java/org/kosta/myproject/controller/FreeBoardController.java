@@ -62,10 +62,8 @@ public class FreeBoardController {
 	}
 	//글 상세보기-조회수증가O
 	@RequestMapping("freeDetail")
-	public String getFreeDetail(int freeNo, HttpSession session, RedirectAttributes ra) {  
-		//세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
-				if (session.getAttribute("mvo") == null)
-					return "redirect:home";
+	public ModelAndView getFreeDetail(int freeNo, HttpSession session, RedirectAttributes ra) {  
+		session.getAttribute("mvo");
 		//MemberController의 login 메서드를 확인
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> noList = (ArrayList<Integer>) session.getAttribute("noList");
@@ -74,33 +72,11 @@ public class FreeBoardController {
 			freeBoardService.addHits(freeNo);//조회수증가방지없음
 			noList.add(freeNo); //noList에 조회한 게시글 no 추가
 		}
-		// 데이터 전달 (조회한 게시글의 no)
-		ra.addAttribute("no", freeNo);
-		return "redirect:freeBoard/freeDetail-noHits";
-		
-		
-	/*	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
-		freeBoardVO.setMemberVO(memberVO);
-		String id=memberVO.getId();
 		ModelAndView mv = new ModelAndView();
-		  mv.setViewName("freeBoard/freeDetail-noHits");
+		  mv.setViewName("freeBoard/freeDetail");
 		  mv.addObject("freeDetail", freeBoardService.getFreeDetail(freeNo));
-		 // freeBoardService.updateHits(freeNo,id,request,response);
-		 freeBoardService.addHits(freeNo);//조회수증가방지없음
-		 // System.out.println(freeNo+"update hits");
 		return mv;
-		*/
 		
 	}
-	//글 상세보기-조회수증가X(본인이 작성한 게시글 상세보기)
-	//글쓰기, 수정 시 사용
-	@RequestMapping("freeDetail-noHits")
-	public ModelAndView getFreeDetailNoHits(int freeNo) {
-		ModelAndView mv = new ModelAndView();
-		  mv.setViewName("freeBoard/freeDetail-noHits");
-		  mv.addObject("freeDetail", freeBoardService.getFreeDetail(freeNo));
-		  return mv;
-	}
-
-
+	
 }
