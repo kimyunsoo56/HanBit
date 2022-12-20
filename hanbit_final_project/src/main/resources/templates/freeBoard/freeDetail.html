@@ -27,22 +27,17 @@
 
 <!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
 
-<table  class="table">
 
+			 <p th:text="${freeDetail.freeNo}">글번호</p>
+			<p th:text="${freeDetail.title}">제목</p>
+			<p th:text="${freeDetail.memberVO.nick}">작성자</p>
+			<p th:text="${freeDetail.hits}">조회수</p>
+            <p th:text="${freeDetail.content}">내용</p>
+            <p th:text="${freeDetailcategory}">카테고리</p>	
 
-	        <tr th:each="board:${freeDetail}">
-			 <td th:text="글번호: ${board.freeNo}"></td>
-			<td th:text="제목: ${board.title}"></td>
-			<td th:text="작성자: ${board.memberVO.nick}"></td>
-			<td th:text="조회수: ${board.hits}"></td>
-            <td th:text="내용: ${board.content}"></td>
-            <td th:text="카테고리: ${board.category}"></td>
-		</tr>		
-		<tr>
-			<td colspan="5" class="content">
-			<pre th:text="${board.content}"></pre>
-			</td>
-		</tr>
+			<p th:text="${freeDetail.content}"></p>
+			
+
 		<!-- <tr>
 			<td colspan="5" class="btnArea">
 			 <c:if test="${requestScope.pvo.memberVO.id==sessionScope.mvo.id}">
@@ -61,7 +56,7 @@
 			 </c:if>
 			 </td>
 		</tr> -->
-	</table>
+
     </div>
 
 
