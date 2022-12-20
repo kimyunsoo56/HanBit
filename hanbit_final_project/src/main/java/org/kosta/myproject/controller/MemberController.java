@@ -221,7 +221,7 @@ public class MemberController {
          List<String> question = new ArrayList<>();
          question.add("가장 기억에 남는 장소는?");
          question.add("나의 좌우명은?");
-         question.add("나의 보물 제1호는?");
+         question.add("나의 보물 제1호는?"); 
          question.add("인상 깊게 읽은 책 이름은?");
          question.add("내가 존경하는 인물은?");
          question.add("나의 출신 초등학교는?");
