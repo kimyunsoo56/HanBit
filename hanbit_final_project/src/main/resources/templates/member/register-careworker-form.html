@@ -14,10 +14,11 @@
 	        	<h1 style="color: #a7cb00">요양보호사 등록</h1>
 	        	<br>
 	        	<form action="" th:action="@{/registerCareWorker}" method="post" id="registerCareWorkerForm">
+	        	<input type="hidden" name="id" th:value="${session.mvo.id}">
 	        	<h5>자격증 번호</h5>
 	        	<input class="form-control-lg" type="text" name="licenseNo" placeholder="- 를 제외하고 입력하세요" required="required" id="checkLicenseNo">
-	        	&nbsp;&nbsp;<button type="button" id="checkLicenseNoBtn" class="btn btn-outline-success btn-lg">자격 확인</button>
-	        	&nbsp;&nbsp;<span id="checkIdResult"></span><br>
+	        	&nbsp;&nbsp;<button type="button" id="checkLicenseNoBtn" class="btn btn-outline-success btn-lg">인증하기</button>
+	        	&nbsp;&nbsp;<span id="checkLicenseNoResult"></span><br>
 	        	<h5>성별</h5>
 	        	<select name="gender" required="required">
 	        		<option value="">성별</option>
@@ -31,14 +32,14 @@
 	        	</select>
 	        	<br><br>
 	        	<h5>근무 지역</h5>
-	        	<select name="workHistory" required="required">
+	        	<select name="location" required="required">
 	        		<option value="">근무 지역</option>
 	        		<option th:each="location: ${locationList}" th:value="${location}" th:text="${location}"></option>
 	        	</select>
 	        	<br><br>
-	        	<h5>근무 타입</h5>
-	        	<select name="workHistory" required="required">
-	        		<option value="">근무 타입</option>
+	        	<h5>근무 형태</h5>
+	        	<select name="workType" required="required">
+	        		<option value="">근무 형태</option>
 	        		<option th:each="workType: ${workTypeList}" th:value="${workType}" th:text="${workType}"></option>
 	        	</select>
 	        	<br><br>
@@ -46,6 +47,42 @@
 	  			<button type="submit" class="btn btn-outline-success btn-lg">등록하기</button>
 	        	</div>
 	        	</form>
+	        	<script type="text/javascript">
+	        		$(document).ready(function() {
+	        			let checkResultLicenseNo="N";
+	        			$("#registerCareWorkerForm").submit(function() {
+	        			// 중복체크 했는지 확인하는 부분
+	        				if(checkResultLicenseNo=="N"){
+	        					alert("자격증 번호 확인을 해주세요");
+	        					return false;
+	        				}
+	        			});//submit
+	        			
+	        			// 자격증 중복체크
+	        			$("#checkLicenseNoBtn").click(function() {
+	        				let checkLicenseNo=$("#checkLicenseNo").val().trim();
+	        				$.ajax({
+	        					type:"get",
+	        					url:"registerCheckLicenseNo",
+	        					data:"licenseNo="+checkLicenseNo,
+	        					success:function(result){
+	        						if(checkLicenseNo.length!=7){
+	        							$("#checkLicenseNoResult").html("<font color=red>자격증 번호 형식이 옳바르지 않습니다</font>");
+	        							checkResultLicenseNo="N"
+	        						}else{
+	        							if(result){
+	        								$("#checkLicenseNoResult").html("<font color=red>이미 등록된 자격증 번호입니다</font>");
+		        							checkResultLicenseNo="N"
+	        							}else{
+	        								$("#checkLicenseNoResult").html("<font color=blue>인증 확인이 완료되었습니다</font>");
+		        							checkResultLicenseNo="Y"
+	        							}//else
+	        						}//else
+	        					}//success
+	        				});//ajax
+	        			});//click
+	        		});//ready
+	        	</script>
         		</div>
         	</div>
         </div>

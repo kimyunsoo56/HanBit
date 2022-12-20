@@ -20,8 +20,15 @@ hanbit_member(
 	work_type VARCHAR2(100) CHECK(work_type IN('자택근무','병원근무'))
 )
 
-select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id='spring' and password='a';
+--로그인
+SELECT id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id='spring' and password='a';
 
-select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id='spring';
+-- 아이디로 회원정보조회
+SELECT id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type from hanbit_member where id='spring';
 
-insert into (id,password,name,nick,question,answer,tel,enabled,member_type,license_no,gender,work_history,location,work_type)
+-- 요양보호사 등록
+INSERT INTO hanbit_member
+VALUES ('springboot','a','김요양','요양천사','가장 기억에 남는 장소는?','집',01012345678,default,2,1112223334,'여성','3년','서울','자택근무');
+
+
+UPDATE hanbit_member SET enabled=2 where id='test6' and password='a' and question='나의 노래방 애창곡은?' and answer='좋은날';

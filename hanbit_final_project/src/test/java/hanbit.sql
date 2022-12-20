@@ -83,6 +83,8 @@ CREATE SEQUENCE hanbit_match_board_seq;
 DROP TABLE hanbit_match_board;
 DROP SEQUENCE hanbit_match_board_seq;
 SELECT * FROM hanbit_match_board;
+insert into hanbit_match_board values (hanbit_match_board_seq.nextval,'경력 10년의 요양보호사 입니다!','소개글 내용입니다!',sysdate,5,'colde.png','java')
+insert into hanbit_match_board values (hanbit_match_board_seq.nextval,'경력 12년의 요양보호사 입니다!','소개글 내용입니다!',sysdate,9,'colde1.png','java3')
 
 -- 한빛 매칭 좋아요 테이블 생성
 CREATE TABLE hanbit_likes(
@@ -110,5 +112,7 @@ CREATE SEQUENCE hanbit_message_seq;
 DROP TABLE hanbit_message;
 DROP SEQUENCE hanbit_message_seq;
 SELECT * FROM hanbit_message;
+
+
 
 

@@ -11,6 +11,9 @@
 
 	<h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
 	<br> <br> 
+	아이디 :
+	<h4 th:text="${matchDetail.memberVO.id}"></h4>
+	<br><br>
 	제목 :
 	<h4 th:text="${matchDetail.title}"></h4>
 	<br> <br> 
@@ -47,10 +50,9 @@
 	<h4 th:text="${matchDetail.memberVO.tel}">연락처 나오는 부분</h4>
 	<br>
 	<br>
-	<button>쪽지보내기</button>
-	<a th:href="@{/MatchBoardList}">목록으로</a>
-	<button>찜</button>
-
+	<a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp;
+	<a th:href="@{/MatchBoardList}">목록으로</a>  &nbsp; &nbsp; &nbsp;
+	<a th:href="@{/Jjim}">찜하기</a> <span>---찜하지 않은 상태----</span>
 </div>
 
 <!--================End layout Area =================-->

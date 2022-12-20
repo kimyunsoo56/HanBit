@@ -14,6 +14,10 @@ public interface MatchBoardService  {
 
 	List<MatchBoardVO>findMatchListBylgw(MatchBoardVO matchBoardVO);
 
+	
+
+
+
 
 
 

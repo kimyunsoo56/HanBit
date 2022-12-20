@@ -14,35 +14,37 @@
 
 <select id="matchBoardList" resultMap="matchResultMap">
 select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
-from hanbit_match_board_msk b
-inner join hanbit_member_msk m on b.id=m.id
+from hanbit_match_board b
+inner join hanbit_member m on b.id=m.id
 
 </select>
 
 <select id="matchDetail" parameterType="int" resultMap="matchResultMap">
-select b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type,m.work_history,m.tel,m.nick
-from hanbit_match_board_msk b
-inner join hanbit_member_msk m on b.id=m.id
+select b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type,m.work_history,m.tel,m.nick,m.id
+from hanbit_match_board b
+inner join hanbit_member m on b.id=m.id
 where b.match_no=#{value}
 
 </select>
 
 <select id="findMatchListBylgw" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultMap="matchResultMap">
 select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
-from hanbit_match_board_msk b
-inner join hanbit_member_msk m on b.id=m.id
+from hanbit_match_board b
+inner join hanbit_member m on b.id=m.id
 <where>
-<if test="memberVO!=null and memberVO.location!=0">
+<if test="memberVO!=null and memberVO.location!=''">
 m.location=#{memberVO.location}
 </if>
-<if test="memberVO!=null and memberVO.gender!=0">
+<if test="memberVO!=null and memberVO.gender!=''">
 and m.gender=#{memberVO.gender}
 </if>
-<if test="memberVO!=null and memberVO.workType!=0">
+<if test="memberVO!=null and memberVO.workType!=''">
 and m.work_type=#{memberVO.workType}
 </if>
 </where>
 
 
 </select>
+
+
 </mapper>

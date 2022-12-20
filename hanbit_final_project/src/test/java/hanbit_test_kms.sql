@@ -63,6 +63,28 @@ select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.l
 from hanbit_match_board_msk b
 inner join hanbit_member_msk m on b.id=m.id
 
+select id from hanbit_member_msk WHERE MEMBER_TYPE=2;
+
+
+-- 한빛 쪽지 테이블 생성 
+CREATE TABLE hanbit_message_msk(
+	message_no NUMBER PRIMARY KEY,
+	content CLOB NOT NULL,
+	checking NUMBER DEFAULT 0,
+	time_posted DATE DEFAULT SYSDATE,
+	send_id VARCHAR2(100) NOT NULL,
+	receive_id VARCHAR2(100) NOT NULL,
+	CONSTRAINT msk_send_id_msk_fk FOREIGN KEY(send_id) REFERENCES hanbit_member_msk(id),	
+	CONSTRAINT msk_receive_id_msk_fk FOREIGN KEY(receive_id) REFERENCES hanbit_member_msk(id)
+)
+CREATE SEQUENCE hanbit_message_msk_seq;
+DROP TABLE hanbit_message_msk;
+DROP SEQUENCE hanbit_message_seq_msk;
+SELECT * FROM hanbit_message_msk;
+
+insert into hanbit_message_msk values(hanbit_message_msk_seq.nextval,'번호를 알 수 있을까요?',sysdate,'spring')
+
+
 
 
 

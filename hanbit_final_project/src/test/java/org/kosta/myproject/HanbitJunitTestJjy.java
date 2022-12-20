@@ -37,4 +37,11 @@ public class HanbitJunitTestJjy {
 		MemberVO memberVO=memberMapper.myPageDetail(id);
 		Assertions.assertNotNull(memberVO);
 	}
+	@Test
+	public void delectMember() {
+		MemberVO memberVO=new MemberVO("test5","a","나의 노래방 애창곡은?","좋은날",2);
+		System.out.println("삭제됐나" + memberVO);
+		memberMapper.deleteMember(memberVO);
+		System.out.println("삭제됐다" + memberVO);
+	}
 }
