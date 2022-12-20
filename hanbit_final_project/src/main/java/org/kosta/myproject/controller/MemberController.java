@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.myproject.model.mapper.MemberMapper;
 import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
@@ -202,8 +203,15 @@ public class MemberController {
 		 model.addAttribute("delectquestionList", delectquestion);
 		 return "member/deleteMember-form";
 	 }
-	 @PostMapping("deleteMember")
-	 public String deleteMember() {
-		 return "member/deleteMember-result";
-	 }
+	 // 회원탈퇴 쿼리문은 메서드명은 회원 탈퇴라 delect이고 쿼리문은 update 
+		/*
+		 * @PostMapping("deleteMember") public String deleteMember(MemberVO memberVO,
+		 * HttpServletRequest request) { MemberService.delectMember(memberVO); MemberVO
+		 * memberVO=(MemberVO) session.getAttribute("mvo"); HttpSession
+		 * session=request.getSession(false); if() {
+		 * 
+		 * }else {
+		 * 
+		 * return "member/deleteMember-result"; } }
+		 */
 }

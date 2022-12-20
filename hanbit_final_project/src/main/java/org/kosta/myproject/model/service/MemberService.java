@@ -10,7 +10,6 @@ public interface MemberService {
 
 	MemberVO myPageDetail(String id);
 	
-
 	MemberVO findMemberById(String id);
 
 	int register(MemberVO memberVO);
@@ -23,5 +22,5 @@ public interface MemberService {
 
 	String findPassword(String id, String name, String tel, String question, String answer);
 
-
+	String registerMember(MemberVO memberVO);
 }

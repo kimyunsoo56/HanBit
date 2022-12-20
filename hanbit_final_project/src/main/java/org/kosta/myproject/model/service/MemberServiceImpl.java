@@ -49,5 +49,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.findPassword(id, name, tel, question, answer);
 	}
 
+	@Override
+	public String registerMember(MemberVO memberVO) {
+		return memberMapper.deleteMember(memberVO);
+	}
+
 }
 

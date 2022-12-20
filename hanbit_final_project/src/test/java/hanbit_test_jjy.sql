@@ -30,5 +30,5 @@ SELECT id,password,name,nick,question,answer,tel,enabled,member_type,license_no,
 INSERT INTO hanbit_member
 VALUES ('springboot','a','김요양','요양천사','가장 기억에 남는 장소는?','집',01012345678,default,2,1112223334,'여성','3년','서울','자택근무');
 
--- 회원 탈퇴
-update 
+
+UPDATE hanbit_member SET enabled=2 where id='test6' and password='a' and question='나의 노래방 애창곡은?' and answer='좋은날';

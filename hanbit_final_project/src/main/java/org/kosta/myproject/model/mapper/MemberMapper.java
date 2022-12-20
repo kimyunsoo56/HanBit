@@ -22,4 +22,10 @@ public interface MemberMapper {
 
 	String findPassword(String id, String name, String tel, String question, String answer);
 
+	String deleteMember(MemberVO memberVO);
+
+
+
+
+
 }

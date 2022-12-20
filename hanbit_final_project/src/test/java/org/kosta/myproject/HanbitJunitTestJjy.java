@@ -39,8 +39,9 @@ public class HanbitJunitTestJjy {
 	}
 	@Test
 	public void delectMember() {
-		String password="a";
-		String question="나의 출신 초등학교는?";
-		String answer="문성초";
+		MemberVO memberVO=new MemberVO("test5","a","나의 노래방 애창곡은?","좋은날",2);
+		System.out.println("삭제됐나" + memberVO);
+		memberMapper.deleteMember(memberVO);
+		System.out.println("삭제됐다" + memberVO);
 	}
 }
