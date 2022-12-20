@@ -22,5 +22,9 @@ public interface MemberService {
 
 	String findPassword(String id, String name, String tel, String question, String answer);
 
-	String registerMember(MemberVO memberVO);
+	int checkLicenseNo(int licenseNo);
+
+	void registerCareWorker(MemberVO memberVO);
+
+	
 }

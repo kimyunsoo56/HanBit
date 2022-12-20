@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.myproject.model.mapper.MemberMapper;
 import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
@@ -172,9 +171,9 @@ public class MemberController {
 		model.addAttribute("workHistoryList", workHistory);
 		// 지역
 		List<String> location=new ArrayList<>();
-		location.add("서울특별시");
-		location.add("경기도");
-		location.add("강원도");
+		location.add("서울");
+		location.add("경기");
+		location.add("강원");
 		location.add("충북");
 		location.add("충남");
 		location.add("전북");

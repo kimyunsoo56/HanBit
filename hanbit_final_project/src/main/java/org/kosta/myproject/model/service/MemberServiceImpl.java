@@ -50,9 +50,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String registerMember(MemberVO memberVO) {
-		return memberMapper.deleteMember(memberVO);
+	public int checkLicenseNo(int licenseNo) {
+		return memberMapper.checkLicenseNo(licenseNo);
+	}
+
+	@Override
+	public void registerCareWorker(MemberVO memberVO) {
+		memberMapper.registerCareWorker(memberVO);
 	}
 
 }
-

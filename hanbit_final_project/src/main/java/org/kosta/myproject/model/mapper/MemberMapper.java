@@ -22,10 +22,11 @@ public interface MemberMapper {
 
 	String findPassword(String id, String name, String tel, String question, String answer);
 
+	int checkLicenseNo(int licenseNo);
+
+	void registerCareWorker(MemberVO memberVO);
+
+	void updateMember(MemberVO memberVO);
+
 	String deleteMember(MemberVO memberVO);
-
-
-
-
-
 }
