@@ -69,5 +69,14 @@ public class MemberVO implements Serializable{
 		this.location = location;
 		this.workType = workType;
 	}
-	
+	// 회원 탈퇴 시 필요한 생성자
+	public MemberVO(String id, String password, String question, String answer, int enabled) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.question = question;
+		this.answer = answer;
+		this.enabled = enabled;
+	}
+
 }

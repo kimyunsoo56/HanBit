@@ -28,4 +28,6 @@ public interface MemberMapper {
 
 	void updateMember(MemberVO memberVO);
 
+	String deleteMember(MemberVO memberVO);
+
 }
