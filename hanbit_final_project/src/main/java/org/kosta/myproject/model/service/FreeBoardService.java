@@ -14,5 +14,9 @@ public interface FreeBoardService {
 
 	void addHits(int freeNo);
 
+	void freeDelete(int freeNo);
+
+	void freeUpdate(FreeBoardVO freeBoardVO);
+
 
 }

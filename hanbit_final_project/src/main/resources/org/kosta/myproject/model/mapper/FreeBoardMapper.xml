@@ -44,19 +44,23 @@
 	</insert>
 	
 	<!--  게시물 삭제 -->
-	<delete id="deleteFree">
+	<delete id="freeDelete">
  	delete from hanbit_free_board where free_no=#{value}
 	</delete>
 
 	<!--  조회수 증가 -->
-	<update id="updateHits">
-	update hanbit_free_board
-	set hits=hits+1
-	 where free_no=#{value}
-	</update>
 	<update id="addHits">
 	update hanbit_free_board
 	set hits=hits+1
 	 where free_no=#{value}
 	</update>
+
+	<!-- 게시글수정 -->
+	<update id="freeUpdate" parameterType="org.kosta.myproject.model.vo.FreeBoardVO">
+	update hanbit_free_board
+	set title=#{title}, content=#{content}
+	 where free_no=#{freeNo}
+	</update>
+
+	
 </mapper>

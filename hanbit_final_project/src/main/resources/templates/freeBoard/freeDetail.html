@@ -39,17 +39,39 @@
 			
 
 
-			 <th:if test="${session==mvo}">
-			 
-			 <form action="@{freeDelete}" id="freeDelete" method="POST">
+<th:block th:if="${session.mvo!=null}">
+ <th:block th:if="${session.mvo.nick==freeDetail.memberVO.nick}"> 
+   <form th:action="@{freeDelete?freeNo=}+${freeDetail.freeNo}" method="post">
+         <button >
+            삭제
+         </button>
+      </form>
+      
+  <form id="freeDetailUpdateForm" th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}">
+  	<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
+         <button type="submit">
+            수정
+         </button>
+      </form>
+     
+      <!-- <a th:href="@{/freeBoard/freeDetailUpdateForm/{freeNo}(freeNo=${freeDetail.freeNo})}">글 수정</a> -->
+ </th:block>
+ </th:block>
+
+ 
+
+
+
+			<!--  <form action="@{freeDelete}" id="freeDelete" method="POST">
 			 	<button form="deleteForm" type="submit">삭제</button>		
 			 </form>
 
 			 <form action="@{freeUpdate}" id="freeUpdate" method="POST">
 			 	 <button form="updateForm" type="submit">수정</button>		
-			 </form>		
+			 </form>	
+			 --> 	
 			 	 
-			 </th:if>
+
 
 
     </div>

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.FreeBoardService;
@@ -13,6 +12,7 @@ import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,7 +60,7 @@ public class FreeBoardController {
 		return "redirect:freeDetail";
 	
 	}
-	//글 상세보기-조회수증가O
+	//글 상세보기
 	@RequestMapping("freeDetail")
 	public ModelAndView getFreeDetail(int freeNo, HttpSession session, RedirectAttributes ra) {  
 		session.getAttribute("mvo");
@@ -78,5 +78,42 @@ public class FreeBoardController {
 		return mv;
 		
 	}
+	@PostMapping("freeDelete")
+	public String FreeDelete(int freeNo) {
+		freeBoardService.freeDelete(freeNo);
+		return "redirect:freeBoardList";
+	}
+	
+	//게시글 수정폼
+	/*@RequestMapping("freeDetailUpdateForm") 
+    public String freeDetailUpdateForm(Model model, int freeNo) {
+      model.addAttribute("freeNo",freeNo);
+    System.out.println(freeNo);
+    return "freeBoard/freeDetailUpdateForm";
+    }
+	*/
+	  @RequestMapping("freeDetailUpdateForm")
+	public String freeDetailUpdateForm(int freeNo, HttpServletRequest request, Model model) {
+		System.out.println("제발!!!");
+		HttpSession session=request.getSession();
+		//세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
+		if (session.getAttribute("mvo") == null)
+			return "redirect:home";
+		//freeDetail에 freeNo로 포스팅 정보를 전송해준다.
+		model.addAttribute("mvo",session);
+		model.addAttribute("freeDetail", freeBoardService.getFreeDetail(freeNo));
+		System.out.println(freeNo);
+		return "freeBoard/freeDetailUpdateForm";
+	}
+	
+	//게시글수정
+	@PostMapping("freeUpdate")
+	public String freeUpdate(FreeBoardVO freeBoardVO) {
+		freeBoardService.freeUpdate(freeBoardVO);
+		return "redirect:freeBoardList";
+	}
+	
+
+	
 	
 }
