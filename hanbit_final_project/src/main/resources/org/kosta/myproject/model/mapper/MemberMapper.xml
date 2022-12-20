@@ -31,10 +31,9 @@ select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,
 	SELECT password FROM hanbit_member WHERE id=#{id} AND name=#{name}
 	AND tel=#{tel} AND question=#{question} AND answer=#{answer}
 </select>
-<<<<<<< HEAD
 <update id="deleteMember" parameterType="org.kosta.myproject.model.vo.MemberVO">
 UPDATE hanbit_member SET enabled=2 where id=#{id} and password=#{password} and question=#{question} and answer=#{answer}
-=======
+</update>
 <select id="checkLicenseNo" parameterType="int" resultType="int">
 	SELECT COUNT(*) FROM hanbit_member WHERE license_no=#{value}
 </select>
@@ -46,6 +45,5 @@ UPDATE hanbit_member SET enabled=2 where id=#{id} and password=#{password} and q
 	UPDATE hanbit_member SET password=#{password,jdbcType=VARCHAR},name=#{name,jdbcType=VARCHAR},nick=#{nick,jdbcType=VARCHAR},question=#{question,jdbcType=VARCHAR},
 	answer=#{answer,jdbcType=VARCHAR},tel=#{tel,jdbcType=VARCHAR},license_no=#{licenseNo,jdbcType=NUMERIC},gender=#{gender,jdbcType=VARCHAR},
 	work_history=#{workHistory,jdbcType=VARCHAR},location=#{location,jdbcType=VARCHAR},work_type=#{workType,jdbcType=VARCHAR} WHERE id=#{id,jdbcType=VARCHAR}
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 </update>
 </mapper>
