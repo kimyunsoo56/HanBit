@@ -9,7 +9,7 @@
 </head>
  <!--================Start layout Area =================-->
 <div layout:fragment="content">
-<table>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>번호</th>
@@ -25,7 +25,7 @@
         <tr th:each="board:${FreeBoardList}">
             <td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}" th:text="${board.freeNo}"></a></td>
             <td th:text="${board.memberVO.nick}"></td>
-            <td th:text="${board.title}"></td>
+            <td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}" th:text="${board.title}"></a> </td>
             <td th:text="${board.timePosted}"></td>
             <td th:text="${board.hits}"></td>
             <td th:text="${board.content}"></td>
@@ -33,6 +33,11 @@
         </tr>
     </tbody>
 </table>
+ <form th:action="@{freeWrite}">
+         <button>
+            글쓰기
+         </button>
+      </form>
 
 </div>
  <!--================End layout Area =================-->

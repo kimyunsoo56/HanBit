@@ -23,12 +23,12 @@
     
     });//ready	
 </script>
-</head>
+
 
 <!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
 
 
-			 <p th:text="${freeDetail.freeNo}">글번호</p>
+			<p th:text="${freeDetail.freeNo}">글번호</p>
 			<p th:text="${freeDetail.title}">제목</p>
 			<p th:text="${freeDetail.memberVO.nick}">작성자</p>
 			<p th:text="${freeDetail.hits}">조회수</p>
@@ -38,24 +38,41 @@
 			<p th:text="${freeDetail.content}"></p>
 			
 
-		<!-- <tr>
-			<td colspan="5" class="btnArea">
-			 <c:if test="${requestScope.pvo.memberVO.id==sessionScope.mvo.id}">
-			 <button form="deleteForm" type="submit">삭제</button>
-			 <button form="updateForm" type="submit">수정</button>
-			 
-			 삭제 form
-			 <form action="deletePost.do" id="deleteForm" method="POST">
-			 	<input type="hidden" name="no" value="${requestScope.pvo.no}">			
+
+<th:block th:if="${session.mvo!=null}">
+ <th:block th:if="${session.mvo.nick==freeDetail.memberVO.nick}"> 
+   <form th:action="@{freeDelete?freeNo=}+${freeDetail.freeNo}" method="post">
+         <button >
+            삭제
+         </button>
+      </form>
+      
+  <form id="freeDetailUpdateForm" th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}">
+  	<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
+         <button type="submit">
+            수정
+         </button>
+      </form>
+     
+      <!-- <a th:href="@{/freeBoard/freeDetailUpdateForm/{freeNo}(freeNo=${freeDetail.freeNo})}">글 수정</a> -->
+ </th:block>
+ </th:block>
+
+ 
+
+
+
+			<!--  <form action="@{freeDelete}" id="freeDelete" method="POST">
+			 	<button form="deleteForm" type="submit">삭제</button>		
 			 </form>
-			 
-			 수정 form
-			 <form action="updateView.do" id="updateForm" method="POST">
-			 	<input type="hidden" name="no" value="${requestScope.pvo.no}">			
-			 </form>			 
-			 </c:if>
-			 </td>
-		</tr> -->
+
+			 <form action="@{freeUpdate}" id="freeUpdate" method="POST">
+			 	 <button form="updateForm" type="submit">수정</button>		
+			 </form>	
+			 --> 	
+			 	 
+
+
 
     </div>
 

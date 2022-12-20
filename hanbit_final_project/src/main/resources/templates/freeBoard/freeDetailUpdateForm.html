@@ -9,7 +9,9 @@
 </head>
  <!--================Start layout Area =================-->
 <div layout:fragment="content">
- <form th:action="@{write}" method="post">
+   <form th:action="@{freeUpdate}" method="post">
+   <input name="id" th:value="${session.mvo.id}" type = "hidden">
+   <input name="freeNo" th:value="${param.freeNo}" type = "hidden" >
  	<select>
 		<option value="자유글">자유글</option>
 		<option value="정보글">정보글</option>
@@ -18,13 +20,15 @@
  <table class="table" >
     <tr>
     <td>제목 &nbsp;&nbsp;
-     <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required">
+     <input name="title" type="text" th:value=${freeDetail.title} required="required">
+    </td>
+    <td>글번호
+     <input type="hidden" name="no" th:value="${freeDetail.freeNo}">
     </td>
     </tr>   
     <tr>
      <td>     
-    <textarea rows="10" cols="70" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
-   
+    <textarea name="content" th:text=${freeDetail.content}  rows="10" cols="70" required="required" ></textarea>
  </td>
     </tr> 
      </table>    

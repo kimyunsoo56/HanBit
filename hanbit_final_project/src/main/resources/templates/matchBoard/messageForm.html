@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+
+	<h4>※ 쪽지 보내기 페이지입니다 ※</h4>
+	<br>
+	<form th:action="@{/RealSendMessage}">
+	<br> <span th:text="${yoyangsaName}"></span> 요양 보호사님께!! <br>
+	<br>
+
+
+	<textarea rows="8" cols="75" placeholder="쪽지 내용을 입력해주세요!" name="content"></textarea>
+
+	<br>
+	
+		<button>쪽지전송</button>
+
+	</form>
+</div>
+
+<!--================End layout Area =================-->

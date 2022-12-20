@@ -32,4 +32,8 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 		return matchBoardMapper.findMatchListBylgw(matchBoardVO);
 	}
 
+	
+
+	
+
 }

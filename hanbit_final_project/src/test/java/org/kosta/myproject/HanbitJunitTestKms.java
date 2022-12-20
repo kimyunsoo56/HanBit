@@ -37,4 +37,11 @@ public class HanbitJunitTestKms {
 		Assertions.assertEquals(11, matchVO.getHits()); 
 		System.out.println(matchVO.getHits());
 	}
+	
+	
+	
+
+	 
+	
+	
 }

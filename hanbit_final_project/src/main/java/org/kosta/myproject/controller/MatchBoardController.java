@@ -2,6 +2,7 @@ package org.kosta.myproject.controller;
 
 import org.kosta.myproject.model.service.MatchBoardService;
 import org.kosta.myproject.model.vo.MatchBoardVO;
+import org.kosta.myproject.model.vo.MessageVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,6 @@ public class MatchBoardController {
 	
 	
 	@RequestMapping("matchDetail")
-	
 	public String showMatchDetail(Model model,int matchNo){
 		//model.addAttribute("numberGot",matchNo); 
 		MatchBoardVO vo=matchBoardService.matchDetail(matchNo);
@@ -42,14 +42,41 @@ public class MatchBoardController {
 	}
 
 	
-	  @RequestMapping("findMatchListBylgw") public String
-	  findMatchListBylgw(MatchBoardVO matchBoardVO,Model model) {
+	  @RequestMapping("findMatchListBylgw") 
+	//  @ResponseBody
+	  public String findMatchListBylgw(MatchBoardVO matchBoardVO,Model model) {
 	  log.debug("param:{}",matchBoardVO); 
-	  model.addAttribute("lgwList",
-	  matchBoardService.findMatchListBylgw(matchBoardVO)); 
-	  // employee/list2 =>  view name 
-	  // :: #empTbody 타임리프가 model의 empList를 이용해 생성한 html 요소를 반영할 요소 id
-	  return "employee/list2 :: #empTbody"; }
+	  model.addAttribute("matchList", matchBoardService.findMatchListBylgw(matchBoardVO)); 
+	  return "matchBoard/matchBoard :: #matchTbody"; 
+	  }
+	  
+	  
+	  @RequestMapping("Jjim") 
+		  public String showJjim(MatchBoardVO matchBoardVO,Model model) {
+				/*
+				 * log.debug("param:{}",matchBoardVO); model.addAttribute("matchList",
+				 * matchBoardService.findMatchListBylgw(matchBoardVO)); return
+				 * "matchBoard/matchBoard :: #matchTbody";
+				 */
+		  
+		  return "matchBoard/matchBoard";
+		  }
+	  
+	  @RequestMapping("SendMessage") 
+	  public String sendMessage(Model model,String yoyangsaName) {
+		 model.addAttribute("yoyangsaName",yoyangsaName);
+	  
+	  return "matchBoard/messageForm";
+	  }
+	  
+		/*
+		 * @RequestMapping("RealSendMessage") public String realSendMessage(Model
+		 * model,String yoyangsaName) { MessageVO vo=matchBoardService.l(matchNo);
+		 * 
+		 * return "matchBoard/messageOk"; }
+		 */
+	  
+	 
 	 
 
 }

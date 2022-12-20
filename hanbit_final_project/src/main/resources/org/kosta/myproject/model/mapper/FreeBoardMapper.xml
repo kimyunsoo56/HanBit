@@ -28,19 +28,39 @@
 		inner join hanbit_member hm ON hfb.id=hm.id
 		where hfb.free_no=#{value}
    </select>
+   
 	<!--  게시물 등록 -->
 	<insert id="write" parameterType="org.kosta.myproject.model.vo.FreeBoardVO">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE"> 
+		<selectKey keyProperty="freeNo" resultType="int" order="BEFORE"> 
 			SELECT hanbit_free_board_seq.nextval
 			FROM   dual
 		</selectKey>
-		insert into hanbit_free_board (free_no,title,content,time_posted,hits,category,image,id)
-		values(#{no}, #{title}, #{content}, sysdate,#{hits},#{category},null,#{memberVO.id})
+	<!-- 	insert into hanbit_free_board (freeNo,title, nick, time_posted, content, image)
+		values(#{freeNo}, #{title}, #{memberVO.nick}, sysdate,#{content},#{image})
+
+-->
+		insert into hanbit_free_board (freeNo,title, nick, time_posted, content)
+		values(#{freeNo}, #{title}, #{memberVO.nick}, sysdate,#{content})
 	</insert>
 	
-	<!-- 2. 게시물 삭제 -->
-	<delete id="deleteFree">
+	<!--  게시물 삭제 -->
+	<delete id="freeDelete">
  	delete from hanbit_free_board where free_no=#{value}
 	</delete>
 
+	<!--  조회수 증가 -->
+	<update id="addHits">
+	update hanbit_free_board
+	set hits=hits+1
+	 where free_no=#{value}
+	</update>
+
+	<!-- 게시글수정 -->
+	<update id="freeUpdate" parameterType="org.kosta.myproject.model.vo.FreeBoardVO">
+	update hanbit_free_board
+	set title=#{title}, content=#{content}
+	 where free_no=#{freeNo}
+	</update>
+
+	
 </mapper>
