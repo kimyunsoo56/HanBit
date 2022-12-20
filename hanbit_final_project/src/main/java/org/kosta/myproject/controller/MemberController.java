@@ -33,7 +33,7 @@ public class MemberController {
 				return "member/login-fail";
 			} else {
 				HttpSession session=request.getSession();
-				session.setAttribute("mvo", resultVO);				
+				session.setAttribute("mvo", resultVO);
 				return "redirect:/";
 			}
 	 }
