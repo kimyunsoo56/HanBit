@@ -15,10 +15,10 @@
          <br>
        <h4>지역</h4> &nbsp; &nbsp;
         <select id="loc">
-        <option value="0">전체</option>
+        <option value="">전체</option>
         <option th:value="서울">서울</option>
         <option th:value="인천">인천</option>
-        <option th:value="경기도">경기</option>
+        <option th:value="경기">경기</option>
         <option th:value="부산">부산</option>
         <option th:value="대구">대구</option>
         <option th:value="광주">광주</option>
@@ -38,14 +38,14 @@
              &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp;     
           <h4>성별</h4> &nbsp; &nbsp;
         <select id="gen">
-        <option value="0">무관</option>
-        <option value="남자">남자</option>
-        <option value="여자">여자</option>
+        <option value="">무관</option>
+        <option value="남성">남성</option>
+        <option value="여성">여성</option>
         </select>
         &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp;     
         <h4>근무형태</h4>  &nbsp; &nbsp;
         <select id="wtype">
-        <option value="0">전체</option> 
+        <option value="">전체</option> 
         <option value="자택근무">자택근무</option>
         <option value="병원근무">병원근무</option>
         </select>
@@ -77,12 +77,27 @@
 	</tbody>
 </table>
 <br>
-<form th:action="@{WriteMatchBoardForm}">
+
+
+<th:block th:if="${session.mvo!=null}">
+ <th:block th:if="${session.mvo.memberType==2}"> 
+ <form th:action="@{/WriteMatchBoardForm}">
 <button>
 글쓰기
 </button>
 
 </form>
+ </th:block>
+ </th:block>
+
+<!-- <h4 th:text="${session.mvo.memberType}"></h4>
+<h4 th:text="${session.mvo.id}"></h4> -->
+
+ 
+ 
+ 
+
+
 
 <script type="text/javascript">
 		$(function(){
