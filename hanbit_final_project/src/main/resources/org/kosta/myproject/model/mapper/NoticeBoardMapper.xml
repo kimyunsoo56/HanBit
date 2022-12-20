@@ -24,13 +24,13 @@
 			FROM   hanbit_notice_board ) nb, hanbit_member m  
 		WHERE  nb.id=m.id and rnum between #{startRowNumber} AND #{endRowNumber} 
 		ORDER BY notice_no DESC   -->
-SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
-FROM (
-SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
-notice_no, title, SYSDATE AS time_posted, hits, category, id
-FROM hanbit_notice_board ) hnb
-INNER JOIN hanbit_member hm ON hnb.id=hm.id
-ORDER BY hnb.notice_no DESC
+		SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
+		notice_no, title, SYSDATE AS time_posted, hits, category, id
+		FROM hanbit_notice_board ) hnb
+		INNER JOIN hanbit_member hm ON hnb.id=hm.id
+		ORDER BY hnb.notice_no DESC
 		
 	</select>
 	

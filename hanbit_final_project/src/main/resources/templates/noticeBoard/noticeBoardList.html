@@ -44,13 +44,13 @@
 			</tbody>
 		</table>
 		<br>
-		<th:block th:if="${session.mvo.memberType=3}">
+		<th:block th:if="${session.mvo!=null}">
+		<th:block th:if="${session.mvo.memberType == 3}">
 			<form th:action="@{writeNoticeForm}">
 				<button>글쓰기</button>
 			</form>
 		</th:block>
-		<h4 th:text = "${session.mvo.memberType}"></h4>
-		<h4 th:text = "${session.mvo.id}"></h4>
+		</th:block>
 	</div>
 </div>
 <!--================End layout Area =================-->

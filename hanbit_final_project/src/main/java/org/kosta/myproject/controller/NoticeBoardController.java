@@ -12,29 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 public class NoticeBoardController {
 	private final NoticeBoardService noticeBoardService;
-	
+
 	/*
-	@RequestMapping("noticeBoardList")
-	public String noticeBoardList(String pageNo, Model model) {
-	NoticeBoardListVO noticeBoardList = noticeBoardService.noticeBoardList(pageNo);
-		model.addAttribute("nblvo", noticeBoardList);
-		return "noticeBoard/noticeBoardList";
-*/
-		
+	 * @RequestMapping("noticeBoardList") public String noticeBoardList(String
+	 * pageNo, Model model) { NoticeBoardListVO noticeBoardList =
+	 * noticeBoardService.noticeBoardList(pageNo); model.addAttribute("nblvo",
+	 * noticeBoardList); return "noticeBoard/noticeBoardList";
+	 */
+
 	// 게시물 리스트 보기
 	@RequestMapping("noticeBoardList")
 	public String noticeBoardList(Model model) {
 		model.addAttribute("nblvo", noticeBoardService.noticeBoardList1());
 		return "noticeBoard/noticeBoardList";
 	}
-	
+
 	// 게시물 상세보기
 	@RequestMapping("noticeDetail")
 	public String noticeDetail(Model model, int noticeNo) {
@@ -42,16 +39,16 @@ public class NoticeBoardController {
 		model.addAttribute("detail", vo);
 		return "noticeBoard/noticeDetail";
 	}
-	
-	 // 글 전체 조회 (카테고리별로 보기)
- 
-		/*
-		 * // 글쓰기
-		 * 
-		 * @PostMapping("WriteNoticeBoardForm") public String writeNoticeBoardForm() {
-		 * return "noticeBoard/writeNoticeBoardForm"; }
-		 */
-	
+
+	// 글 전체 조회 (카테고리별로 보기)
+
+	/*
+	 * // 글쓰기
+	 * 
+	 * @PostMapping("WriteNoticeBoardForm") public String writeNoticeBoardForm() {
+	 * return "noticeBoard/writeNoticeBoardForm"; }
+	 */
+
 	// 글쓰기 폼으로 이동 (세션 연결 - 세션 만료시 홈으로)
 	@RequestMapping("writeNoticeForm")
 	public String writeNoticeForm(HttpSession session) {
@@ -59,33 +56,29 @@ public class NoticeBoardController {
 			return "redirect:noticeBoard/noticeBoardList";
 		return "noticeBoard/writeNoticeBoard";
 	}
-	
+
 	// 글쓰기 (세션 연결)
 	@PostMapping("writeNoticeBoard")
 	public String write(NoticeBoardVO noticeBoardVO, HttpSession session, RedirectAttributes ra) {
 		System.out.println(noticeBoardVO);
-		
+
 		if (session.getAttribute("mvo") == null)
 			return "redirect:noticeBoard/noticeBoardList";
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-		noticeBoardVO.setMemberVO(mvo);
 		noticeBoardVO.setImage("file.png");
 		noticeBoardVO.setCategory("알림글");
 		noticeBoardService.writeNoticeBoard(noticeBoardVO);
 		ra.addAttribute("noticeNo", noticeBoardVO.getNoticeNo());
-		//return "redirect:noticeBoard/noticeBoardList";
+		// return "redirect:noticeBoard/noticeBoardList";
 		return "redirect:noticeWriteResult";
 	}
-	
+
 	@RequestMapping("noticeWriteResult")
 	public String noticeWriteResult(Model model) {
 		model.addAttribute("nblvo", noticeBoardService.noticeBoardList1());
 		return "noticeBoard/noticeBoardList";
 	}
-	
-	
-	
-	
+
 	/*
 	 * // 본인이 게시한 게시글 상세보기 (조회수 증가 X) // - 글쓰기, 수정 시 사용
 	 * 

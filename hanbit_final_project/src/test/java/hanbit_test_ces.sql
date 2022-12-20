@@ -2,8 +2,8 @@
 INSERT INTO hanbit_member(id, password, name, nick, question, answer, tel, enabled, member_type, license_no, gender, work_history, location, work_type) 
 VALUES ('admin', 'a', '관리자', '관리자', '질문', '대답', 010, 1, 3, 1111, '여성', '이력', '수원', '자택근무');
 
-UPDATE hanbit_member SET enabled=3 WHERE id='admin';
-UPDATE hanbit_member SET member_type=1 WHERE id='admin';
+UPDATE hanbit_member SET enabled=1 WHERE id='admin';
+UPDATE hanbit_member SET member_type=3 WHERE id='admin';
 
 -- 알림 게시판 게시글 생성
 INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,hits, category, image, id)  
