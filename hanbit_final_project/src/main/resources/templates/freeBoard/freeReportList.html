@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+ <!--================Start layout Area =================-->
+<div layout:fragment="content">
+
+<p th:text="${reportList}"></p>번 글에서 신고가 접수되었습니다.
+
+
+</div>
+ <!--================End layout Area =================-->

@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.FreeBoardService;
+import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
+import org.kosta.myproject.model.vo.ReportVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,23 +44,16 @@ public class FreeBoardController {
 		 
 		return "freeBoard/freeWrite";
 	}
-	
-	// 글쓰기 기능
+	//글쓰기
 	@PostMapping("write")
-	//RedirectAttributes : 쿼리스트링 방식을 간단하게 처리할 수 있는 interface
-	public String write(FreeBoardVO freeBoardVO, HttpSession session, Model model) {
-		//세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
-		if (session.getAttribute("mvo") == null)
-			return "redirect:home.do";
-		//세션에서 memberVO 정보 받아와서 freeBoardVO객체에 할당
-		MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
-		freeBoardVO.setMemberVO(memberVO);
-		//글 작성 동작
-		freeBoardService.write(freeBoardVO);
-
-		return "redirect:freeDetail";
-	
+	public String write(MemberVO memberVO,String title,String content,String category, HttpSession session) {
+		String id = memberVO.getId();
+		System.out.println(id);
+		System.out.println(category);
+		freeBoardService.registerFreeBoard(title, content,category, id);
+		return "redirect:freeBoardList";
 	}
+	
 	//글 상세보기
 	@RequestMapping("freeDetail")
 	public ModelAndView getFreeDetail(int freeNo, HttpSession session, RedirectAttributes ra) {  
@@ -83,18 +77,9 @@ public class FreeBoardController {
 		freeBoardService.freeDelete(freeNo);
 		return "redirect:freeBoardList";
 	}
-	
-	//게시글 수정폼
-	/*@RequestMapping("freeDetailUpdateForm") 
-    public String freeDetailUpdateForm(Model model, int freeNo) {
-      model.addAttribute("freeNo",freeNo);
-    System.out.println(freeNo);
-    return "freeBoard/freeDetailUpdateForm";
-    }
-	*/
+
 	  @RequestMapping("freeDetailUpdateForm")
 	public String freeDetailUpdateForm(int freeNo, HttpServletRequest request, Model model) {
-		System.out.println("제발!!!");
 		HttpSession session=request.getSession();
 		//세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
 		if (session.getAttribute("mvo") == null)
@@ -112,8 +97,37 @@ public class FreeBoardController {
 		freeBoardService.freeUpdate(freeBoardVO);
 		return "redirect:freeBoardList";
 	}
-	
-
+	//신고
+	@PostMapping("freeReport")
+	public String freeReport(int freeNo) {
+		freeBoardService.freeReport(freeNo);
+		return "redirect:freeBoardList";
+	}
+	//신고리스트 보기
+	@GetMapping("freeReportList")
+	public String freeReportList(Model model) {
+		List<ReportVO> reportList = freeBoardService.findReportList();
+		model.addAttribute("reportList", reportList);
+		System.out.println(reportList);
+		return "freeBoard/freeReportList";
+	}
+	//댓글
+	@PostMapping("writeComment")
+	public String writeComment(CommentVO commentVO,Model model) {
+		System.out.println(commentVO);
+		freeBoardService.registerComment(commentVO);
+		//model.addAttribute("comment",commentVO);
+		return "redirect:freeDetail?freeNo="+commentVO.getFreeNo();
+	}
+/*
+ * @PostMapping("write")
+	public String write(MemberVO memberVO,String title,String content,String category, HttpSession session) {
+		String id = memberVO.getId();
+		System.out.println(category);
+		freeBoardService.registerFreeBoard(title, content,category, id);
+		return "redirect:freeBoardList";
+	}
+ */
 	
 	
 }

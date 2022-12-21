@@ -49,3 +49,9 @@ values(hanbit_free_board_seq.nextval,'테스트 중입니다','테스트 중입�
 insert into hanbit_free_board (free_no,title,content,time_posted,hits,category,image,id)
 values(hanbit_free_board_seq.nextval,'테스트 중입니다','테스트 중입니다',sysdate,0,'자유',null,'spring');
 
+CREATE TABLE hanbit_report_board(
+report_no NUMBER 
+)
+select * from hanbit_report_board;
+
+select * from HANBIT_COMMENT;
