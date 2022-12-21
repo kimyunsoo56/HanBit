@@ -13,6 +13,10 @@
 		<result column="id" property="memberVO.id"/>
 		<result column="nick" property="memberVO.nick"/>
 	</resultMap>
+	<resultMap type="org.kosta.myproject.model.vo.CommentVO" id="comment">
+		<result column="id" property="memberVO.id"/>
+		<result column="nick" property="memberVO.nick"/>
+	</resultMap>
 	
 	<!--  게시물 목록조회 -->
  	<select id="findAll" resultMap="freeBoardList">
@@ -35,12 +39,8 @@
 			SELECT hanbit_free_board_seq.nextval
 			FROM   dual
 		</selectKey>
-	<!-- 	insert into hanbit_free_board (freeNo,title, nick, time_posted, content, image)
-		values(#{freeNo}, #{title}, #{memberVO.nick}, sysdate,#{content},#{image})
-
--->
-		insert into hanbit_free_board (freeNo,title, nick, time_posted, content)
-		values(#{freeNo}, #{title}, #{memberVO.nick}, sysdate,#{content})
+		insert into hanbit_free_board (free_no,title, id, time_posted, content)
+		values(#{freeNo}, #{title}, #{memberVO.id}, sysdate,#{content})
 	</insert>
 	
 	<!--  게시물 삭제 -->
@@ -58,9 +58,41 @@
 	<!-- 게시글수정 -->
 	<update id="freeUpdate" parameterType="org.kosta.myproject.model.vo.FreeBoardVO">
 	update hanbit_free_board
-	set title=#{title}, content=#{content}
+	set title=#{title}, content=#{content}, category=#{category}
 	 where free_no=#{freeNo}
 	</update>
-
-	
+	<!-- 글쓰기 -->
+	<insert id="registerFreeBoard" parameterType="string">
+		insert into hanbit_free_board (free_no,title, id, time_posted, content, category)
+		values(hanbit_free_board_seq.nextval, #{title}, #{id}, sysdate,#{content},#{category})
+	</insert>
+	<!-- 신고 -->
+	<insert id="freeReport" parameterType="int">
+		insert into hanbit_report_board (report_no)
+		values(#{value})
+	</insert>
+	<!-- 신고목록조회 -->
+	<select id="findReportList" resultType="int">
+		select * from hanbit_report_board
+	</select> 
+	<!-- 댓글 작성 -->
+	<insert id="registerComment" parameterType="org.kosta.myproject.model.vo.CommentVO">
+		insert into hanbit_comment(comment_no,content,time_posted,id,free_no)
+		values(hanbit_comment_seq.nextval,#{content}, sysdate, #{id},#{freeNo})
+	</insert> 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

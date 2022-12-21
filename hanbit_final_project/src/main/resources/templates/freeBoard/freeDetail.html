@@ -1,80 +1,90 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/layout}"
-> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛_자유게시판 게시글 상세보기 페이지</title>
 </head>
- <!--================Start layout Area =================-->
+<!--================Start layout Area =================-->
 <div layout:fragment="content">
- 
-<script type="text/javascript">
-    $(document).ready(function(){
-    	
-    	$("#deleteForm").submit(function() {
-			return confirm("게시글을 삭제하시겠습니까?");
-		});//deleteForm
-		
-		$("#updateForm").submit(function() {
-			return confirm("게시글을 수정하시겠습니까?");
-		});//updateForm
-    
-    });//ready	
-</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$("#deleteForm").submit(function() {
+				return confirm("게시글을 삭제하시겠습니까?");
+			});//deleteForm
+
+			$("#updateForm").submit(function() {
+				return confirm("게시글을 수정하시겠습니까?");
+			});//updateForm
+
+		});//ready
+	</script>
 
 
-<!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
+	<!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
 
 
-			<p th:text="${freeDetail.freeNo}">글번호</p>
-			<p th:text="${freeDetail.title}">제목</p>
-			<p th:text="${freeDetail.memberVO.nick}">작성자</p>
-			<p th:text="${freeDetail.hits}">조회수</p>
-            <p th:text="${freeDetail.content}">내용</p>
-            <p th:text="${freeDetailcategory}">카테고리</p>	
+	<p th:text="${freeDetail.freeNo}">글번호</p>
+	<p th:text="${freeDetail.title}">제목</p>
+	<p th:text="${freeDetail.memberVO.nick}">작성자</p>
+	<p th:text="${freeDetail.hits}">조회수</p>
+	<p th:text="${freeDetail.content}">내용</p>
+	<p th:text="${freeDetailcategory}">카테고리</p>
 
-			<p th:text="${freeDetail.content}"></p>
-			
-
-
-<th:block th:if="${session.mvo!=null}">
- <th:block th:if="${session.mvo.nick==freeDetail.memberVO.nick}"> 
-   <form th:action="@{freeDelete?freeNo=}+${freeDetail.freeNo}" method="post">
-         <button >
-            삭제
-         </button>
-      </form>
-      
-  <form id="freeDetailUpdateForm" th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}">
-  	<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
-         <button type="submit">
-            수정
-         </button>
-      </form>
-     
-      <!-- <a th:href="@{/freeBoard/freeDetailUpdateForm/{freeNo}(freeNo=${freeDetail.freeNo})}">글 수정</a> -->
- </th:block>
- </th:block>
-
- 
+	<p th:text="${freeDetail.content}"></p>
 
 
+	<form th:action="@{freeReport?freeNo=}+${freeDetail.freeNo}"
+		method="post">
+		<button>신고</button>
+	</form>
+	<th:block th:if="${session.mvo!=null}">
+		<th:block th:if="${session.mvo.nick==freeDetail.memberVO.nick}">
+			<form th:action="@{freeDelete?freeNo=}+${freeDetail.freeNo}"
+				method="post">
+				<button>삭제</button>
+			</form>
 
-			<!--  <form action="@{freeDelete}" id="freeDelete" method="POST">
-			 	<button form="deleteForm" type="submit">삭제</button>		
-			 </form>
-
-			 <form action="@{freeUpdate}" id="freeUpdate" method="POST">
-			 	 <button form="updateForm" type="submit">수정</button>		
-			 </form>	
-			 --> 	
-			 	 
+			<form id="freeDetailUpdateForm"
+				th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}">
+				<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
+				<button type="submit">수정</button>
+			</form>
+		</th:block>
+	</th:block>
 
 
+	<!-------------- 댓글 ------------------>
+	<!-- <form action="@{writeComment?freeNo=}+${freeDetail.freeNo}"> -->
+	<form th:action="@{/writeComment}" method="post">
+		<div class="comment-box">
+		<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
+			<div class="comment-name">
+				작성자 : <input name="id" th:value="${session.mvo.id}"
+					class="form-control"  readonly
+					style="width: 100px; border: none;">
+			</div>
 
-    </div>
+			<div class="comment-sbox">
+				<textarea class="comment-input" name="content" cols="80" rows="2"></textarea>
+			</div>
+			<div>
+				<button type="submit">댓글등록</button>
+			</div>
+		</div>
+	</form>
+	
+	<div>
+		<span th:text="${comment}"></span>
+	</div>
 
 
- <!--================End layout Area =================-->
+
+
+
+</div>
+
+<!--================End layout Area =================-->

@@ -190,6 +190,30 @@ public class MemberController {
       model.addAttribute("workTypeList", workType);
       return "member/register-careworker-form";
    }
+   // 자격증 번호 중복체크
+	@RequestMapping("registerCheckLicenseNo")
+	@ResponseBody
+	public int registerCheckLicenseNo(int licenseNo) {
+		int checkLicenseNo=memberService.checkLicenseNo(licenseNo);
+		return checkLicenseNo;
+	}
+	// 요양보호사 등록
+	@PostMapping("registerCareWorker")
+	public String registerCareWorker(MemberVO memberVO,HttpServletRequest request) {
+		HttpSession session=request.getSession(false);
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		memberService.registerCareWorker(memberVO);
+		String id=mvo.getId();
+		mvo=memberService.findMemberById(id);
+		session.setAttribute("mvo", mvo);
+		return "redirect:registerCareWorkerResult";
+	}
+	// 요양보호사 등록 결과
+	@RequestMapping("registerCareWorkerResult")
+	public String registerCareWorkerResult() {
+		return "member/register-careworker-result";
+	}
+   // 탈퇴 페이지 폼 
     @RequestMapping("deleteMemberForm")
     public String deleteMemberForm(Model model) {
        List<String> delectquestion=new ArrayList<>();
@@ -203,17 +227,24 @@ public class MemberController {
        model.addAttribute("delectquestionList", delectquestion);
        return "member/deleteMember-form";
     }
-    // 회원탈퇴 쿼리문은 메서드명은 회원 탈퇴라 delect이고 쿼리문은 update 
-      /*
-       * @PostMapping("deleteMember") public String deleteMember(MemberVO memberVO,
-       * HttpServletRequest request) { MemberService.delectMember(memberVO); MemberVO
-       * memberVO=(MemberVO) session.getAttribute("mvo"); HttpSession
-       * session=request.getSession(false); if() {
-       * 
-       * }else {
-       * 
-       * return "member/deleteMember-result"; } }
-       */
+    // 회원탈퇴 
+    // 회원탈퇴는 메서드명만 회원 탈퇴로 delect이고 쿼리문은 update 로 작동한다. 
+     @PostMapping("deleteMember") 
+     @ResponseBody
+     public String deleteMember(HttpServletRequest request,MemberVO memberVO) { 
+    	HttpSession session=request.getSession(false);
+    	MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+    	memberService.deleteMember(memberVO);
+		String id=mvo.getId();
+    	mvo=memberService.findMemberById(id);
+    	session.setAttribute("mvo", mvo);
+    	session.invalidate();
+    	return "redirect:deleteMemberResult"; 
+       }
+     @RequestMapping("deleteMemberResult")
+     public String deleteMemberResult() {
+    	 return "member/deleteMember-result";
+     }
    // 회원 정보 수정 폼
       @RequestMapping("updateMemberForm")
       public String updateMemberForm(Model model) {
@@ -256,5 +287,27 @@ public class MemberController {
          workType.add("병원근무");
          model.addAttribute("workTypeList", workType);
          return "member/update-member-form";
+      }
+      // 회원 정보 수정
+      @PostMapping("updateMember")
+      public String updateMember(MemberVO memberVO,HttpServletRequest request) {
+    	  HttpSession session=request.getSession(false);
+    	  MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+    	  memberService.updateMember(memberVO);
+    	  String id=mvo.getId();
+    	  mvo=memberService.findMemberById(id);
+    	  session.setAttribute("mvo", mvo);
+    	  return "redirect:updateMemberResult";
+      }
+      @RequestMapping("updateMemberResult")
+      public String updateMemberResult() {
+    	  return "member/update-member-result";
+      }
+      // 연락처 중복체크 Ajax
+      @RequestMapping("updateCheckTel")
+      @ResponseBody
+      public int updateCheckTel(String tel) {
+         int checkTel=memberService.checkTel(tel);
+         return checkTel;
       }
 }

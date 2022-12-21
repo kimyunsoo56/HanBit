@@ -33,11 +33,20 @@
         </tr>
     </tbody>
 </table>
+ <th:block th:if="${session.mvo!=null}">
  <form th:action="@{freeWrite}">
          <button>
             글쓰기
          </button>
       </form>
 
+<th:block th:if="${session.mvo.memberType == 3}">
+ <form th:action="@{/freeReportList}">
+         <button>
+           신고리스트 보기
+         </button>
+      </form>
+</th:block>
+</th:block>
 </div>
  <!--================End layout Area =================-->

@@ -62,7 +62,18 @@
 			</table>
 			</th:block>
 			<div align="right">
-				<a class="banner_btn" th:href="@{/updateMemberForm}">회원 정보 수정</a>
+				<form action="" th:action="@{/updateMemberForm}" id="updateForm"></form>
+				<a class="banner_btn2" id="updateFormBtn">회원 정보 수정</a>
+				<script type="text/javascript">
+					$(document).ready(function() {
+						$("#updateFormBtn").click(function() {
+							let resultUpdate=confirm("회원 정보를 수정하시겠습니까?")
+							if(resultUpdate==true){
+								$("#updateForm").submit();
+							}
+						});//click
+					});//ready
+				</script>
 			</div>
 		</div>
 	</div>
