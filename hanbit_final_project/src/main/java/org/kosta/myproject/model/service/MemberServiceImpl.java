@@ -63,5 +63,8 @@ public class MemberServiceImpl implements MemberService{
 	public void updateMember(MemberVO memberVO) {
 		memberMapper.updateMember(memberVO);
 	}
+	public void deleteMember(MemberVO memberVO) {
+		memberMapper.deleteMember(memberVO);
+	}
 
 }
