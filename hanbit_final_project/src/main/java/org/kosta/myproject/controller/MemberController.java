@@ -203,17 +203,24 @@ public class MemberController {
        model.addAttribute("delectquestionList", delectquestion);
        return "member/deleteMember-form";
     }
-    // 회원탈퇴 쿼리문은 메서드명은 회원 탈퇴라 delect이고 쿼리문은 update 
-      /*
-       * @PostMapping("deleteMember") public String deleteMember(MemberVO memberVO,
-       * HttpServletRequest request) { MemberService.delectMember(memberVO); MemberVO
-       * memberVO=(MemberVO) session.getAttribute("mvo"); HttpSession
-       * session=request.getSession(false); if() {
-       * 
-       * }else {
-       * 
-       * return "member/deleteMember-result"; } }
-       */
+    // 회원탈퇴 
+    // 회원탈퇴는 메서드명만 회원 탈퇴로 delect이고 쿼리문은 update 로 작동한다. 
+     @PostMapping("deleteMember") 
+     public String deleteMember(HttpServletRequest request) { 
+    	String viewName=null;
+    	HttpSession session=request.getSession(false);
+    	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
+		/* String id=mvo.getId(); */
+    	memberService.deleteMember(memberVO);
+    	/*String deleteMember=memberService.findPassword(id,password,question,answer);*/
+    	if(memberVO!=null) {
+    		viewName="member/deleteMember-fail";
+    	}else {
+    		session.invalidate();
+    		viewName="member/deleteMember-result";
+    	}
+    	return viewName; 
+       }
    // 회원 정보 수정 폼
       @RequestMapping("updateMemberForm")
       public String updateMemberForm(Model model) {

@@ -1,34 +1,42 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/member_layout}"
-> <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/member_layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛</title>
 </head>
- <!--================Start layout Area =================-->
-        <div layout:fragment="content">
-            <div class="row g-4">
-            <div class="col-lg12 offset-lg-4 col-md-8">
-              <h1 style="color: #a7cb00">회원 탈퇴</h1>
-              <br>
-              <form action="" th:action="@{/delectMember}" method="post" id="delectMemberForm">
-                 <h5>비밀번호</h5>
-	        	<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword1">
-                 <br><br>
-                 <h5>개인확인 질문</h5>
-                 <select name="question" required="required">
-						<option value="">개별질문</option>
-						<option th:each="delectquestion: ${delectquestionList}" th:value="${delectquestion}" th:text="${delectquestion}"></option>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<div class="row g-4">
+		<div class="col-lg12 offset-lg-4 col-md-8">
+			<h1 style="color: #a7cb00">회원 탈퇴</h1>
+			<br>
+				<h5>비밀번호</h5>
+				<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword1">
+				<br><br>
+				<h5>개인확인 질문</h5>
+				<select name="question" required="required"><option value="">개별질문</option>
+					<option th:each="delectquestion: ${delectquestionList}" th:value="${delectquestion}" th:text="${delectquestion}"></option>
 				</select> 
-                 <br><br>
-                 <h5>개인확인 답변</h5>
-                 <input class="form-control-lg" type="text" name="tel" placeholder="개인확인 답변 입력하세요" required="required">
-                 <br><br>
-                 <button type="submit" class="btn btn-outline-success btn-lg">회원탈퇴하기</button>
-              </form>
-           </div>
-          </div>
-        </div>
- <!--================End layout Area =================-->
+				<br><br>
+				<h5>개인확인 답변</h5>
+				<input class="form-control-lg" type="text" name="tel" placeholder="개인확인 답변 입력하세요" required="required"> 
+				<br><br>
+				<!-- <th:block th:if="${session.mvo}"> -->
+				<form id="deleteMemberForm" action="" th:action="@{/deleteMember}" method="post">
+				<button type="submit" class="btn btn-outline-success btn-lg">탈퇴하기</button>
+				</form>
+				<script>
+				$(function() {
+					$("#deleteMemberForm").submit(function() {
+						return confirm("탈퇴하시겠습니까?");
+					});
+				});
+				</script>
+		</div>
+	</div>
+</div>
+<!--================End layout Area =================-->

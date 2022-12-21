@@ -31,7 +31,7 @@ select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,
 	SELECT password FROM hanbit_member WHERE id=#{id} AND name=#{name}
 	AND tel=#{tel} AND question=#{question} AND answer=#{answer}
 </select>
-<update id="deleteMember" parameterType="org.kosta.myproject.model.vo.MemberVO">
+<update id="deleteMember" parameterType="org.kosta.myproject.model.vo.MessageVO">
 UPDATE hanbit_member SET enabled=2 where id=#{id} and password=#{password} and question=#{question} and answer=#{answer}
 </update>
 <select id="checkLicenseNo" parameterType="int" resultType="int">

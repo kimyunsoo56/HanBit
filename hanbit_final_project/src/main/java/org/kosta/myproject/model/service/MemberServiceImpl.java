@@ -59,4 +59,10 @@ public class MemberServiceImpl implements MemberService{
 		memberMapper.registerCareWorker(memberVO);
 	}
 
+	@Override
+	public int deleteMember(MemberVO memberVO) {
+		return memberMapper.deleteMember(memberVO);
+	}
+
+
 }
