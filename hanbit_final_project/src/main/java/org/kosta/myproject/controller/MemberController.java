@@ -295,4 +295,11 @@ public class MemberController {
       public String updateMemberResult() {
     	  return "member/update-member-result";
       }
+      // 연락처 중복체크 Ajax
+      @RequestMapping("updateCheckTel")
+      @ResponseBody
+      public int updateCheckTel(String tel) {
+         int checkTel=memberService.checkTel(tel);
+         return checkTel;
+      }
 }

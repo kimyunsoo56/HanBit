@@ -13,51 +13,58 @@
 			<form action="" th:action="@{/updateMember}" method="post" id="updateForm">
 				<h1 style="color: #a7cb00">회원 정보 수정</h1>
 				<br>
-				<h5>아이디</h5>
+				<h4>아이디</h4>
 				<input class="form-control-lg" type="text" name="id" readonly="readonly" th:value="${session.mvo.id}">
 					
-				<h5>비밀번호</h5>
-				<input class="form-control-lg" type="password" name="password" required="required" th:value="${session.mvo.password}">
+				<h4>비밀번호</h4>
+				<input class="form-control-lg" type="password" name="password" required="required" th:value="${session.mvo.password}" id="checkPassword1">
+							
+				<h4>비밀번호 확인</h4>
+				<input class="form-control-lg" type="password" required="required" id="checkPassword2">
+				&nbsp;&nbsp;<span id="checkPasswordResult"></span><br>				
 				
-				<h5>이름</h5>
+				<h4>이름</h4>
 				<input class="form-control-lg" type="text" name="name" required="required" th:value="${session.mvo.name}">
 				
-				<h5>닉네임</h5>
+				<h4>닉네임</h4>
 				<input class="form-control-lg" type="text" name="nick" required="required" th:value="${session.mvo.nick}">
 				
-				<h5>개별질문</h5> 
+				<h4>개별질문</h4> 
 					<select name="question" required="required">
 						<option value="" th:text="${session.mvo.question}" th:value="${session.mvo.question}">개별질문</option>
 						<option th:each="question: ${questionList}" th:value="${question}" th:text="${question}"></option>
 					</select>
 				<br><br>
 				
-				<h5>답변</h5>
+				<h4>답변</h4>
 				<input class="form-control-lg" type="text" name="answer" required="required" th:value="${session.mvo.answer}">
 				
-				<h5>연락처</h5>
-				<input class="form-control-lg" type="text" name="tel" required="required" th:value="${session.mvo.tel}">
-				
+				<h4>연락처</h4>
+				<input type="hidden" th:value="${session.mvo.tel}"id="sessionTel">
+				<input class="form-control-lg" type="text" name="tel" required="required" th:value="${session.mvo.tel}" id="checkTel">
+				&nbsp;&nbsp;<button type="button" id="checkTelBtn" class="btn btn-outline-success btn-lg">연락처 확인</button>
+	  			&nbsp;&nbsp;<span id="checkTelResult"></span><br><br>
+	  			
 				<th:block th:if="${session.mvo.memberType==2}">
-					<h5>자격증번호</h5>
+					<h4>자격증번호</h4>
 					<input class="form-control-lg" type="text" name="licenseNo" readonly="readonly" th:value="${session.mvo.licenseNo}">
 					
-					<h5>성별</h5>
+					<h4>성별</h4>
 					<input class="form-control-lg" type="text" name="gender" readonly="readonly" th:value="${session.mvo.gender}">
 					
-					<h5>경력</h5>
+					<h4>경력</h4>
 					<select name="workHistory" required="required">
 						<option value="" th:text="${session.mvo.workHistory}" th:value="${session.mvo.workHistory}"></option>
 						<option th:each="workHistory: ${workHistoryList}" th:value="${workHistory}" th:text="${workHistory}"></option>
 					</select>
 					<br><br>
-					<h5>근무지역</h5>
+					<h4>근무지역</h4>
 					<select name="location" required="required">
 						<option value="" th:text="${session.mvo.location}" th:value="${session.mvo.location}">근무 지역</option>
 						<option th:each="location: ${locationList}" th:value="${location}" th:text="${location}"></option>
 					</select>
 					<br><br>
-					<h5>근무형태</h5>
+					<h4>근무형태</h4>
 					<select name="workType" required="required">
 						<option value="" th:text="${session.mvo.workType}" th:value="${session.mvo.workType}">근무 형태</option>
 						<option th:each="workType: ${workTypeList}" th:value="${workType}" th:text="${workType}"></option>
@@ -68,14 +75,65 @@
 					<button type="submit" class="btn btn-outline-success btn-lg" id="updateBtn">수정하기</button>
 				</div>
 			</form>
+			
 			<script type="text/javascript">
 				$(document).ready(function() {
-					$("#updateBtn").click(function() {
-						let resultUpdate=confirm("수정하시겠습니까?")
-						if(resultUpdate==true){
-							$("#updateForm").submit();
-						}
-					});//click
+					let checkResultPassword="N";
+        			let checkResultTel="N";
+        			// 중복체크 했는지 확인하는 부분
+					$("#updateForm").submit(function() {
+						if(checkResultPassword=="N"){
+        					alert("비밀번호 확인을 해주세요");
+        					return false;
+        				}else if(checkResultTel=="N"){
+        					alert("연락처 확인을 해주세요");
+        					return false;
+        				}
+        			});//submit
+        			
+        			// 비밀번호 체크
+        			$("#checkPassword2").keyup(function() {
+        				if($("#checkPassword1").val().trim().length<6){
+							$("#checkPasswordResult").html("<font color=red>6자 이상 입력하세요</font>");
+							checkResultPassword="N"
+        				}else{
+	    					if($("#checkPassword1").val()!=$("#checkPassword2").val()){
+		        				$("#checkPasswordResult").html("<font color=red>비밀번호가 일치하지 않습니다</font>");
+		        				checkResultPassword="N"
+	    					}else{
+			        			$("#checkPasswordResult").html("<font color=blue>비밀번호가 일치합니다</font>");
+			        			checkResultPassword="Y"
+	    					}//else
+    					}//else
+        			});//keyupPassword 
+        			
+        			// 연락처 중복체크
+        			$("#checkTelBtn").click(function() {
+        				let checkTel=$("#checkTel").val().trim();
+        				let telResult=$("#sessionTel").val().trim();
+        					$.ajax({
+        					type:"get",
+        					url:"updateCheckTel",
+        					data:"tel="+checkTel,
+        					success:function(result){
+        						 if(checkTel.trim().length!=11){
+									$("#checkTelResult").html("<font color=red>연락처를 다시 확인해주세요</font>");
+									checkResultTel="N"
+        						}else{
+    								if(checkTel==telResult){
+	        							$("#checkTelResult").html("<font color=blue>인증 완료</font>");
+	        							checkResultTel="Y"
+    								}else if(result){
+    									$("#checkTelResult").html("<font color=red>이미 사용중인 연락처입니다</font>");
+	        							checkResultTel="N"
+    								}else{
+	        							$("#checkTelResult").html("<font color=blue>사용 가능한 연락처입니다</font>");
+	        							checkResultTel="Y"
+    								}//else
+        						}//else 
+        					}//success
+        				});//ajax		
+        			});//checkTel 
 				});//ready
 			</script>
 		</div>
