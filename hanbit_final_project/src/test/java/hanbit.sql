@@ -28,6 +28,7 @@ CREATE TABLE hanbit_notice_board(
 	hits NUMBER DEFAULT 0,
 	category VARCHAR2(100), 
 	image VARCHAR2(100),
+	link VARCHAR2(100),
 	id VARCHAR2(100) NOT NULL,
 	CONSTRAINT hanbit_notice_board_fk FOREIGN KEY(id) REFERENCES hanbit_member(id)
 )
@@ -35,6 +36,9 @@ CREATE SEQUENCE hanbit_notice_board_seq;
 DROP TABLE hanbit_notice_board;
 DROP SEQUENCE hanbit_notice_board_seq;
 SELECT * FROM hanbit_notice_board;
+
+-- 알림 게시판 테이블 링크 컬럼 추가
+ALTER TABLE hanbit_notice_board ADD link VARCHAR  VARCHAR2(100);
 
 -- 한빛 자유 게시판 테이블 생성
 CREATE TABLE hanbit_free_board(
@@ -113,6 +117,7 @@ DROP TABLE hanbit_message;
 DROP SEQUENCE hanbit_message_seq;
 SELECT * FROM hanbit_message;
 
+commit
 
 
 

@@ -6,16 +6,53 @@ UPDATE hanbit_member SET enabled=1 WHERE id='admin';
 UPDATE hanbit_member SET member_type=3 WHERE id='admin';
 
 -- 알림 게시판 게시글 생성
-INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,hits, category, image, id)  
-VALUES (hanbit_notice_board_seq.nextval, '테스트1', '안녕하세요', SYSDATE, 0, '공지사항', 'te.png', 'admin');
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category, image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목', '내용',sysdate, 0, '건강 정보', '이미지', 'www.naver.com', 'admin')
 
-INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,hits, category, image, id)  
-VALUES (hanbit_notice_board_seq.nextval, '테스트2', '안녕하세요', SYSDATE, 0, '건강 정보', 'te.png', 'admin');
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category, image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목1', '내용1',sysdate, 0, '건강 정보', '이미지', 'www.naver.com', 'admin')
 
-INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,hits, category, image, id)  
-VALUES (hanbit_notice_board_seq.nextval, '테스트3', '안녕하세요', SYSDATE, 0, '알림 정보', 'te.png', 'admin');
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목2', '내용2',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
 
-DELETE  FROM hanbit_notice_board WHERE title = '테스트2';
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목3', '내용3',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목4', '내용4',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목5', '내용5',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목6', '내용6',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목7', '내용7',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목8', '내용8',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category,
+image, link, id)
+VALUES(hanbit_notice_board_seq.nextval, '제목9', '내용9',sysdate, 0, '건강 정보', 
+'이미지', 'www.naver.com', 'admin')
+
+DELETE  FROM hanbit_notice_board WHERE title = '제목';
 
 commit
 
@@ -54,7 +91,7 @@ INNER JOIN hanbit_member hm ON hnb.id=hm.id
 ORDER BY hnb.notice_no DESC
 
 -- 알림 게시판 게시물 디테일 뷰 출력
-SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image
+SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image, hnb.link
 FROM hanbit_notice_board hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 WHERE hnb.notice_no = 1 
@@ -91,8 +128,8 @@ ORDER BY hnb.notice_no DESC
 SELECT hanbit_notice_board_seq.nextval
 FROM   dual
 
-INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted, hits, category, image, id)
-VALUES(hanbit_notice_board_seq.nextval, '제목', '내용',sysdate, 0, '건강 정보', '이미지', 'admin')
+
+
 
 
 

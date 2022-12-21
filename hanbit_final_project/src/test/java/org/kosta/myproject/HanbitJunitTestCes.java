@@ -1,14 +1,19 @@
 package org.kosta.myproject;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
-import org.kosta.myproject.model.vo.MemberVO;
+import org.kosta.myproject.model.service.Criteria;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import lombok.extern.java.Log;
 
 @SpringBootTest
 public class HanbitJunitTestCes {
@@ -57,7 +62,7 @@ public class HanbitJunitTestCes {
 			System.out.println(vo);
 			vo.setTitle("안녕하세요!" + i);
 			vo.setContent("오늘은 날씨가 참 좋습니다!" + i);
-			noticeBoardMapper.writeNoticeBoard(vo);
+			noticeBoardMapper.noticeWrite(vo);
 
 			System.out.println(noticeBoardMapper.getTotalPostCount());
 		}

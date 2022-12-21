@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class NoticeBoardController {
@@ -31,7 +33,21 @@ public class NoticeBoardController {
 		model.addAttribute("nblvo", noticeBoardService.noticeBoardList1());
 		return "noticeBoard/noticeBoardList";
 	}
-
+	
+		// 글 전체 조회 (카테고리별로 보기)
+	@RequestMapping("noticeFindByCategory")
+	public String noticeFindByCategory (NoticeBoardVO noticeBoardVO, Model model) {
+		log.debug("param:{}", noticeBoardVO);
+		model.addAttribute("nblvo", noticeBoardService.noticeFindByCategory(noticeBoardVO));
+		return "noticeBoard/noticeBoardList :: #noticeTbody";
+	}
+	
+	// 게시물 리스트 보기 (페이지네이션)
+	/*
+	 * @RequestMapping("noticeBoardList") public String noticeBoardList(Model model)
+	 * { model.addAttribute("nblvo", noticeBoardService.noticeBoardList1()); return
+	 * "noticeBoard/noticeBoardList"; }
+	 */
 	// 게시물 상세보기
 	@RequestMapping("noticeDetail")
 	public String noticeDetail(Model model, int noticeNo) {
@@ -40,34 +56,27 @@ public class NoticeBoardController {
 		return "noticeBoard/noticeDetail";
 	}
 
-	// 글 전체 조회 (카테고리별로 보기)
 
-	/*
-	 * // 글쓰기
-	 * 
-	 * @PostMapping("WriteNoticeBoardForm") public String writeNoticeBoardForm() {
-	 * return "noticeBoard/writeNoticeBoardForm"; }
-	 */
+	
 
 	// 글쓰기 폼으로 이동 (세션 연결 - 세션 만료시 홈으로)
 	@RequestMapping("writeNoticeForm")
 	public String writeNoticeForm(HttpSession session) {
 		if (session.getAttribute("mvo") == null)
 			return "redirect:noticeBoard/noticeBoardList";
-		return "noticeBoard/writeNoticeBoard";
+		return "noticeBoard/noticeWrite";
 	}
 
 	// 글쓰기 (세션 연결)
-	@PostMapping("writeNoticeBoard")
+	@PostMapping("noticeWrite")
 	public String write(NoticeBoardVO noticeBoardVO, HttpSession session, RedirectAttributes ra) {
 		System.out.println(noticeBoardVO);
 
 		if (session.getAttribute("mvo") == null)
 			return "redirect:noticeBoard/noticeBoardList";
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-		noticeBoardVO.setImage("file.png");
-		noticeBoardVO.setCategory("알림글");
-		noticeBoardService.writeNoticeBoard(noticeBoardVO);
+		noticeBoardVO.setMemberVO(mvo);
+		noticeBoardService.noticeWrite(noticeBoardVO);
 		ra.addAttribute("noticeNo", noticeBoardVO.getNoticeNo());
 		// return "redirect:noticeBoard/noticeBoardList";
 		return "redirect:noticeWriteResult";

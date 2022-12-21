@@ -3,6 +3,7 @@ package org.kosta.myproject.model.service;
 import java.util.List;
 
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.NoticeBoardListVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,13 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	public List<NoticeBoardVO> noticeBoardList1() {
 		return noticeBoardMapper.noticeBoardList1();
 	}
+	
+	// 게시물 카테고리별 조회
+	@Override
+	public List<NoticeBoardVO> noticeFindByCategory(NoticeBoardVO noticeBoardVO) {
+		
+		return noticeBoardMapper.noticeFindByCategory(noticeBoardVO);
+	}
 
 	// 게시물 상세보기
 	@Override
@@ -48,13 +56,18 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 
 	// 글쓰기 ( 세션 연결 ) 
 	@Override
-	public void writeNoticeBoard(NoticeBoardVO noticeBoardVO) {
-		noticeBoardMapper.writeNoticeBoard(noticeBoardVO);	
+	public void noticeWrite(NoticeBoardVO noticeBoardVO) {
+		noticeBoardMapper.noticeWrite(noticeBoardVO);	
 	}
 
 	// 글쓰기
 	@Override
 	public void writeNoticeBoardForm(NoticeBoardVO noticeBoardVO) {
 	}
+
+	/*
+	 * @Override public List<NoticeBoardVO> getListWithPaging(Criteria cri) { return
+	 * noticeBoardMapper.getListWithPaging(cri); }
+	 */
 
 }

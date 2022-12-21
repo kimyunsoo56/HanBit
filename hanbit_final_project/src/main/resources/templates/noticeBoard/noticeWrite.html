@@ -9,9 +9,9 @@
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
 	<h4>※ 알림 글쓰기※</h4>
-	  <form th:action="writeNoticeBoard" method="post" id="write_form">
+	  <form th:action="noticeWrite" method="post" id="write_form">
 	<br>
-	<select>
+	<select name = "category">
 		<option value= "알림 정보">알림 정보</option>
 		<option value= "건강 정보">건강 정보</option>
 		<option value= "공지사항">공지 사항</option>
@@ -19,15 +19,22 @@
 	제목 &nbsp; &nbsp;
      <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
      <br>
-	 <textarea cols="90" rows="15" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
+	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" placeholder="본문내용을 입력하세요"></textarea>
 		<br><br>
 	 <div class="form-group row">
         <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
           <div class="col-sm-10">
             <div class="custom-file" id="inputFile">
-              <input name="file" type="file" class="custom-file-input" id="customFile" />
-        		 <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
+              <input name="file" type="file" class="custom-file-input" id="image" />
+        		 <label class="custom-file-label" for="image">파일을 선택해 주세요.</label>
             </div>
+            <br><br>
+      링크 <input type="text" name="link" placeholder="링크를 입력하세요" required="required"> <br>
+      		<br><br>
+      		링크 양식 예시: 
+      		<br> https://www.naver.com 
+      		<br> https://www.seouldementia.or.kr/info/notice.asp?pagename=view&num=237528&page=1&search=
+      		<br><br>
          </div>
       </div>
       <br><br>
