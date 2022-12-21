@@ -12,7 +12,7 @@
    <form th:action="@{freeUpdate}" method="post">
    <input name="id" th:value="${session.mvo.id}" type = "hidden">
    <input name="freeNo" th:value="${param.freeNo}" type = "hidden" >
- 	<select>
+ 	<select name="category">
 		<option value="자유글">자유글</option>
 		<option value="정보글">정보글</option>
 		<option value="실종신고">실종신고</option>

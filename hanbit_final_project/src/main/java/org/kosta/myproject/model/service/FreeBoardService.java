@@ -2,11 +2,11 @@ package org.kosta.myproject.model.service;
 
 import java.util.List;
 
+import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
+import org.kosta.myproject.model.vo.ReportVO;
 
 public interface FreeBoardService {
-
-	void write(FreeBoardVO freeBoardVO);
 
 	List<FreeBoardVO> findAll();
 
@@ -18,5 +18,12 @@ public interface FreeBoardService {
 
 	void freeUpdate(FreeBoardVO freeBoardVO);
 
+	void registerFreeBoard(String title, String content, String category, String id);
+
+	void freeReport(int freeNo);
+
+	List<ReportVO> findReportList();
+
+	void registerComment(CommentVO commentVO);
 
 }

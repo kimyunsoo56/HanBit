@@ -1,11 +1,8 @@
 package org.kosta.myproject;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
-import org.kosta.myproject.model.vo.MemberVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,11 +30,11 @@ public class HanbitJunitTestCes {
 	 * System.out.println(vo); }
 	 */
 
-	@Test
-	public void NoticeBoardList() {
-		List<NoticeBoardVO> list = noticeBoardMapper.noticeBoardList1();
-		Assertions.assertEquals(3, list.size());
-	}
+	/*
+	 * @Test public void NoticeBoardList() { List<NoticeBoardVO> list =
+	 * noticeBoardMapper.noticeBoardList1(); Assertions.assertEquals(3,
+	 * list.size()); }
+	 */
 
 	@Test
 	public void NoticeBoardDetailView() {
@@ -57,7 +54,7 @@ public class HanbitJunitTestCes {
 			System.out.println(vo);
 			vo.setTitle("안녕하세요!" + i);
 			vo.setContent("오늘은 날씨가 참 좋습니다!" + i);
-			noticeBoardMapper.writeNoticeBoard(vo);
+			noticeBoardMapper.noticeWrite(vo);
 
 			System.out.println(noticeBoardMapper.getTotalPostCount());
 		}

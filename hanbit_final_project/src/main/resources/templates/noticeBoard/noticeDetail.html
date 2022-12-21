@@ -10,15 +10,14 @@
 <div layout:fragment="content">
 	<br>
 	<br>
-<h4 th:text="${detail.title}"></h4><br>
+<h4 th:text="${detail.title}"></h4>&nbsp;
 <p th:text="${detail.category}"></p>
 <p th:text="${detail.memberVO.nick}"></p>
 <p th:text="${detail.timePosted}"></p>
 <p th:text="${detail.hits}"></p><br>
 <p th:text="${detail.content}"></p><br>
 <p th:text="${detail.image}"></p><br>
-<button type = "submit" > 
-	홈페이지 방문하기
-</button> 
+<br> 자세한 내용은 아래 링크에서 확인하세요 <br>
+<a th:href="${detail.link}">홈페이지 바로가기</a>
 </div>
 <!--================End layout Area =================-->
