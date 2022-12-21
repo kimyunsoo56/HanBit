@@ -1,6 +1,7 @@
 package org.kosta.myproject.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.myproject.model.service.Criteria;
@@ -14,10 +15,7 @@ public interface NoticeBoardMapper {
 	int getTotalPostCount();
 	
 	// 게시물 조회 (PagingBean 객체 매개변수로 설정)
-	List<NoticeBoardVO> noticeBoardList1();
-	
-	// 게시물 조회 (PagingBean 객체 매개변수로 설정)
-	// List<NoticeBoardVO> getListWithPaging(Criteria cri);
+	List<Map<String, Object>> noticeBoardList1(Criteria cri);
 
 	// noticeBoardDetailView 게시물 상세보기
 	NoticeBoardVO noticeBoardDetailView(int noticeNo);
@@ -25,9 +23,8 @@ public interface NoticeBoardMapper {
 	// writeNoticeBoard 글쓰기
 	void noticeWrite(NoticeBoardVO noticeBoardVO);
 
-	List<NoticeBoardVO> noticeBoardList(PagingBean pagingBean);
+	int totalPostListCnt();
 
-	// 카테고리별 조회
-	List<NoticeBoardVO> noticeFindByCategory(NoticeBoardVO noticeBoardVO);
+	List<NoticeBoardVO> findNoticeByCategory(NoticeBoardVO noticeBoardVO);
 
 }

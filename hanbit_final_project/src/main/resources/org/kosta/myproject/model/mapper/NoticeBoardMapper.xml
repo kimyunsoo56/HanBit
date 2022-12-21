@@ -4,10 +4,10 @@
 
 
 	<!-- 0. 총 게시물 수 -->
-	<select id="getTotalPostCount" resultType="int">
+	<!-- <select id="getTotalPostCount" resultType="int">
 		SELECT COUNT(*) 
 		FROM   hanbit_notice_board 
-	</select>
+	</select> -->
 
 	<!-- has a 관계 표현 -->
  	<resultMap type="org.kosta.myproject.model.vo.NoticeBoardVO" id="noticeboardRM">
@@ -16,14 +16,8 @@
 	</resultMap> 
  
 	<!-- 게시물 리스트 조회 -->
-	<select id="noticeBoardList1" parameterType="org.kosta.myproject.model.service.PagingBean" resultMap="noticeboardRM">
+	<!-- <select id="noticeBoardList1" parameterType="org.kosta.myproject.model.service.PagingBean" resultMap="noticeboardRM">
 		
-<!-- 		SELECT nb.notice_no, nb.title, nb.time_posted, nb.hits, m.id, m.nick 
-		FROM (  
-			SELECT row_number() over(order by notice_no desc) as rnum, notice_no, title, sysdate, hits, id, time_posted
-			FROM   hanbit_notice_board ) nb, hanbit_member m  
-		WHERE  nb.id=m.id and rnum between #{startRowNumber} AND #{endRowNumber} 
-		ORDER BY notice_no DESC   -->
 		SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
@@ -31,75 +25,64 @@
 		FROM hanbit_notice_board ) hnb
 		INNER JOIN hanbit_member hm ON hnb.id=hm.id
 		ORDER BY hnb.notice_no DESC
-		
-	</select>
-	
-		<!-- 게시물 리스트 조회 -->
-<!-- 	<select id="noticeBoardList1" resultMap="noticeboardRM">
-		SELECT hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits
-		FROM hanbit_notice_board hnb
-		INNER JOIN hanbit_member hm ON hnb.id=hm.id
+		 
 	</select> -->
 	
 		<!-- 게시물 리스트 조회 (페이징 처리) -->
-<!-- 	<select id="getListWithPaging" parameterType="org.kosta.myproject.model.service.PagingBean" resultMap="noticeboardRM">
+	<select id="noticeBoardList1" resultType="org.kosta.myproject.model.vo.NoticeBoardVO" parameterType="org.kosta.myproject.model.service.Criteria" resultMap="noticeboardRM">
+		SELECT * from
+		(select ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+		(select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+		from hanbit_notice_board hnb
+		inner join hanbit_member hm on hnb.id=hm.id
+		order by hnb.notice_no desc))
 		<![CDATA[
-		SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
-		FROM (
-		SELECT notice_no, title, time_posted, hits, category
-		FROM (
-			SELECT @ROW_NUMBER := @ROW_NUMBER + 1 as rnum, notice_no, title, time_posted, hits, category
-			FROM hanbit_notice_board, (SELECT @ROW_NUMBER := 0) A
-			ORDER BY hnb.notice_no DESC
-			) RESULT
-		WHERE rnum > ({#pageNum} - 1) * #{amount}
-		LIMIT #{amount}
-		) hnb
-		INNER JOIN hanbit_member hm ON hnb.id=hm.id
-		ORDER BY hnb.notice_no DESC
-	]]>
-	</select> -->
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]>
+	</select>
+
 	
 	<!-- 게시물 상세보기 조회 -->
 	<select id="noticeBoardDetailView" parameterType="int" resultMap="noticeboardRM">
-		SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image, hnb.link
-		FROM hanbit_notice_board hnb
-		INNER JOIN hanbit_member hm ON hnb.id=hm.id
-		WHERE hnb.notice_no = #{value}
+		SELECT * from
+		(SELECT ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+		(SELECT hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+		FROM hanbit_notice_board hnb 
+		INNER JOIN hanbit_member hm on hnb.id=hm.id
+		ORDER BY hnb.notice_no desc))
+	<!-- 	<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]> -->
 	</select>
 	
 	
 	
 	<!-- 게시물 카테고리별 조회 -->
-	<select id="noticeFindByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" resultMap="noticeboardRM">
-		SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
-		FROM hanbit_notice_board hnb
-		INNER JOIN  hanbit_member hm ON hnb.id=hm.id
-		<where>
-			<if test="memberVO!=null and memberVO.location!=''">
-				m.location=#{memberVO.location}
-			</if>
-			<if test="memberVO!=null and memberVO.gender!=''">
-				and m.gender=#{memberVO.gender}
-			</if>
-			<if test="memberVO!=null and memberVO.workType!=''">
-				and m.work_type=#{memberVO.workType}
-			</if>
+<!-- 	<select id="findMatchListByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" resultMap="noticeboardRM">
+
+		SELECT * from
+		(SELECT ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+		(SELECT hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+		FROM hanbit_notice_board hnb 
+		INNER JOIN hanbit_member hm on hnb.id=hm.id
+		ORDER BY hnb.notice_no desc))
+		<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]>
+	<where>
+		<if test="memberVO!=null and memberVO.location!=''">
+		m.location=#{memberVO.location}
+		</if>
+		<if test="memberVO!=null and memberVO.gender!=''">
+		and m.gender=#{memberVO.gender}
+		</if>
+		<if test="memberVO!=null and memberVO.workType!=''">
+		and m.work_type=#{memberVO.workType}
+		</if>
 		</where>
-	</select>	
+		
+	</select> -->
 	
-	
-	<!-- 글쓰기 -->
-<!-- 	<insert id="writeNoticeBoard" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
-		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
-			SELECT hanbit_notice_board_seq.nextval
-			FROM   dual
-		</selectKey>
-		INSERT INTO hanbit_notice_board(notice_no, title, content, time_posted,category, image, id)
-		VALUES(#{noticeNo}, #{title}, #{content}, sysdate, #{category}, #{image}, #{memberVO.id})
-	</insert>
-  -->
- 
  	<!-- 글쓰기 ( 관리자만 글 작성 가능 ) -->
  	<insert id="noticeWrite" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
 		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
@@ -110,6 +93,29 @@
 		VALUES(#{noticeNo}, #{title}, #{content}, sysdate, #{category}, #{image, jdbcType=VARCHAR}, #{link, jdbcType=VARCHAR}, #{memberVO.id})
 	</insert>
 	
+	<!--  알림 게시판 총 게시물 수 -->
+	<select id="totalPostListCnt" resultType="int">
+		select count(*)
+		from hanbit_notice_board 
+	</select>
 	
+		<!--  카테고리별 조회 -->
+	<select id="findNoticeByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" resultMap="noticeboardRM">
+	SELECT * from
+		(select ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+		(select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+		from hanbit_notice_board hnb
+		inner join hanbit_member hm on hnb.id=hm.id
+		order by hnb.notice_no desc))
+<!-- 		<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]>  -->
+		<where>
+		<if test="category != ''">
+		category=#{category}
+		</if>
+		</where>
+	
+	</select>
 	
 </mapper>

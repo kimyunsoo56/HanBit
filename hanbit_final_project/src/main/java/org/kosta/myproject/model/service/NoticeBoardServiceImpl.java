@@ -1,10 +1,9 @@
 package org.kosta.myproject.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
-import org.kosta.myproject.model.vo.MatchBoardVO;
-import org.kosta.myproject.model.vo.NoticeBoardListVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.springframework.stereotype.Service;
 
@@ -16,37 +15,37 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	private final NoticeBoardMapper noticeBoardMapper;
 
 	// noticeBoardList() : 페이지 번호가 없을 때는 default 1 page
-	@Override
-	public NoticeBoardListVO noticeBoardList() {
-		return noticeBoardList("1");
-	}
+	/*
+	 * @Override public NoticeBoardListVO noticeBoardList() { return
+	 * noticeBoardList("1"); }
+	 */
 
 	// noticeBoardList(String pageNo) 오버로딩
-	@Override
-	public NoticeBoardListVO noticeBoardList(String pageNo) {
-		int postTotalCount = noticeBoardMapper.getTotalPostCount();
-		PagingBean pagingBean = null;
-		if (pageNo == null)
-			pagingBean = new PagingBean(postTotalCount);
-		else
-			pagingBean = new PagingBean(postTotalCount, Integer.parseInt(pageNo));
-		NoticeBoardListVO noticeBoardListVO = new NoticeBoardListVO(noticeBoardMapper.noticeBoardList(pagingBean), pagingBean);
-
-		return noticeBoardListVO;
-	}
+	//@Override
+	/*
+	 * public NoticeBoardListVO noticeBoardList(String pageNo) { int postTotalCount
+	 * = noticeBoardMapper.getTotalPostCount(); PagingBean pagingBean = null; if
+	 * (pageNo == null) pagingBean = new PagingBean(postTotalCount); else pagingBean
+	 * = new PagingBean(postTotalCount, Integer.parseInt(pageNo)); NoticeBoardListVO
+	 * noticeBoardListVO = new
+	 * NoticeBoardListVO(noticeBoardMapper.noticeBoardList(pagingBean), pagingBean);
+	 * 
+	 * return noticeBoardListVO; }
+	 */
 
 	// 게시물 목록 조회(페이지네이션 적용 전) 
 	@Override
-	public List<NoticeBoardVO> noticeBoardList1() {
-		return noticeBoardMapper.noticeBoardList1();
+	public List<Map<String, Object>> noticeBoardList1(Criteria cri) {
+		return noticeBoardMapper.noticeBoardList1(cri);
 	}
+
 	
 	// 게시물 카테고리별 조회
-	@Override
-	public List<NoticeBoardVO> noticeFindByCategory(NoticeBoardVO noticeBoardVO) {
+	//@Override
+	/* public List<NoticeBoardVO> noticeFindByCategory(NoticeBoardVO noticeBoardVO) {
 		
 		return noticeBoardMapper.noticeFindByCategory(noticeBoardVO);
-	}
+	}*/
 
 	// 게시물 상세보기
 	@Override
@@ -65,9 +64,17 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	public void writeNoticeBoardForm(NoticeBoardVO noticeBoardVO) {
 	}
 
-	/*
-	 * @Override public List<NoticeBoardVO> getListWithPaging(Criteria cri) { return
-	 * noticeBoardMapper.getListWithPaging(cri); }
-	 */
+	@Override
+	public int totalPostListCnt() {
+		int count = noticeBoardMapper.totalPostListCnt();
+		return count;
+	}
+
+
+	@Override
+	public List<NoticeBoardVO> findNoticeByCategory(NoticeBoardVO noticeBoardVO) {
+		return noticeBoardMapper.findNoticeByCategory(noticeBoardVO);
+	}
+
 
 }
