@@ -32,3 +32,4 @@ VALUES ('springboot','a','김요양','요양천사','가장 기억에 남는 장
 
 
 UPDATE hanbit_member SET enabled=2 where id='test6' and password='a' and question='나의 노래방 애창곡은?' and answer='좋은날';
+UPDATE hanbit_member SET enabled=1 where id='spring2';
