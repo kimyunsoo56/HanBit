@@ -1,19 +1,11 @@
 package org.kosta.myproject;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
-import org.kosta.myproject.model.service.Criteria;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import lombok.extern.java.Log;
 
 @SpringBootTest
 public class HanbitJunitTestCes {
@@ -38,11 +30,11 @@ public class HanbitJunitTestCes {
 	 * System.out.println(vo); }
 	 */
 
-	@Test
-	public void NoticeBoardList() {
-		List<NoticeBoardVO> list = noticeBoardMapper.noticeBoardList1();
-		Assertions.assertEquals(3, list.size());
-	}
+	/*
+	 * @Test public void NoticeBoardList() { List<NoticeBoardVO> list =
+	 * noticeBoardMapper.noticeBoardList1(); Assertions.assertEquals(3,
+	 * list.size()); }
+	 */
 
 	@Test
 	public void NoticeBoardDetailView() {
