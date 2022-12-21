@@ -36,7 +36,8 @@
 							<span th:text="|${session.mvo.name} 님|"></span>
 							&nbsp;&nbsp;&nbsp;
 							<li class="nav-item"><a href="#" th:href="@{/myPage}">마이페이지</a></li>
-							<form id="logoutForm" action="logout" th:action="@{/logout}" method="post"></form>
+							
+							<form id="logoutForm" action="logout" th:action="@{/logout}" method="post"></form>	
 							<li class="nav-item"><a href="#" id="logoutBtn">로그아웃</a></li>
 							<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 							<script>
