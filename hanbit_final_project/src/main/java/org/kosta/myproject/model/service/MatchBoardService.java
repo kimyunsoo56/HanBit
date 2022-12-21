@@ -3,6 +3,8 @@ package org.kosta.myproject.model.service;
 import java.util.List;
 
 import org.kosta.myproject.model.vo.MatchBoardVO;
+import org.kosta.myproject.model.vo.MessageVO;
+import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +15,10 @@ public interface MatchBoardService  {
 	MatchBoardVO matchDetail(int matchNo);
 
 	List<MatchBoardVO>findMatchListBylgw(MatchBoardVO matchBoardVO);
+
+	int realSendMessage(MessageVO messageVO);
+	
+	
 
 	
 

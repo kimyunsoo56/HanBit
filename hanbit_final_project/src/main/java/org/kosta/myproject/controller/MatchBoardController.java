@@ -28,7 +28,7 @@ public class MatchBoardController {
 	
 	@RequestMapping("matchDetail")
 	public String showMatchDetail(Model model,int matchNo){
-		//model.addAttribute("numberGot",matchNo); 
+		model.addAttribute("matchNo",matchNo); 
 		MatchBoardVO vo=matchBoardService.matchDetail(matchNo);
 		model.addAttribute("matchDetail",vo);
 		
@@ -63,18 +63,32 @@ public class MatchBoardController {
 		  }
 	  
 	  @RequestMapping("SendMessage") 
-	  public String sendMessage(Model model,String yoyangsaName) {
+	  public String sendMessage(Model model,String yoyangsaName,String matchBoardId,int matchNo) {
 		 model.addAttribute("yoyangsaName",yoyangsaName);
+		 model.addAttribute("matchBoardId",matchBoardId);
+		 model.addAttribute(matchNo);
+			/* model.addAttribute("matchBoardId",matchBoardId); */
 	  
 	  return "matchBoard/messageForm";
 	  }
 	  
-		/*
-		 * @RequestMapping("RealSendMessage") public String realSendMessage(Model
-		 * model,String yoyangsaName) { MessageVO vo=matchBoardService.l(matchNo);
-		 * 
-		 * return "matchBoard/messageOk"; }
-		 */
+		
+		  @RequestMapping("RealSendMessage") 
+		  public String realSendMessage(Model model,MessageVO messageVO,int matchNo) { 
+			 System.out.println(messageVO);
+			 int result=matchBoardService.realSendMessage(messageVO);
+	
+			 System.out.println("^^^^^^^^^^^^" + matchNo);
+		  return "redirect:matchDetail?matchNo="+matchNo; 
+		  }
+		  
+		// 쪽지함가기 
+		     @RequestMapping("myMessage")
+		       public String myMessage() {
+		          return "matchBoard/myMessage";
+		       }
+		 
+		 
 	  
 	 
 	 

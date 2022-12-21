@@ -10,4 +10,7 @@ public class MessageVO {
 	private String timePosted;
 	private MemberVO sendMemberVO;
 	private MemberVO receiveMemberVO;
+	private String send_id;
+	private String receive_id;
+	
 }

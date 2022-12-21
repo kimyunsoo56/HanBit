@@ -35,6 +35,7 @@
 						<th:block th:if="${session.mvo!=null}">
 							<span th:text="|${session.mvo.name} 님|"></span>
 							&nbsp;&nbsp;&nbsp;
+							<li class="nav-item"><a href="#" th:href="@{/myMessage}">쪽지함</a></li>
 							<li class="nav-item"><a href="#" th:href="@{/myPage}">마이페이지</a></li>
 							<form id="logoutForm" action="logout" th:action="@{/logout}" method="post"></form>
 							<li class="nav-item"><a href="#" id="logoutBtn">로그아웃</a></li>

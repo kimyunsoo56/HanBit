@@ -12,18 +12,29 @@
 
 	<h4>※ 쪽지 보내기 페이지입니다 ※</h4>
 	<br>
-	<form th:action="@{/RealSendMessage}">
-	<br> <span th:text="${yoyangsaName}"></span> 요양 보호사님께!! <br>
-	<br>
 
-
-	<textarea rows="8" cols="75" placeholder="쪽지 내용을 입력해주세요!" name="content"></textarea>
-
-	<br>
+	<form th:action="@{/RealSendMessage}" method="post" id="message_form">
+		<br> <span th:text="${yoyangsaName}"></span> 요양 보호사님께!! <br>
+		<br> <span th:text="${matchBoardId}"></span> 아이디! 
 	
-		<button>쪽지전송</button>
+		<input type = "hidden" name="receive_id" th:value="${matchBoardId}">
+		<input type = "hidden" name="send_id" th:value="${session.mvo.id}">
+		<input type = "hidden" name="matchNo" th:value="${param.matchNo}">
+		<br>
 
+		<textarea rows="8" cols="75" placeholder="쪽지 내용을 입력해주세요!" name="content"></textarea>
+		<br>
+		<button type="submit">쪽지 전송</button>
 	</form>
+	
+	 <script type="text/javascript">
+     	$(document).ready(function() {
+     		$("#message_form").submit(function() {
+     			return confirm("글을 등록하시겠습니까?"); 
+			});//submit
+     	}); //ready
+     
+     </script>
 </div>
 
 <!--================End layout Area =================-->

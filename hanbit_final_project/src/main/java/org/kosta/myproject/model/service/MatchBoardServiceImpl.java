@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kosta.myproject.model.mapper.MatchBoardMapper;
 import org.kosta.myproject.model.vo.MatchBoardVO;
+import org.kosta.myproject.model.vo.MessageVO;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,15 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 		
 		return matchBoardMapper.findMatchListBylgw(matchBoardVO);
 	}
+
+	@Override
+	public int realSendMessage(MessageVO messageVO) {
+		
+		return matchBoardMapper.realSendMessage(messageVO);
+	}
+
+	
+	
 
 	
 

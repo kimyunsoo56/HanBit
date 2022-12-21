@@ -46,5 +46,11 @@ and m.work_type=#{memberVO.workType}
 
 </select>
 
+<insert id="realSendMessage" parameterType="org.kosta.myproject.model.vo.MessageVO">
+insert into hanbit_message values(hanbit_message_msk_seq.nextval,#{content},default,default,#{send_id},#{receive_id})
+
+
+</insert>
+
 
 </mapper>

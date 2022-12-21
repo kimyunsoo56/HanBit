@@ -11,9 +11,9 @@
  <!--================Start layout Area =================-->
         <div layout:fragment="content">
        
-        <h4> ※   '마이페이지' - '요양 보호사 등록' - '이력서 등록'에서 작성하신 이력서가 본문에 추가됩니다.   ※  </h4> <br><br>
+        <h4> ※   매칭게시판 글쓰기 페이지입니다   ※  </h4> <br><br>
          
-         <form>
+         <form th:action="registerMatch">
          제목 : <input type="text">
          <br><br>
          이력서
@@ -22,7 +22,10 @@
          <br>
           <textarea rows="8" cols="75" placeholder="소개글을 입력해주세요!"></textarea>
 
-
+<div class="text-right">
+<br>
+<button>등록하기</button>
+</div>
 		</form>
         </div>
       
