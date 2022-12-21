@@ -8,34 +8,44 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<script
+	<script>
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<div class="row g-4">
 		<div class="col-lg12 offset-lg-4 col-md-8">
 			<h1 style="color: #a7cb00">회원 탈퇴</h1>
 			<br>
+			<!-- <form id="deleteMemberForm" action="" th:action="@{/deleteMember}" method="post"> -->
+			<input type="hidden" name=id th:value="${session.mvo.id}" id="deleteId">
 				<h5>비밀번호</h5>
-				<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="checkPassword1">
+				<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="deletePassword">
 				<br><br>
 				<h5>개인확인 질문</h5>
-				<select name="question" required="required"><option value="">개별질문</option>
+				<select name="question" required="required" id="deleteQuestion">
+					<option value="">개별질문</option>
 					<option th:each="delectquestion: ${delectquestionList}" th:value="${delectquestion}" th:text="${delectquestion}"></option>
 				</select> 
 				<br><br>
 				<h5>개인확인 답변</h5>
-				<input class="form-control-lg" type="text" name="tel" placeholder="개인확인 답변 입력하세요" required="required"> 
+				<input class="form-control-lg" type="text" name="answer" placeholder="개인확인 답변 입력하세요" required="required" id="deleteAnswer"> 
 				<br><br>
-				<!-- <th:block th:if="${session.mvo}"> -->
-				<form id="deleteMemberForm" action="" th:action="@{/deleteMember}" method="post">
-				<button type="submit" class="btn btn-outline-success btn-lg">탈퇴하기</button>
-				</form>
+				<button type="button" id="deleteBtn" class="btn btn-outline-success btn-lg">탈퇴하기</button>
+				<!-- </form> -->
+				<!-- <a class="banner_btn2" id="deleteBtn">탈퇴하기</a> -->
 				<script>
-				$(function() {
-					$("#deleteMemberForm").submit(function() {
-						return confirm("탈퇴하시겠습니까?");
-					});
-				});
-				</script>
+				$(document).ready(function() {
+					$("#deleteBtn").click(function() {
+						let id=$("#deleteId").val();
+						$.ajax({
+							type:"get",
+							url:"deleteMember",
+							data:"id="+id,
+							success:function(result){
+								alert("test");
+							}
+						});//ajax
+					});//click
+				});//ready
+			</script>
 		</div>
 	</div>
 </div>

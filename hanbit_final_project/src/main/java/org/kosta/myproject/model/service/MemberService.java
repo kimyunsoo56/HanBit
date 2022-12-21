@@ -26,7 +26,7 @@ public interface MemberService {
 
 	void registerCareWorker(MemberVO memberVO);
 
-	int deleteMember(MemberVO memberVO);
+	void deleteMember(MemberVO memberVO);
 
 	
 

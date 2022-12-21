@@ -60,8 +60,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int deleteMember(MemberVO memberVO) {
-		return memberMapper.deleteMember(memberVO);
+	public void deleteMember(MemberVO memberVO) {
+		memberMapper.deleteMember(memberVO);
 	}
 
 

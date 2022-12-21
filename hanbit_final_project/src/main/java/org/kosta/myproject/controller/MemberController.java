@@ -190,6 +190,7 @@ public class MemberController {
       model.addAttribute("workTypeList", workType);
       return "member/register-careworker-form";
    }
+   // 탈퇴 페이지 폼 
     @RequestMapping("deleteMemberForm")
     public String deleteMemberForm(Model model) {
        List<String> delectquestion=new ArrayList<>();
@@ -206,21 +207,21 @@ public class MemberController {
     // 회원탈퇴 
     // 회원탈퇴는 메서드명만 회원 탈퇴로 delect이고 쿼리문은 update 로 작동한다. 
      @PostMapping("deleteMember") 
-     public String deleteMember(HttpServletRequest request) { 
-    	String viewName=null;
+     @ResponseBody
+     public String deleteMember(HttpServletRequest request,MemberVO memberVO) { 
     	HttpSession session=request.getSession(false);
-    	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
-		/* String id=mvo.getId(); */
+    	MemberVO mvo = (MemberVO) session.getAttribute("mvo");
     	memberService.deleteMember(memberVO);
-    	/*String deleteMember=memberService.findPassword(id,password,question,answer);*/
-    	if(memberVO!=null) {
-    		viewName="member/deleteMember-fail";
-    	}else {
-    		session.invalidate();
-    		viewName="member/deleteMember-result";
-    	}
-    	return viewName; 
+		String id=mvo.getId();
+    	mvo=memberService.findMemberById(id);
+    	session.setAttribute("mvo", mvo);
+    	session.invalidate();
+    	return "redirect:deleteMemberResult"; 
        }
+     @RequestMapping("deleteMemberResult")
+     public String deleteMemberResult() {
+    	 return "member/deleteMember-result";
+     }
    // 회원 정보 수정 폼
       @RequestMapping("updateMemberForm")
       public String updateMemberForm(Model model) {
