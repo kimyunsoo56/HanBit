@@ -11,7 +11,7 @@
 			<div class="row g-4">	
 		    	<div class="col-lg12 offset-lg-4 col-md-8">
 					<th:block th:if="${session.mvo==null}">
-					<h1 style="color: #a7cb00">로그인</h1>
+					<h1 style="color: #a7cb00;">로그인</h1>
 		        	<br>
 					<form method="post" action="#" th:action="@{/login}">
 						<h5>아이디</h5>
@@ -23,9 +23,6 @@
 						<br>
 						<a class="banner_btn2" href="" th:href="@{/findIdForm}">아이디 찾기</a>&nbsp;&nbsp;&nbsp;
 						<a class="banner_btn2" href="" th:href="@{/findPasswordForm}">비밀번호 찾기</a>
-						<br><br>
-						아직 회원이 아니신가요?&nbsp;&nbsp;&nbsp;
-						<a class="banner_btn2" href="" th:href="@{/registerForm}">회원가입</a><br>
 					</th:block>
 				<br>
 				<br>
