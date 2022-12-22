@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   layout:decorate="~{layouts/notice_layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/notice_layout}">
 <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛</title>
@@ -9,81 +9,83 @@
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
 
-   <br> <br>
-   <div class="row">
-      <br> <select id="category">
-         <option value="" >전체 보기</option>
-         <option th:value="공지사항">공지사항</option>
-         <option th:value="건강정보">건강정보</option>
-         <option th:value="알림정보">알림정보</option>
-      </select> <br>
-      <button type="button" id="searchCategory">검색</button>
-      <br>
-      <br>
-      <table class="table table-bordered">
-         <thead>
-            <tr>
-               <th>NO</th>
-               <th>제목</th>   
-               <th>작성자</th>
-               <th>작성시간</th>
-               <th>조회수</th>
-               <th>카테고리</th>
-            </tr>
-         </thead>
-         <tbody id="NoticeCategory">
-            <tr th:each="nb:${nblvo}">
-               <td th:text="${nb.noticeNo}"></td>
-               <td><a th:href="@{/noticeDetail?noticeNo=} + ${nb.noticeNo}"
-                  th:text="${nb.title}"></a></td>
-               <td th:text="${nb.memberVO.nick}"></td>
-               <td th:text="${nb.timePosted}"></td>
-               <td th:text="${nb.hits}"></td>
-               <td th:text="${nb.category}"></td>
-            </tr>
-         </tbody>
-      </table>
-      <br>
-      <th:block th:if="${session.mvo!=null}">
-      <th:block th:if="${session.mvo.memberType == 3}">
-         <form th:action="@{writeNoticeForm}">
-            <button>글쓰기</button>
-         </form>
-      </th:block>
-      </th:block>
-      <!-- <ul class="pagination justify-content-center">
-                         <th:block th:if="${paging.prev}">
-                            <li class="page-item active"><a class="page-link" th:href="@{/noticeBoardList(page=${paging.startPage-1})}">Pre</a></li>
-                         </th:block>
-                          <th:block th:each="num : ${#numbers.sequence(paging.startPage,paging.endPage)}" var="num">
-                              <li class="page-item"><a class="page-link" th:href="@{/noticeBoardList(page=${num})}" th:text="${num}"></a></li>
-                         </th:block>
-                           <th:block th:if="${paging.next && paging.endPage>0}">
-                              <li class="page-item active"><a class="page-link" th:href="@{/noticeBoardList(page=${paging.endPage+1})}">Next</a></li>
-                         </th:block>
-                     </ul>
-                      -->
-   <script type="text/javascript">
-      $(function(){
-         $("#searchCategory").click(function() {            
-            let category=$("#category").val();
-			alert(category);
-            $.ajax({
-               type:"get",
-               url:"findByCategory",
-               //dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
-               data:"category="+category,
-               success:function(list){                  
-                  $("#NoticeCategory").replaceWith(list);//replaceWith
-               }
-            });//ajax
-         });//click
-      });//ready
-   </script>                  
-   </div>
-   
-</div>
-<nav>
+	<br> <br>
+	<div class="row">
+		<br> <select id="category">
+			<option value="">전체 보기</option>
+			<option th:value="공지사항">공지사항</option>
+			<option th:value="건강정보">건강정보</option>
+			<option th:value="알림정보">알림정보</option>
+		</select> <br>
+		<button type="button" id="searchCategory">검색</button>
+		<br> <br>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성시간</th>
+					<th>조회수</th>
+					<th>카테고리</th>
+				</tr>
+			</thead>
+			<tbody id="NoticeCategory">
+				<tr th:each="nb:${nblvo}">
+					<td th:text="${nb.noticeNo}"></td>
+					<td><a th:href="@{/noticeDetail?noticeNo=} + ${nb.noticeNo}"
+						th:text="${nb.title}"></a></td>
+					<td th:text="${nb.memberVO.nick}"></td>
+					<td th:text="${nb.timePosted}"></td>
+					<td th:text="${nb.hits}"></td>
+					<td th:text="${nb.category}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<th:block th:if="${session.mvo!=null}">
+			<th:block th:if="${session.mvo.memberType == 3}">
+				<form th:action="@{writeNoticeForm}">
+					<button>글쓰기</button>
+				</form>
+			</th:block>
+		</th:block>
+		<ul class="pagination justify-content-center">
+			<th:block th:if="${paging.prev}">
+				<li class="page-item active"><a class="page-link"
+					th:href="@{/noticeBoardList(page=${paging.startPage-1})}">Pre</a></li>
+			</th:block>
+			<th:block
+				th:each="num : ${#numbers.sequence(paging.startPage,paging.endPage)}"
+				var="num">
+				<li class="page-item"><a class="page-link"
+					th:href="@{/noticeBoardList(page=${num})}" th:text="${num}"></a></li>
+			</th:block>
+			<th:block th:if="${paging.next && paging.endPage>0}">
+				<li class="page-item active"><a class="page-link"
+					th:href="@{/noticeBoardList(page=${paging.endPage+1})}">Next</a></li>
+			</th:block>
+		</ul>
 
-</nav>
+		<script type="text/javascript">
+			$(function() {
+				$("#searchCategory").click(function() {
+					let category = $("#category").val();
+					alert(category);
+					$.ajax({
+						type : "get",
+						url : "findByCategory",
+						//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
+						data : "category=" + category,
+						success : function(list) {
+							$("#NoticeCategory").replaceWith(list);//replaceWith
+						}
+					});//ajax
+				});//click
+			});//ready
+		</script>
+	</div>
+
+</div>
+<nav></nav>
 <!--================End layout Area =================-->
