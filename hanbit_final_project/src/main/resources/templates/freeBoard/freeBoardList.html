@@ -9,6 +9,18 @@
 </head>
  <!--================Start layout Area =================-->
 <div layout:fragment="content">
+
+<div class="row">
+      <br> <select name="category">
+		<option value="자유글">자유글</option>
+		<option value="정보글">정보글</option>
+		<option value="실종신고">실종신고</option>
+	</select> <br>
+      <button type="button" id="searchCategory" th:action="@{/findFreeByCategory}" >검색</button>
+      <!-- th:action="@{/findFreeByCategory}"  -->
+      <br>
+
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -39,14 +51,36 @@
             글쓰기
          </button>
       </form>
+</th:block>
 
-<th:block th:if="${session.mvo.memberType == 3}">
+
+    <!--  </th:block>
+      </th:block> -->
+      <ul class="pagination justify-content-center">
+		<th:block th:if="${paging.prev}">
+          <li class="page-item active"><a class="page-link" th:href="@{/freeBoardListpage=${paging.startPage-1})}">Pre</a></li>
+        </th:block>
+        <th:block th:each="num : ${#numbers.sequence(paging.startPage,paging.endPage)}" var="num">
+          <li class="page-item"><a class="page-link" th:href="@{/freeBoardList(page=${num})}" th:text="${num}"></a></li>
+        </th:block>
+        <th:block th:if="${paging.next && paging.endPage>0}">
+          <li class="page-item active"><a class="page-link" th:href="@{/freeBoardList(page=${paging.endPage+1})}">Next</a></li>
+        </th:block>
+       </ul>
+      
+
+
+<!-- <th:block th:if="${session.mvo.memberType == 3}"> -->
  <form th:action="@{/freeReportList}">
          <button>
            신고리스트 보기
          </button>
       </form>
 </th:block>
-</th:block>
+
+
+
+
+</div>
 </div>
  <!--================End layout Area =================-->

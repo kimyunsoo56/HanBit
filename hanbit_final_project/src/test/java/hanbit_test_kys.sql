@@ -55,3 +55,17 @@ report_no NUMBER
 select * from hanbit_report_board;
 
 select * from HANBIT_COMMENT;
+
+
+
+-- 게시물 목록 조회 rnum
+select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits
+from hanbit_free_board hfb
+inner join hanbit_member hm ON hfb.id=hm.id
+
+SELECT * from
+(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
+(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
+from hanbit_free_board hfb
+inner join hanbit_member hm on hfb.id=hm.id
+order by hfb.free_no desc))

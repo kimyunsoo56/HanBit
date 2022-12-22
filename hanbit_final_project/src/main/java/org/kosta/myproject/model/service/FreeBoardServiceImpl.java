@@ -1,6 +1,7 @@
 package org.kosta.myproject.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -17,9 +18,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 	//글목록
 	@Override
-	public List<FreeBoardVO> findAll() {
+	public List<Map<String, Object>> findAll(Criteria cri) {
 		//List<BoardEntity> boardEntityList = br.findAll();
-		List<FreeBoardVO> FreeBoardList = freeBoardMapper.findAll();
+		List<Map<String, Object>> FreeBoardList = freeBoardMapper.findAll(cri);
 		return FreeBoardList;
 	}
 	//게시글상세보기
@@ -63,6 +64,26 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public void registerComment(CommentVO commentVO) {
 		freeBoardMapper.registerComment(commentVO);
 
+	}
+	@Override
+	public List<CommentVO> findCommentList(int freeNo) {
+		List<CommentVO> commentList = freeBoardMapper.findCommentList(freeNo);
+		return commentList;
+	}
+	@Override
+	public void commentDelete(int commentNo) {
+		freeBoardMapper.commentDelete(commentNo);
+		
+	}
+	@Override
+	public int getTotalPostCount() {
+		int count = freeBoardMapper.getTotalPostCount();
+		return count;
+	}
+	@Override
+	public List<FreeBoardVO> findFreeByCategory(String category) {
+		
+		return freeBoardMapper.findFreeByCategory(category);
 	}
 	
 	

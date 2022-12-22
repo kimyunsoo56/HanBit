@@ -1,16 +1,19 @@
 package org.kosta.myproject.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.kosta.myproject.model.service.Criteria;
 import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.ReportVO;
 
 @Mapper
 public interface FreeBoardMapper {
-
-	List<FreeBoardVO> findAll();
+	
+	// 게시물 조회 (PagingBean 객체 매개변수로 설정)
+	List<Map<String, Object>> findAll(Criteria cri);
 
 	FreeBoardVO getFreeDetail(int freeNo);
 
@@ -27,5 +30,13 @@ public interface FreeBoardMapper {
 	List<ReportVO> findReportList();
 
 	void registerComment(CommentVO commentVO);
+
+	List<CommentVO> findCommentList(int freeNo);
+
+	void commentDelete(int commentNo);
+
+	int getTotalPostCount();
+
+	List<FreeBoardVO> findFreeByCategory(String category);
 
 }

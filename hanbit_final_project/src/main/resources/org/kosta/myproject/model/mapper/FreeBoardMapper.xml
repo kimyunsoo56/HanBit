@@ -5,7 +5,7 @@
 	<!-- 총 게시물 수 -->
 	<select id="getTotalPostCount" resultType="int">
 		SELECT COUNT(*)
-		FROM   spring_board_inst
+		FROM   hanbit_free_board
 	</select>
 	
 	<!-- has a 관계 표현 -->
@@ -19,14 +19,27 @@
 	</resultMap>
 	
 	<!--  게시물 목록조회 -->
- 	<select id="findAll" resultMap="freeBoardList">
+<!--  	<select id="findAll" resultMap="freeBoardList">
 		select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits
 		from hanbit_free_board hfb
 		inner join hanbit_member hm ON hfb.id=hm.id
-	</select> 
-
+	</select>  -->
+	
+	<!--  게시물 목록조회 (페이징 처리) -->
+	<select id="findAll" resultType="org.kosta.myproject.model.vo.FreeBoardVO" resultMap="freeBoardList" parameterType="org.kosta.myproject.model.service.Criteria">
+		SELECT * from
+		(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
+		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
+		from hanbit_free_board hfb
+		inner join hanbit_member hm on hfb.id=hm.id
+		order by hfb.free_no desc))
+		<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]>
+	</select> 	
+		
 	<!--  게시물 상세보기 -->
-   <select id="getFreeDetail" resultMap="freeBoardList">
+   <select id="getFreeDetail" resultType="org.kosta.myproject.model.vo.FreeBoardVO" resultMap="freeBoardList">
    		select hfb.free_no, hfb.category, hfb.title, hfb.content, hm.nick, hfb.time_posted, hfb.hits
 		from hanbit_free_board hfb
 		inner join hanbit_member hm ON hfb.id=hm.id
@@ -80,6 +93,36 @@
 		insert into hanbit_comment(comment_no,content,time_posted,id,free_no)
 		values(hanbit_comment_seq.nextval,#{content}, sysdate, #{id},#{freeNo})
 	</insert> 
+	<!-- 댓글 목록조회 -->
+	<select id="findCommentList" resultType="org.kosta.myproject.model.vo.CommentVO">
+		select content,time_posted,id,comment_no from hanbit_comment where free_no=#{value}
+	</select> 
+	<!-- 댓글 삭제 -->
+	<delete id="commentDelete">
+ 	delete from hanbit_comment where comment_no=#{value}
+	</delete>
+	<!-- 카테고리별 조회 -->
+	<select id="findFreeByCategory" parameterType="org.kosta.myproject.model.vo.FreeBoardVO" resultMap="freeBoardList">
+		select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits
+		from hanbit_free_board hfb
+		inner join hanbit_member hm ON hfb.id=hm.id
+		where category=#{value}
+	<!-- SELECT * from
+		(select ROWNUM rm, free_no, title, nick,time_posted, hits, category from
+		(select hfb.free_no, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hfb.category
+		from hanbit_free_board hfb
+		inner join hanbit_member hm on hfb.id=hm.id
+		order by hfb.free_no desc)) -->
+<!-- 		<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]>  
+		<where>
+		<if test="category != ''">
+		category=#{category}
+		</if>
+		</where>-->
+	
+	</select>
 </mapper>
 
 

@@ -25,16 +25,33 @@
 
 
 	<!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
+<table class="table table-bordered">
+   <thead>
+      <tr>
+         <th>글번호</th><th>제목</th><th>작성자</th><th>조회수</th><th>카테고리</th>
+      </tr>
+   </thead>
+   <tbody >
+   <tr>
+         <td th:text="${freeDetail.freeNo}"></td>
+         <td th:text="${freeDetail.title}"></td>
+         <td th:text="${freeDetail.memberVO.nick}"></td>
+         <td th:text="${freeDetail.hits}"></td>
+         <td th:text="${freeDetailcategory}"></td>
+      </tr>
+      </tbody>
+    </table>
+    내용<br>
+    <textarea cols="90" rows="15" name="content" required="required" th:text="${freeDetail.content}"></textarea>
 
-
-	<p th:text="${freeDetail.freeNo}">글번호</p>
+	<!-- <p th:text="${freeDetail.freeNo}">글번호</p>
 	<p th:text="${freeDetail.title}">제목</p>
 	<p th:text="${freeDetail.memberVO.nick}">작성자</p>
 	<p th:text="${freeDetail.hits}">조회수</p>
 	<p th:text="${freeDetail.content}">내용</p>
 	<p th:text="${freeDetailcategory}">카테고리</p>
 
-	<p th:text="${freeDetail.content}"></p>
+	<p th:text="${freeDetail.content}"></p> -->
 
 
 	<form th:action="@{freeReport?freeNo=}+${freeDetail.freeNo}"
@@ -58,7 +75,7 @@
 
 
 	<!-------------- 댓글 ------------------>
-	<!-- <form action="@{writeComment?freeNo=}+${freeDetail.freeNo}"> -->
+
 	<form th:action="@{/writeComment}" method="post">
 		<div class="comment-box">
 		<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
@@ -72,14 +89,43 @@
 				<textarea class="comment-input" name="content" cols="80" rows="2"></textarea>
 			</div>
 			<div>
-				<button type="submit">댓글등록</button>
+				<button type="submit">댓글등록</button><br>
 			</div>
 		</div>
 	</form>
-	
 	<div>
-		<span th:text="${comment}"></span>
+	<table class="table table-bordered">
+   <thead>
+      <tr>
+         <th>아이디</th><th>내용</th><th>시간</th><th></th>
+      </tr>
+   </thead>
+   <tbody >
+      <tr th:each="co:${commentList}">
+         <td th:text="${co.id}"></td>
+         <td th:text="${co.content}"></td>
+         <td th:text="${co.timePosted}"></td>
+	         <th:block th:if="${session.mvo!=null}">
+			 <th:block th:if="${session.mvo.id==co.id}">
+         <td>
+         	 
+	        <!--  <button type="submit">수정</button> -->
+	         <form th:action="@{/commentDelete}" method="post">
+         	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
+         	 <input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
+			 <button >삭제</button>
+			 </form>
+         </td>
+	         </th:block>
+			</th:block>
+      </tr>
+
+   </tbody>
+</table>
+
 	</div>
+
+	
 
 
 

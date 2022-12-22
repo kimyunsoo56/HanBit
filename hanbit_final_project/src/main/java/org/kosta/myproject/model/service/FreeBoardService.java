@@ -1,14 +1,16 @@
 package org.kosta.myproject.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.ReportVO;
 
 public interface FreeBoardService {
-
-	List<FreeBoardVO> findAll();
+	
+	
+	List<Map<String, Object>> findAll(Criteria cri);
 
 	FreeBoardVO getFreeDetail(int freeNo);
 
@@ -25,5 +27,13 @@ public interface FreeBoardService {
 	List<ReportVO> findReportList();
 
 	void registerComment(CommentVO commentVO);
+
+	List<CommentVO> findCommentList(int freeNo);
+
+	void commentDelete(int commentNo);
+
+	int getTotalPostCount();
+
+	List<FreeBoardVO> findFreeByCategory(String category);
 
 }
