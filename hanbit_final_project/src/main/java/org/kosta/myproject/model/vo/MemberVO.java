@@ -54,7 +54,7 @@ public class MemberVO implements Serializable{
 	}
 	// 회원정보 수정시 필요한 생성자
 	public MemberVO(String id, String password, String name, String nick, String question, String answer, String tel,
-			int licenseNo, String gender, String workHistory, String location, String workType) {
+			String gender, String workHistory, String location, String workType) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -63,7 +63,6 @@ public class MemberVO implements Serializable{
 		this.question = question;
 		this.answer = answer;
 		this.tel = tel;
-		this.licenseNo = licenseNo;
 		this.gender = gender;
 		this.workHistory = workHistory;
 		this.location = location;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/match_layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+
+	<h4>※ 답장하기! ※</h4>
+	<br>
+
+	<form th:action="@{/RealSendMessage1}" method="post" id="message_form1">
+		<br> <span th:text="${receiveId}"></span> 님께!! <br>
+		<input type = "hidden" name="receiveId" th:value="${receiveId}">
+		<input type = "hidden" name="sendId" th:value="${session.mvo.id}">
+		<!-- <input type = "hidden" name="matchNo" th:value="${param.matchNo}"> -->
+		<br>
+
+		<textarea rows="8" cols="75" placeholder="답장 내용을 입력해주세요!" name="content"></textarea>
+		<br>
+		<button type="submit">답장하기</button>
+	</form>
+	
+	 <script type="text/javascript">
+     	$(document).ready(function() {
+     		$("#message_form1").submit(function() {
+     			return confirm("쪽지를 보내시겠습니까?"); 
+			});//submit
+     	}); //ready
+     
+     </script>
+</div>
+
+<!--================End layout Area =================-->

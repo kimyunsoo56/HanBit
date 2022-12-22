@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout}">
+	layout:decorate="~{layouts/notice_layout}">
 <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛</title>
@@ -17,6 +17,7 @@
 <p th:text="${detail.hits}"></p><br>
 <p th:text="${detail.content}"></p><br>
 <p th:text="${detail.image}"></p><br>
+<img th:src = "@{/images/} + ${detail.image}"><br>y
 <br> 자세한 내용은 아래 링크에서 확인하세요 <br>
 <a th:href="${detail.link}">홈페이지 바로가기</a>
 </div>

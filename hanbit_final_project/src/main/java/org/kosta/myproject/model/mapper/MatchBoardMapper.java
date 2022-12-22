@@ -16,6 +16,33 @@ public interface MatchBoardMapper {
 	
 	int realSendMessage(MessageVO messageVO);
 
+	int registerMatch(MatchBoardVO matchBoardVO);
+
+	List<MessageVO> messageList(String id);
+
+	List<MessageVO> messageList1(String id);
+
+	void addHits(int matchNo);
+
+	void addChecking(int messageNo);
+
+	void matchDelete(int matchNo);
+
+	void updateMatch(MatchBoardVO matchBoardVO);
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,12 @@
 package org.kosta.myproject.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.Criteria;
@@ -13,8 +16,11 @@ import org.kosta.myproject.model.vo.MemberVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -53,17 +59,31 @@ public class NoticeBoardController {
    }
    
    // 글 전체 조회 (카테고리별로 보기)
- @RequestMapping("findByCategory")
-   public String findByCategory(Model model, NoticeBoardVO noticeBoardVO, Criteria cri) {
-	 log.debug("param:{}",noticeBoardVO); 
-     model.addAttribute("nblvo", noticeBoardService.findNoticeByCategory(noticeBoardVO)); 
-     return "noticeBoard/noticeBoardList :: #NoticeCategory"; 
-   }
+	
+	/*
+	 * @RequestMapping("findByCategory") public String findByCategory(Model model,
+	 * NoticeBoardVO noticeBoardVO, Criteria cri) {
+	 * log.debug("param:{}",noticeBoardVO);
+	 * model.addAttribute("nblvo",noticeBoardService.findNoticeByCategory(
+	 * noticeBoardVO)); return "noticeBoard/noticeBoardList :: #NoticeCategory"; }
+	 */
 
+ // 글 전체 조회 (카테고리별로 보기) - 페이징 적용
+ @RequestMapping("findByCategory")
+ public String findByCategory(Model model, Criteria cri) {
+	 int totalCnt =  noticeBoardService.totalPostListCnt();
+	  Paging paging = new Paging();
+	 List<Map<String, Object>> list = noticeBoardService.findByCategory(cri);
+	 model.addAttribute("nblvo", list); 
+     model.addAttribute("paging", paging);
+   return "noticeBoard/noticeBoardList :: #NoticeCategory"; 
+ }
+ 
    // 게시물 상세보기
    @RequestMapping("noticeDetail")
    public String noticeDetail(Model model, int noticeNo) {
       NoticeBoardVO vo = noticeBoardService.noticeBoardDetailView(noticeNo);
+    //  System.out.println(vo);
       model.addAttribute("detail", vo);
       return "noticeBoard/noticeDetail";
    }
@@ -81,17 +101,39 @@ public class NoticeBoardController {
 
    // 글쓰기 (세션 연결)
    @PostMapping("noticeWrite")
-   public String write(NoticeBoardVO noticeBoardVO, HttpSession session, RedirectAttributes ra) {
-      System.out.println(noticeBoardVO);
+   public String write(NoticeBoardVO noticeBoardVO, HttpSession session, RedirectAttributes ra, @RequestParam("photo") MultipartFile file) {
+	   System.out.println(noticeBoardVO+"=================");
+	   SimpleDateFormat nowTime = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date now = new Date();
+		
 
       if (session.getAttribute("mvo") == null)
          return "redirect:noticeBoard/noticeBoardList";
+      
       MemberVO mvo = (MemberVO) session.getAttribute("mvo");
       noticeBoardVO.setMemberVO(mvo);
-      noticeBoardService.noticeWrite(noticeBoardVO);
       ra.addAttribute("noticeNo", noticeBoardVO.getNoticeNo());
-      // return "redirect:noticeBoard/noticeBoardList";
-      return "redirect:noticeWriteResult";
+      String fileName = null;
+      if (file.isEmpty() == false) {
+      fileName = noticeBoardVO.getMemberVO().getId()+"_"+nowTime.format(now)+"_"+ file.getOriginalFilename();
+      noticeBoardVO.setImage(fileName);      
+      }
+      try(
+    	      // 윈도우일 경우
+    	      FileOutputStream fos = new FileOutputStream("C:\\kosta250\\git-final\\HanBit\\hanbit_final_project\\src\\main\\resources\\static\\images\\" + fileName);
+    		  
+    		  InputStream is = file.getInputStream();
+    	    ){
+    	      int readCount = 0;
+    	      byte[] buffer = new byte[2048];
+    	      while((readCount = is.read(buffer)) != -1){
+    	      fos.write(buffer,0,readCount);
+    	    }
+    	    }catch(Exception ex){
+    	      throw new RuntimeException("file Save Error");
+    	    }
+      noticeBoardService.noticeWrite(noticeBoardVO);
+      return "redirect:noticeBoardList";
    }
 
    @RequestMapping("noticeWriteResult")
@@ -99,7 +141,33 @@ public class NoticeBoardController {
       model.addAttribute("nblvo", noticeBoardService.noticeBoardList1(cri));
       return "noticeBoard/noticeBoardList";
    }
-
+   
+// 경매게시판 글 작성
+	/*
+	 * @PostMapping("writeAuctionBoardPost") public String
+	 * writeAuctionBoardPost(NoticeBoardVO noticeBoardVO, @RequestParam("image")
+	 * MultipartFile file) { SimpleDateFormat nowTime = new
+	 * SimpleDateFormat("yyyyMMddHHmmss"); Date now = new Date();
+	 * noticeBoardVO.setEndDate(noticeBoardVO.getEndDate().substring(0, 10) + " "
+	 * +noticeBoardVO.getEndDate().substring(11, 16));
+	 * noticeBoardVO.setPhoto(noticeBoardVO.getId()+nowTime.format(now)+file.
+	 * getOriginalFilename());
+	 * noticeBoardService.writeNoticeBoardForm(noticeBoardVO);
+	 * 
+	 * //////////////////////////////////////////////////////////////////
+	 * //System.out.println("파일 이름 : " + file.getOriginalFilename());
+	 * //System.out.println("파일 크기 : " + file.getSize());
+	 * 
+	 * try( // 윈도우일 경우 FileOutputStream fos = new FileOutputStream(
+	 * "C:/kosta250/HiddenPieceGit/HiddenPiece/HiddenPiece/src/main/resources/static/auctionboardimg/"
+	 * +auctionBoardPostVO.getId()+nowTime.format(now)+ file.getOriginalFilename());
+	 * InputStream is = file.getInputStream(); ){ int readCount = 0; byte[] buffer =
+	 * new byte[2048]; while((readCount = is.read(buffer)) != -1){
+	 * fos.write(buffer,0,readCount); } }catch(Exception ex){ throw new
+	 * RuntimeException("file Save Error"); }
+	 * //////////////////////////////////////////////////////////////////// return
+	 * "auctionboard/write-ok"; }
+	 */
    /*
     * // 본인이 게시한 게시글 상세보기 (조회수 증가 X) // - 글쓰기, 수정 시 사용
     * 
@@ -107,6 +175,9 @@ public class NoticeBoardController {
     * model, int noticeNo) { return new ModelAndView("board/post_detail", "pvo",
     * boardService.getPostDetailNoHits(no)); }
     */
+   
+   
+   // 서버의 파일을 다운로드하여 사용자에게 제공
 
 
 }

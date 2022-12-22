@@ -11,6 +11,17 @@
       <result column="work_type"  property="memberVO.workType"/> 
       <result column="tel"  property="memberVO.tel"/> 
    </resultMap>
+   
+   <resultMap type="org.kosta.myproject.model.vo.MessageVO" id="messageResultMap">
+      <result column="id"  property="memberVO.id"/> 
+      <result column="name"  property="memberVO.name"/> 
+      <result column="location"  property="memberVO.location"/> 
+      <result column="nick"  property="memberVO.nick"/> 
+      <result column="gender"  property="memberVO.gender"/>
+      <result column="work_history"  property="memberVO.workHistory"/>
+      <result column="work_type"  property="memberVO.workType"/> 
+      <result column="tel"  property="memberVO.tel"/> 
+   </resultMap>
 
 <select id="matchBoardList" resultMap="matchResultMap">
 select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
@@ -47,10 +58,61 @@ and m.work_type=#{memberVO.workType}
 </select>
 
 <insert id="realSendMessage" parameterType="org.kosta.myproject.model.vo.MessageVO">
-insert into hanbit_message values(hanbit_message_msk_seq.nextval,#{content},default,default,#{send_id},#{receive_id})
-
-
+insert into hanbit_message values(hanbit_message_seq.nextval,#{content},default,default,#{sendId},#{receiveId})
 </insert>
+
+<insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" >
+	insert into hanbit_match_board(match_no, title, content, image, id)
+	values (hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image}, #{memberVO.id})
+</insert>
+
+<select id="messageList" parameterType="String" resultType="org.kosta.myproject.model.vo.MessageVO">
+select message_no,checking,time_posted,send_id,receive_id,content
+from hanbit_message 
+where #{value}=receive_id
+
+</select>
+
+<select id="messageList1" parameterType="String" resultType="org.kosta.myproject.model.vo.MessageVO">
+select checking,time_posted,send_id,receive_id,content
+from hanbit_message 
+where #{value}=send_id
+
+</select>
+
+	<!--  매칭 게시판 조회수 증가 -->
+	<update id="addHits">
+	update hanbit_match_board
+	set hits=hits+1
+	 where match_no=#{value}
+	</update>
+	
+	<!--  매칭 게시판 조회수 증가 -->
+	<update id="addChecking">
+	update hanbit_message
+	set checking=checking+1
+	 where message_no=#{value}
+	</update>
+	<!--  매칭 게시판 삭제 -->
+<delete id="matchDelete">
+delete from hanbit_match_board where match_no=#{value}
+</delete>
+
+<!-- 매칭 게시판 수정 -->
+<!-- 게시글수정 -->
+	<update id="updateMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO">
+	update hanbit_match_board
+	set title=#{title}, content=#{content}, image=#{image}
+	 where match_no=#{matchNo}
+	</update>
+
+
+
+
+
+
+
+
 
 
 </mapper>

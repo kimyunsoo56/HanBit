@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/match_layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<div layout:fragment="content">
+
+	<h4>※ 쪽지함입니다. ※</h4>
+	<br>
+	<br>
+
+	<h4>보낸 쪽지함</h4>
+	
+<!-- <form th:action="myMessage">
+<button>받은쪽지</button>
+</form> -->
+
+<form th:action="myMessage">
+<button>받은쪽지함보기</button>
+</form>
+&nbsp;&nbsp;
+	<!-- <button type="button" id="messageCategory1">쪽지조회</button> -->
+
+	<br>
+	<br>
+
+	 <table class="table table-bordered">
+	 <thead>
+		<tr>
+			<th>받은사람</th><th>내용</th><th>날짜</th>
+		</tr>
+	</thead>
+	<tbody id="messageTbody">
+		<tr th:each="ms:${messageList}">
+			<td th:text="${ms.receiveId}"></td>
+			<td th:text="${ms.content}"></td>
+			<!-- <td> <a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
+ -->			<td th:text="${ms.timePosted}"></td>
+			
+		  
+		</tr>	
+	</tbody>
+</table>
+<br>
+	<!-- <script type="text/javascript">
+		$(function(){
+			$("#searchList").click(function() {				
+				let location=$("#loc").val();
+				let gender=$("#gen").val();
+				let workType=$("#wtype").val();
+				$.ajax({
+					type:"get",
+					url:"findMatchListBylgw",
+					//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
+					data:"memberVO.location="+location+"&memberVO.gender="+gender +"&memberVO.workType="+workType,
+					success:function(list){						
+						$("#matchTbody").replaceWith(list);//replaceWith
+					}
+				});//ajax
+			});//click
+		});//ready
+	</script> -->
+
+
+</div>
+
+<!--================End layout Area =================-->

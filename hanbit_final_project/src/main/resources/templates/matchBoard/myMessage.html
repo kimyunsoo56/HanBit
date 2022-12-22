@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout}">
+	layout:decorate="~{layouts/match_layout}">
 <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛</title>
@@ -10,39 +10,57 @@
 <div layout:fragment="content">
 
 	<h4>※ 쪽지함입니다. ※</h4>
-	<br>
-	<br>
+	<br> <br>
 
-	<h4>보낸/받은 쪽지 카테고리</h4>
-	<select id="messageCategory">
-		<option th:value="받은쪽지">받은 쪽지</option>
-		<option th:value="보낸쪽지">보낸 쪽지</option>
-	</select>
+	<h4>받은 쪽지함</h4>
 
-&nbsp;&nbsp;
-	<button type="button" id="messageCategory1">쪽지조회</button>
+	<!-- <form th:action="myMessage">
+<button>받은쪽지</button>
+</form> -->
+
+	<form th:action="myMessage2">
+		<button>보낸쪽지함 보기</button>
+	</form>
+	&nbsp;&nbsp;
+	<!-- <button type="button" id="messageCategory1">쪽지조회</button> -->
+
+	<br> <br>
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>보낸사람</th>
+				<th>내용</th>
+				<th>날짜</th>
+				<th>읽음여부</th>
+			</tr>
+		</thead>
+		<tbody id="messageTbody">
+			<tr th:each="ms:${messageList}">
+				<td th:text="${ms.sendId}"></td>
+
+				<td><a
+					th:href="@{/messageDetail(receiveId= ${ms.sendId}, content=${ms.content},messageNo=${ms.messageNo})}"
+					th:text="${ms.content}"></a></td>
+				<!-- <td> <a th:href="@{/messageDetail?receiveId=} + ${ms.sendId}" th:text="${ms.content}"></a></td> -->
+
+				<td th:text="${ms.timePosted}"></td>
+
+               
+				<th:block th:if="${ms.checking == 1}">
+					<td>읽음!</td>
+				</th:block>
+
+					<th:block th:if="${ms.checking == 0}">
+					<td>안읽음!!!</td>
+					
+					</th:block>
+
+			</tr>
+		</tbody>
+	</table>
 
 	<br>
-	<br>
-
-	 <table class="table table-bordered">
-	 <thead>
-		<tr>
-			<th>보낸사람</th><th>내용</th><th>날짜</th><th>읽음여부</th>
-		</tr>
-	</thead>
-	<tbody id="matchTbody">
-		<tr th:each="match:${matchList}">
-			<td th:text="${match.matchNo}"></td>
-			<td th:text="${match.memberVO.location}"></td>
-			<td> <a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
-			<td th:text="${match.memberVO.name}"></td>
-			<td th:text="${match.timePosted}"></td>
-		  <td th:text="${match.hits}"></td>   
-		</tr>	
-	</tbody>
-</table>
-<br>
 	<!-- <script type="text/javascript">
 		$(function(){
 			$("#searchList").click(function() {				

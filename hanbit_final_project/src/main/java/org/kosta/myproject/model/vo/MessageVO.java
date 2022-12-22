@@ -8,9 +8,9 @@ public class MessageVO {
 	private String content;
 	private int checking;
 	private String timePosted;
-	private MemberVO sendMemberVO;
-	private MemberVO receiveMemberVO;
-	private String send_id;
-	private String receive_id;
+	//private MemberVO sendMemberVO;
+	//private MemberVO receiveMemberVO;
+	private String sendId;
+	private String receiveId;
 	
 }

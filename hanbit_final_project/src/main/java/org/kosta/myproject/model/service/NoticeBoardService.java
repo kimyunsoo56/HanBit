@@ -16,9 +16,11 @@ public interface NoticeBoardService {
 // noticeBoardList(String pageNo) 오버로딩
 //NoticeBoardListVO noticeBoardList(String pageNo);
 
-// noticeBoardList - 페이지네이션 뺸 거
+// noticeBoardList - 페이징 적용
 List<Map<String, Object>> noticeBoardList1(Criteria cri);
 
+// 카테고리별 조회 - 페이징 적용
+List<Map<String, Object>> findByCategory(Criteria cri);
 
 // 게시물 조회 (PagingBean 객체 매개변수로 설정)
 // List<NoticeBoardVO> getListWithPaging(Criteria cri);
@@ -35,7 +37,9 @@ void noticeWrite(NoticeBoardVO noticeBoardVO);
 int totalPostListCnt();
 
 //카테고리별 조회
-List<NoticeBoardVO>findNoticeByCategory(NoticeBoardVO noticeBoardVO);
+// List<NoticeBoardVO>findNoticeByCategory(NoticeBoardVO noticeBoardVO);
+
+
 
 
 }

@@ -12,7 +12,7 @@ public class NoticeBoardVO {
 	private String timePosted;
 	private int hits;
 	private String category;
-	private String image; // 첨부 이미지
+	private String image; // 첨부 이미지명
 	private String link; // 링크 
 	private MemberVO memberVO;
 }

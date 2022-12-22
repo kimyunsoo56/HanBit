@@ -105,7 +105,7 @@ button:focus {
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1170px;
+    max-width: 1300px;
   }
 }
 
@@ -186,7 +186,7 @@ button:focus {
 }
 
 .header_area .navbar .nav .nav-item {
-  margin-right: 65px;
+  margin-right: 70px;
 }
 
 .header_area .navbar .nav .nav-item .nav-link {
@@ -305,7 +305,7 @@ button:focus {
 }
 
 .header_area .navbar .nav.navbar-nav.navbar-right {
-  max-width: 270px;
+  max-width: 350px;
   width: 100%;
 }
 
@@ -333,7 +333,7 @@ button:focus {
 } */
 
 .header_area + section, .header_area + row, .header_area + div {
-  margin-top: 118px;
+  margin-top: 120px;
 }
 
 .header_area.navbar_fixed .main_menu {
@@ -3474,7 +3474,7 @@ h6 {
 /* Home Slider Area css
 ============================================================================================ */
 .home_banner_area {
-  border-top: 2px solid #a7cb00;
+  border-top: 0px solid #a7cb00;
   position: relative;
 }
 
@@ -3506,14 +3506,14 @@ h6 {
 .slider_text_inner .slider_text {
   background: #fff;
   border-radius: 5px;
-  padding: 65px;
+  padding: 35px;
   position: relative;
 }
 
 .slider_text_inner .slider_text:before {
   content: "";
   width: 360px;
-  height: 530px;
+  height: 450px;
   background: rgba(167, 203, 0, 0.8);
   position: absolute;
   left: -95px;
@@ -3936,8 +3936,8 @@ h6 {
 /*----------------------------------------------------*/
 /*============== footer-area css ===============*/
 .footer-area {
-  background: #f9f9ff;
-  padding-top: 120px;
+  background: #FFFFFF;
+  padding-top: 35px;
 }
 
 .single-footer-widget p {
@@ -4023,11 +4023,11 @@ h6 {
 }
 
 .footer_title {
-  font-size: 30px;
-  line-height: 24px;
+  font-size: 22px;
+  line-height: 1px;
   font-weight: 500;
   color: #000000;
-  margin-bottom: 28px;
+  margin-bottom: -2px;
   text-transform: uppercase;
 }
 
@@ -4039,8 +4039,8 @@ h6 {
 }
 
 .footer-bottom {
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 0px;
+  padding-bottom: 15px;
 }
 
 .footer-bottom .footer-text a {
