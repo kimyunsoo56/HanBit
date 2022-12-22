@@ -16,7 +16,18 @@
 					</th:block>
 					<h2><a style="color: #a7cb00" href="#">작성글목록 조회</a></h2><br>
 					<h2><a style="color: #a7cb00" href="#">찜목록 조회</a></h2><br>
-					<h2><a style="color: #a7cb00" href="#" th:href="@{/deleteMemberForm}">회원탈퇴</a></h2>
+					<form action="" th:action="@{/deleteMemberForm}" id="deleteForm"></form>
+					<h2><a style="color: #a7cb00" href="#" id="deleteFormBtn">회원탈퇴</a></h2>
+					<script type="text/javascript">
+		               $(document).ready(function() {
+		                  $("#deleteFormBtn").click(function() {
+		                     let resultUpdate=confirm("회원을 탈퇴하시겠습니까?")
+		                     if(resultUpdate==true){
+		                        $("#deleteForm").submit();
+		             	     }
+            	     	 });//click
+              		 });//ready
+					</script>
 				</div>
 			</div>
 		</div>

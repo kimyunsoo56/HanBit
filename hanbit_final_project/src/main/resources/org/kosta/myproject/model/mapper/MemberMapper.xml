@@ -18,9 +18,6 @@ select id,password,name,nick,question,answer,tel,enabled,member_type,license_no,
 <insert id="registerMember" parameterType="org.kosta.myproject.model.vo.MemberVO">
 	INSERT INTO hanbit_member(id,password,name,nick,question,answer,tel) VALUES(#{id},#{password},#{name},#{nick},#{question},#{answer},#{tel})
 </insert>
-<select id="checkNick" parameterType="string" resultType="int">
-	SELECT COUNT(*) FROM hanbit_member WHERE nick=#{value}
-</select>
 <select id="checkTel" parameterType="string" resultType="int">
 	SELECT COUNT(*) FROM hanbit_member WHERE tel=#{value}
 </select>
