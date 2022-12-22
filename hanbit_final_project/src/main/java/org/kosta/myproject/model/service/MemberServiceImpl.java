@@ -30,16 +30,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int checkNick(String nick) {
-		return memberMapper.checkNick(nick);
-	}
-
-	@Override
-	public int checkTel(String tel) {
-		return memberMapper.checkTel(tel);
-	}
-
-	@Override
 	public String findId(String name, String tel) {
 		return memberMapper.findId(name, tel);
 	}
@@ -63,8 +53,13 @@ public class MemberServiceImpl implements MemberService{
 	public void updateMember(MemberVO memberVO) {
 		memberMapper.updateMember(memberVO);
 	}
-	public void deleteMember(MemberVO memberVO) {
-		memberMapper.deleteMember(memberVO);
-	}
 
+	@Override
+	public int checkTel(String tel) {
+		return memberMapper.checkTel(tel);
+	}
+	@Override
+	public int deleteMember(MemberVO memberVO) {
+		return memberMapper.deleteMember(memberVO);
+	}
 }
