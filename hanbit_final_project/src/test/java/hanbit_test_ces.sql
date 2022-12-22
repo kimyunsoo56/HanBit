@@ -143,10 +143,10 @@ FROM hanbit_notice_board hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 
 -- 알림 게시판 게시물 리스트 출력 (rnum 추가한 버전)
-SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category, hnb.image
 FROM (
 SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
-notice_no, title, SYSDATE AS time_posted, hits, category, id
+notice_no, title, time_posted, hits, category, id, image
 FROM hanbit_notice_board ) hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 ORDER BY hnb.notice_no DESC
@@ -214,7 +214,10 @@ INNER JOIN hanbit_member hm ON hnb.id=hm.id
 ORDER BY hnb.notice_no DESC
 where rnum between 1 and 100
 
-
+SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image, hnb.link
+		FROM hanbit_notice_board hnb
+		INNER JOIN hanbit_member hm ON hnb.id=hm.id
+		WHERE hnb.notice_no = 65 
 
 
 select * from hanbit_member;

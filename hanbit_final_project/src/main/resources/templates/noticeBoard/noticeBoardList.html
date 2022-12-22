@@ -51,8 +51,7 @@
          </form>
       </th:block>
       </th:block>
-      <h1>dd</h1>
-      <ul class="pagination justify-content-center">
+      <!-- <ul class="pagination justify-content-center">
                          <th:block th:if="${paging.prev}">
                             <li class="page-item active"><a class="page-link" th:href="@{/noticeBoardList(page=${paging.startPage-1})}">Pre</a></li>
                          </th:block>
@@ -63,12 +62,12 @@
                               <li class="page-item active"><a class="page-link" th:href="@{/noticeBoardList(page=${paging.endPage+1})}">Next</a></li>
                          </th:block>
                      </ul>
-                     
+                      -->
    <script type="text/javascript">
       $(function(){
          $("#searchCategory").click(function() {            
             let category=$("#category").val();
-
+			alert(category);
             $.ajax({
                type:"get",
                url:"findByCategory",

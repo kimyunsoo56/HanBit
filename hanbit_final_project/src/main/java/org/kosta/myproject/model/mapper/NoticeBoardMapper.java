@@ -16,6 +16,9 @@ public interface NoticeBoardMapper {
 	
 	// 게시물 조회 (PagingBean 객체 매개변수로 설정)
 	List<Map<String, Object>> noticeBoardList1(Criteria cri);
+	
+	// 카테고리 별 조회 (페이징 적용)
+	List<Map<String, Object>> findByCategory(Criteria cri);
 
 	// noticeBoardDetailView 게시물 상세보기
 	NoticeBoardVO noticeBoardDetailView(int noticeNo);
@@ -25,6 +28,10 @@ public interface NoticeBoardMapper {
 
 	int totalPostListCnt();
 
-	List<NoticeBoardVO> findNoticeByCategory(NoticeBoardVO noticeBoardVO);
+	// List<NoticeBoardVO> findNoticeByCategory(NoticeBoardVO noticeBoardVO);
+
+
+
+
 
 }
