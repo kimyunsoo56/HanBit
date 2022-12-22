@@ -14,8 +14,6 @@ public interface MemberService {
 
 	int register(MemberVO memberVO);
 
-	int checkNick(String nick);
-
 	int checkTel(String tel);
 
 	String findId(String name, String tel);

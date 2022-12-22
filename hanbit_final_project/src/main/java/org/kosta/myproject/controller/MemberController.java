@@ -93,13 +93,6 @@ public class MemberController {
       MemberVO checkId=memberService.findMemberById(id);
       return checkId;
    }
-   // 닉네임 중복체크 Ajax
-   @RequestMapping("registerCheckNick")
-   @ResponseBody
-   public int registerCheckNick(String nick) {
-      int checkNick = memberService.checkNick(nick);
-      return checkNick;
-   }
    // 연락처 중복체크 Ajax
    @RequestMapping("registerCheckTel")
    @ResponseBody
