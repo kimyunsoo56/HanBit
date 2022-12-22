@@ -11,17 +11,19 @@
  <!--================Start layout Area =================-->
         <div layout:fragment="content">
        
-        <h4> ※   매칭게시판 글쓰기 페이지입니다   ※  </h4> <br><br>
+        <h4> ※   매칭게시판 글쓰기 수정 페이지입니다   ※  </h4> <br><br>
          
-         <form th:action="registerMatch" method="post" id="register_form">
-         <input name="id" th:value="${session.mvo.id}" type = "hidden">
-         제목 : <input type="text" name="title" placeholder="제목을 입력하세요." required="required">
+         <form th:action="@{/updateMatch}" method="post" id="updateConfirm">
+         <input name="id" th:value="${session.mvo.id}" type ="hidden">
+         <input name="matchNo" th:value="${param.matchNo}" type ="hidden">
+         
+         제목 : <input type="text" name="title" th:value="${matchDetail.title}" placeholder="제목을 입력하세요." required="required">
          <br><br>
          이력서
          <br><br>
          ------------------------------------------------------------
          <br><br>
-         사진 :<input type="text" name="image" placeholder="사진첨부하세요." required="required"><br>
+         사진 :<input type="text" name="image" th:value="${matchDetail.image}" placeholder="사진첨부하세요." required="required"><br>
          요양사 이름 : <span th:text="${session.mvo.name}" name="name"></span><br>
          성별 : <span th:text="${session.mvo.gender}" name="gender"></span><br>
          지역 : <span th:text="${session.mvo.location}" name="location"></span><br>
@@ -30,13 +32,23 @@
          <br><br>
          --------------------------------------------------------------
          <br><br>
-          <textarea rows="8" cols="75" placeholder="소개글을 입력해주세요!" name="content" required="required"></textarea>
-
+      
+          <textarea rows="8" cols="75"  th:text="${matchDetail.content}" name="content" required="required"></textarea>
+         
 <div class="text-right">
 <br>
-<button type="submit">등록하기</button>
+<button type="submit">수정하기</button>
 </div>
 		</form>
+		
+		<script type="text/javascript">
+     	$(document).ready(function() {
+     		$("#updateConfirm").submit(function() {
+     			return confirm("해당 게시물을 정말 수정하시겠습니까?????"); 
+			});//submit
+     	}); //ready
+     
+     </script>
         </div>
       
  <!--================End layout Area =================-->

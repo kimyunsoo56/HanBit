@@ -10,57 +10,42 @@
 <div layout:fragment="content">
 
 	<h4>※ 쪽지함입니다. ※</h4>
-	<br> <br>
+	<br>
+	<br>
 
-	<h4>받은 쪽지함</h4>
-
-	<!-- <form th:action="myMessage">
+	<h4>보낸 쪽지함</h4>
+	
+<!-- <form th:action="myMessage">
 <button>받은쪽지</button>
 </form> -->
 
-	<form th:action="myMessage2">
-		<button>보낸쪽지함 보기</button>
-	</form>
-	&nbsp;&nbsp;
+<form th:action="myMessage">
+<button>받은쪽지함보기</button>
+</form>
+&nbsp;&nbsp;
 	<!-- <button type="button" id="messageCategory1">쪽지조회</button> -->
 
-	<br> <br>
-
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>보낸사람</th>
-				<th>내용</th>
-				<th>날짜</th>
-				<th>읽음여부</th>
-			</tr>
-		</thead>
-		<tbody id="messageTbody">
-			<tr th:each="ms:${messageList}">
-				<td th:text="${ms.sendId}"></td>
-
-				<td><a
-					th:href="@{/messageDetail(receiveId= ${ms.sendId}, content=${ms.content},messageNo=${ms.messageNo})}"
-					th:text="${ms.content}"></a></td>
-				<!-- <td> <a th:href="@{/messageDetail?receiveId=} + ${ms.sendId}" th:text="${ms.content}"></a></td> -->
-
-				<td th:text="${ms.timePosted}"></td>
-
-               
-				<th:block th:if="${ms.checking == 1}">
-					<td>읽음!</td>
-				</th:block>
-
-					<th:block th:if="${ms.checking == 0}">
-					<td>안읽음!!!</td>
-					
-					</th:block>
-
-			</tr>
-		</tbody>
-	</table>
-
 	<br>
+	<br>
+
+	 <table class="table table-bordered">
+	 <thead>
+		<tr>
+			<th>받은사람</th><th>내용</th><th>날짜</th>
+		</tr>
+	</thead>
+	<tbody id="messageTbody">
+		<tr th:each="ms:${messageList}">
+			<td th:text="${ms.receiveId}"></td>
+			<td th:text="${ms.content}"></td>
+			<!-- <td> <a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
+ -->			<td th:text="${ms.timePosted}"></td>
+			
+		  
+		</tr>	
+	</tbody>
+</table>
+<br>
 	<!-- <script type="text/javascript">
 		$(function(){
 			$("#searchList").click(function() {				

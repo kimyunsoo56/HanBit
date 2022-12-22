@@ -38,6 +38,11 @@ public class HanbitJunitTestKms {
 		System.out.println(matchVO.getHits());
 	}
 	
+	@Test
+	public void registerMatch() {
+	
+	}
+	
 	
 	
 

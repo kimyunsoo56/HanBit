@@ -8,12 +8,24 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
+
+	<h4>※ 쪽지보기 상세 페이지 입니다! ※</h4>
 	<br> <br> 
-	아이디 :
-	<h4 th:text="${matchDetail.memberVO.id}"></h4>
+	From : 
+	<h4 th:text="${receiveId}"></h4>
 	<br><br>
-	제목 :
+	내용 :
+	<br><br>
+	<h4 th:text="${content}"></h4>
+	
+	<br><br>
+	
+	<form th:action="sendMessage2">
+	<button>답장하기</button>
+	<input type = "hidden" name="receiveId" th:value="${receiveId}">
+	<input type = "hidden" name="sendId" th:value="${session.mvo.id}">
+	</form>
+<!-- 	제목 :
 	<h4 th:text="${matchDetail.title}"></h4>
 	<br> <br> 
 	작성시간 :
@@ -49,38 +61,10 @@
 	<h4 th:text="${matchDetail.memberVO.tel}">연락처 나오는 부분</h4>
 	<br>
 	<br>
-	 수정 삭제부분 시작 
-	<th:block th:if="${session.mvo!=null}">
-		<th:block th:if="${session.mvo.nick==matchDetail.memberVO.nick}">
-			<form th:action="@{/matchDelete?matchNo=}+${matchNo}"
-				method="post" id="deleteConfirm">
-				<button>삭제</button>
-			</form>
-
-			<form id="matchDetailUpdateForm" th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}">
-				<input type="hidden" name="matchNo" th:value="${matchNo}">
-				<button type="submit">수정</button>
-			</form>
-		</th:block>
-	</th:block>
-	
-	<!--  수정 삭제부분 끝  -->
-	
-	<!-- <a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp; -->
+	<a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp;
 	<a th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} ">쪽지보내기</a>  &nbsp; &nbsp; &nbsp;
 	<a th:href="@{/MatchBoardList}">목록으로</a>  &nbsp; &nbsp; &nbsp;
-	<a th:href="@{/showLike}">찜하기</a> <span>---찜하지 않은 상태----</span>
-	
-	
-	
-	<script type="text/javascript">
-     	$(document).ready(function() {
-     		$("#deleteConfirm").submit(function() {
-     			return confirm("해당 게시물을 정말 삭제하시겠습니까?????"); 
-			});//submit
-     	}); //ready
-     
-     </script>
+	<a th:href="@{/Jjim}">찜하기</a> <span>---찜하지 않은 상태----</span> -->
 </div>
 
 <!--================End layout Area =================-->

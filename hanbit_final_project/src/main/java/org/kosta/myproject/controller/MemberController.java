@@ -34,8 +34,15 @@ public class MemberController {
 			} else {
 				HttpSession session=request.getSession();
 				session.setAttribute("mvo", resultVO);
-				//조회수 증가 방지를 위한 작업
+				//자유게시판 조회수 증가 방지를 위한 작업
 				session.setAttribute("noList",  new ArrayList<Integer>());
+				//매칭 게시판 조회수
+				session.setAttribute("noListMatch",  new ArrayList<Integer>());
+				//쪽지 읽음 여부!
+				session.setAttribute("noListMessage",  new ArrayList<Integer>());
+				//찜을 위한 세션 생성
+				session.setAttribute("noListLike",new ArrayList<Integer>());
+				
 				return "redirect:/";
 			}
 	 }
