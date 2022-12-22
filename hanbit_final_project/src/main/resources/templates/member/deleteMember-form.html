@@ -14,7 +14,6 @@
 		<div class="col-lg12 offset-lg-4 col-md-8">
 			<h1 style="color: #a7cb00">회원 탈퇴</h1>
 			<br>
-			<!-- <form id="deleteMemberForm" action="" th:action="@{/deleteMember}" method="post"> -->
 			<input type="hidden" name=id th:value="${session.mvo.id}" id="deleteId">
 				<h5>비밀번호</h5>
 				<input class="form-control-lg" type="password" name="password" placeholder="6자 이상 입력하세요" required="required" id="deletePassword">
@@ -29,7 +28,6 @@
 				<input class="form-control-lg" type="text" name="answer" placeholder="개인확인 답변 입력하세요" required="required" id="deleteAnswer"> 
 				<br><br>
 				<button type="button" id="deleteBtn" class="btn btn-outline-success btn-lg">탈퇴하기</button>
-			
 				<script>
 				$(document).ready(function() {
 					$("#deleteBtn").click(function() {
