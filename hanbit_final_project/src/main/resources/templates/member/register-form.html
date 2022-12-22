@@ -29,9 +29,7 @@
 	        	<input class="form-control-lg" type="text" name="name" placeholder="이름을 입력하세요" required="required"><br>
 	        	
 	        	<h5>닉네임</h5>
-	        	<input class="form-control-lg" type="text" name="nick" placeholder="닉네임을 입력하세요" required="required" id="checkNick">
-	        	&nbsp;&nbsp;<button type="button" id="checkNickBtn" class="btn btn-outline-success btn-lg">닉네임 중복확인</button>
-	        	&nbsp;&nbsp;<span id="checkNickResult"></span><br>
+	        	<input class="form-control-lg" type="text" name="nick" placeholder="닉네임을 입력하세요" required="required">
 				
 				<h5>개별질문</h5>
 				<select name="question" required="required">
@@ -57,7 +55,6 @@
 	        		$(document).ready(function() {
 	        			let checkResultId="N";
 	        			let checkResultPassword="N";
-	        			let checkResultNick="N";
 	        			let checkResultTel="N";
 	        			// 중복체크 했는지 확인하는 부분
 	        			$("#registerForm").submit(function() {
@@ -66,9 +63,6 @@
 	        					return false;
 	        				}else if(checkResultPassword=="N"){
 	        					alert("비밀번호 확인을 해주세요");
-	        					return false;
-	        				}else if(checkResultNick=="N"){
-	        					alert("닉네임 중복확인을 해주세요");
 	        					return false;
 	        				}else if(checkResultTel=="N"){
 	        					alert("연락처 중복확인을 해주세요");
@@ -116,25 +110,6 @@
 	    					}//else
 	        			});//keyupPassword 
 	        			
-	        			// 닉네임 중복체크
-	        			$("#checkNickBtn").click(function() {
-	        				let checkNick=$("#checkNick").val().trim();
-	        				$.ajax({
-	        					type:"get",
-	        					url:"registerCheckNick",
-	        					data:"nick="+checkNick,
-	        					success:function(result){
-    								if(result){
-	        							$("#checkNickResult").html("<font color=red>이미 사용중인 닉네임입니다</font>");
-	        							checkResultNick="N"
-    								}else{
-	        							$("#checkNickResult").html("<font color=blue>사용 가능한 닉네임입니다</font>");
-	        							checkResultNick="Y"
-    								}
-	        					}//success
-	        				});//ajax
-	        			});//clickNick
-
 	        			// 연락처 중복체크
 	        			$("#checkTelBtn").click(function() {
 	        				let checkTel=$("#checkTel").val().trim();

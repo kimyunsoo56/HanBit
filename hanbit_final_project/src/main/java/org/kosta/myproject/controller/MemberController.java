@@ -29,7 +29,7 @@ public class MemberController {
     @PostMapping("/login")
 	 public String login(MemberVO memberVO,HttpServletRequest request) {
 		 MemberVO resultVO=memberService.login(memberVO);
-		 if(resultVO==null) { 
+		 if(resultVO==null || resultVO.getEnabled()==2) { 
 				return "member/login-fail";
 			} else {
 				HttpSession session=request.getSession();
@@ -99,13 +99,6 @@ public class MemberController {
    public MemberVO registerCheckId(String id) {
       MemberVO checkId=memberService.findMemberById(id);
       return checkId;
-   }
-   // 닉네임 중복체크 Ajax
-   @RequestMapping("registerCheckNick")
-   @ResponseBody
-   public int registerCheckNick(String nick) {
-      int checkNick = memberService.checkNick(nick);
-      return checkNick;
    }
    // 연락처 중복체크 Ajax
    @RequestMapping("registerCheckTel")
@@ -241,17 +234,18 @@ public class MemberController {
      public String deleteMember(HttpServletRequest request,MemberVO memberVO) { 
     	HttpSession session=request.getSession(false);
     	MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-    	memberService.deleteMember(memberVO);
-		String id=mvo.getId();
-    	mvo=memberService.findMemberById(id);
-    	session.setAttribute("mvo", mvo);
-    	session.invalidate();
-    	return "redirect:deleteMemberResult"; 
+    	memberVO.setId(mvo.getId());
+    	int result = memberService.deleteMember(memberVO);
+    	if(result == 1) {
+			mvo = memberService.findMemberById(mvo.getId());
+	    	session.setAttribute("mvo", mvo);
+	    	session.invalidate();
+	    	return "ok";
+    	} else {
+    		return "fail";
+    	}
        }
-     @RequestMapping("deleteMemberResult")
-     public String deleteMemberResult() {
-    	 return "member/deleteMember-result";
-     }
+     
    // 회원 정보 수정 폼
       @RequestMapping("updateMemberForm")
       public String updateMemberForm(Model model) {

@@ -14,8 +14,6 @@ public interface MemberMapper {
 
 	int registerMember(MemberVO memberVO);
 
-	int checkNick(String nick);
-
 	int checkTel(String tel);
 
 	String findId(String name, String tel);
