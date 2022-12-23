@@ -1,6 +1,8 @@
 package org.kosta.myproject;
 
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.MemberMapper;
@@ -43,5 +45,11 @@ public class HanbitJunitTestJjy {
 		System.out.println("삭제됐나" + memberVO);
 		memberMapper.deleteMember(memberVO);
 		System.out.println("삭제됐다" + memberVO);
+	}
+	@Test
+	public void myPostList() {
+		String id="java3";
+		List<String> myPostList=memberMapper.myPostList(id);
+		logger.debug("list vo:{}"+ myPostList + id);
 	}
 }

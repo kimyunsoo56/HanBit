@@ -43,4 +43,9 @@ UPDATE hanbit_member SET enabled=2 where id=#{id} and password=#{password} and q
 	answer=#{answer,jdbcType=VARCHAR},tel=#{tel,jdbcType=VARCHAR},gender=#{gender,jdbcType=VARCHAR},
 	work_history=#{workHistory,jdbcType=VARCHAR},location=#{location,jdbcType=VARCHAR},work_type=#{workType,jdbcType=VARCHAR} WHERE id=#{id,jdbcType=VARCHAR}
 </update>
+<select id="myPostList" parameterType="string" resultType="org.kosta.myproject.model.vo.MemberVO">
+	SELECT mb.match_no, mb.title, mb.hits, mb.time_posted
+	FROM hanbit_member m
+	INNER JOIN hanbit_match_board mb ON m.id=mb.id WHERE m.id=#{value}
+</select>
 </mapper>

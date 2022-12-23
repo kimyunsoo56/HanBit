@@ -34,39 +34,17 @@ VALUES ('springboot','a','김요양','요양천사','가장 기억에 남는 장
 UPDATE hanbit_member SET enabled=2 WHERE id='test6' AND password='a' AND question='나의 노래방 애창곡은?' AND answer='좋은날';
 UPDATE hanbit_member SET enabled=1 WHERE id='spring2';
 
--- 작성글목록
-SELECT notice_no, title, hits, time_posted
-FROM hanbit_match_board,hanbit_free_board,hanbit_notice_board
-INNER JOIN ON 
 
+--자유게시판 작성글목록
+SELECT fb.free_no, fb.title, fb.hits, fb.time_posted
+FROM hanbit_member m
+INNER JOIN hanbit_free_board fb ON m.id=fb.id WHERE m.id='spring'
 
---방법 2 ANSI SQL 조인
- 
- 	--	SELECT 컬럼명,컬럼명
- --		FROM 테이블 명 별칭 
- 	--	INNER JOIN 테이블명 별칭 ON 별칭.컬럼명 = 별칭,컬럼명 
+--매칭게시판 작성글목록
+SELECT mb.match_no, mb.title, mb.hits, mb.time_posted
+FROM hanbit_member m
+INNER JOIN hanbit_match_board mb ON m.id=mb.id WHERE m.id='java3'
 
-
-
-
-
--- 나의 질문목록 조회 : 판매글제목, 질문글제목, 작성일, 답변유무
-select sb.sales_title,  qb.qna_title,  qb.qna_content,   qb.qna_date
-from (select * from hs_qna_board where member_id='jmc') qb
-inner join hs_sales_board sb on sb.sales_post_no=qb.sales_post_no
-
-select sb.sales_title,  qb.qna_title,  qb.qna_content,  qb.qna_date,   qrb.member_id
-from (select * from hs_qna_board where member_id='jmc') qb
-inner join hs_sales_board sb on sb.sales_post_no=qb.sales_post_no
-left outer join hs_qna_reply_board qrb on qrb.qna_post_no=qb.qna_post_no;
-
-select * from hs_qna_board qb 
-left outer join hs_qna_reply_board qrb on qb.qna_post_no=qrb.qna_post_no;
-
-select qb.qna_post_no, qb.qna_title,qb.qna_content,qb.qna_date,qb.qna_status,qb.sales_post_no,qb.member_id,sb.sales_title
-from hs_qna_board qb
-inner join hs_sales_board sb on sb.sales_post_no=qb.sales_post_no
-where qb.member_id='jmc'
 
 
 

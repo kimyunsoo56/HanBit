@@ -1,5 +1,7 @@
 package org.kosta.myproject.model.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.myproject.model.vo.MemberVO;
 
@@ -27,5 +29,7 @@ public interface MemberMapper {
 	void updateMember(MemberVO memberVO);
 
 	int deleteMember(MemberVO memberVO);
+
+	List<String> myPostList(String id);
 
 }
