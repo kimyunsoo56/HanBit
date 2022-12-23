@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.myproject.model.service.FreeBoardService;
 import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class MemberController {
 				//쪽지 읽음 여부!
 				session.setAttribute("noListMessage",  new ArrayList<Integer>());
 				//찜을 위한 세션 생성
-				session.setAttribute("noListLike",new ArrayList<Integer>());
+				session.setAttribute("noListLike",new ArrayList<String>());
 				
 				return "redirect:/";
 			}
@@ -63,8 +64,7 @@ public class MemberController {
      @GetMapping("/myPageDetail")
        public String myPageDetail(HttpServletRequest request,Model model) {
         HttpSession session=request.getSession(false);
-        MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
-       // String id=memberVO.getId();        
+        MemberVO memberVO=(MemberVO) session.getAttribute("mvo");   
         session.setAttribute("mvo", memberVO);
           return "member/myPageDetailList";
      }
@@ -311,4 +311,12 @@ public class MemberController {
          int checkTel=memberService.checkTel(tel);
          return checkTel;
       }
-}
+/*      // 내가쓴글, 작성글조회
+      @GetMapping("/myPagePostList")
+      public String myPagePostList(HttpServletRequest request, Model model) {
+		ArrayList<FreeBoardVO> myPagePostList= FreeBoardService.
+
+		model.addAttribute("FreeBoardList", FreeBoardService.FreeBoardList());
+		//model.addAttribute("MatchBoardList", MatchBoardService.MatchBoardList());
+         return "member/myPagePostList";*/
+    }

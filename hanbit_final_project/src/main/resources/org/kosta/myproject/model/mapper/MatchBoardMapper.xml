@@ -61,10 +61,18 @@ and m.work_type=#{memberVO.workType}
 insert into hanbit_message values(hanbit_message_seq.nextval,#{content},default,default,#{sendId},#{receiveId})
 </insert>
 
-<insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" >
+
+<!-- 글쓰기 -->
+<!-- <insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" >
 	insert into hanbit_match_board(match_no, title, content, image, id)
 	values (hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image}, #{memberVO.id})
+</insert> -->
+
+<insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" >
+	insert into hanbit_match_board(match_no, title, content, image, id)
+	values (hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image, jdbcType=VARCHAR}, #{memberVO.id})
 </insert>
+
 
 <select id="messageList" parameterType="String" resultType="org.kosta.myproject.model.vo.MessageVO">
 select message_no,checking,time_posted,send_id,receive_id,content
@@ -116,6 +124,14 @@ delete from hanbit_likes
 where id=#{id} and match_no=#{matchNo}
 
 </delete>
+
+<select id="checkLikes" parameterType="org.kosta.myproject.model.vo.LikesVO" resultType="int">
+SELECT COUNT(*)
+FROM HANBIT_LIKES
+where id=#{id} and match_no=#{matchNo}
+
+
+</select>
 
 
 

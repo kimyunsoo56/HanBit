@@ -13,7 +13,7 @@
        
         <h4> ※   매칭게시판 글쓰기 페이지입니다   ※  </h4> <br><br>
          
-         <form th:action="registerMatch" method="post" id="register_form">
+         <form th:action="registerMatch" method="post" id="register_form" enctype="multipart/form-data">
          <input name="id" th:value="${session.mvo.id}" type = "hidden">
          제목 : <input type="text" name="title" placeholder="제목을 입력하세요." required="required">
          <br><br>
@@ -21,7 +21,11 @@
          <br><br>
          ------------------------------------------------------------
          <br><br>
-         사진 :<input type="text" name="image" placeholder="사진첨부하세요." required="required"><br>
+         <div>
+    사진 : <input type="file" name="photo" accept="image/*">
+  	</div>
+         <!-- 사진 :<input type="text" name="image" placeholder="사진첨부하세요." required="required"> -->
+         <br>
          요양사 이름 : <span th:text="${session.mvo.name}" name="name"></span><br>
          성별 : <span th:text="${session.mvo.gender}" name="gender"></span><br>
          지역 : <span th:text="${session.mvo.location}" name="location"></span><br>
