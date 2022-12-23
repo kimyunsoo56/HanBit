@@ -1,6 +1,10 @@
 package org.kosta.myproject.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +38,41 @@ public class MatchBoardController {
 
 		return "matchBoard/matchBoard";
 	}
+	@RequestMapping("showLike")
+	public String showLike(Model model,HttpSession session,String id,String matchNo) {
+		System.out.println("확인:"+matchNo);
+		System.out.println(id);
+	
+		@SuppressWarnings("unchecked")
+		ArrayList<String> noListLike = (ArrayList<String>) session.getAttribute("noListLike");
+	
+		LikesVO likesVO=new LikesVO();
+		likesVO.setId(id);
+		likesVO.setMatchNo(Integer.parseInt(matchNo));
+		
+		if (noListLike.contains(matchNo) == false) {
+			noListLike.add(matchNo);
+			matchBoardService.addLikes(likesVO);
+		}else {
+			noListLike.remove(matchNo);
+			matchBoardService.removeLikes(likesVO);
+			
+		}
+		for(int i = 0; i<noListLike.size();i++) {
+			System.out.println("후: " +noListLike.get(i));
+		}
+		
+		session.setAttribute("noListLike",noListLike);
+		
+
+		return "redirect:matchDetail?matchNo="+matchNo;
+	}
 
 	@RequestMapping("matchDetail")
 	public String showMatchDetail(Model model, int matchNo, HttpSession session) {
+		String message="";
+		MemberVO vo=(MemberVO) session.getAttribute("mvo");
+		String id=vo.getId();
 
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> noListMatch = (ArrayList<Integer>) session.getAttribute("noListMatch");
@@ -42,11 +80,24 @@ public class MatchBoardController {
 			matchBoardService.addHits(matchNo);// 조회수증가방지없음
 			noListMatch.add(matchNo); // noList에 조회한 게시글 no 추가
 		}
-
+		LikesVO likesVO= new LikesVO();
+		likesVO.setId(id);
+		likesVO.setMatchNo(matchNo);
+		int result=matchBoardService.checkLikes(likesVO);
+		if(result==0) {
+			model.addAttribute("likePic", "nolike.png");// 동적으로 변화될 수 있는 이미지 정보 
+			
+		}else {
+			
+			model.addAttribute("likePic", "like.png");// 동적으로 변화될 수 있는 이미지 정보 
+		}
+		System.out.println(likesVO);
+		System.out.println(result);
 		model.addAttribute("matchNo", matchNo);
-		MatchBoardVO vo = matchBoardService.matchDetail(matchNo);
-		model.addAttribute("matchDetail", vo);
-
+		MatchBoardVO vo1 = matchBoardService.matchDetail(matchNo);
+		model.addAttribute("matchDetail", vo1);
+		model.addAttribute("likeMessage",message);
+        
 		return "matchBoard/matchDetail";
 	}
 
@@ -64,29 +115,7 @@ public class MatchBoardController {
 		return "matchBoard/matchBoard :: #matchTbody";
 	}
 
-	@RequestMapping("showLike")
-	public String showLike(Model model,HttpSession session,String id,int matchNo) {
 	
-		System.out.println("확인:"+matchNo);
-		System.out.println(id);
-	
-		@SuppressWarnings("unchecked")
-		ArrayList<Integer> noListLike = (ArrayList<Integer>) session.getAttribute("noListLike");
-		LikesVO likesVO=new LikesVO();
-		likesVO.setId(id);
-		likesVO.setMatchNo(matchNo);
-		if (noListLike.contains(matchNo) == false) {
-			noListLike.add(matchNo);
-			matchBoardService.addLikes(likesVO);
-		}else {
-			noListLike.remove(matchNo);
-			matchBoardService.removeLikes(likesVO);
-			
-		}
-		model.addAttribute("matchNo",matchNo);
-
-		return "redirect:matchDetail";
-	}
 
 	// 쪽지 쓰는 곳으로 넘어가기.
 	@RequestMapping("SendMessage")
@@ -117,20 +146,61 @@ public class MatchBoardController {
 		return "redirect:matchDetail?matchNo=" + matchNo;
 	}
 
-	// 글쓰기
-	@PostMapping("registerMatch")
-	public String registerMatch(MatchBoardVO matchBoardVO, Model model, HttpServletRequest request) {
-
-		HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("mvo") != null) {
-			MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-			matchBoardVO.setMemberVO(mvo);
-		}
-		System.out.println(matchBoardVO);
-		int result = matchBoardService.registerMatch(matchBoardVO);
-
-		return "redirect:MatchBoardList";
-	}
+	/*
+	 * // 글쓰기
+	 * 
+	 * @PostMapping("registerMatch") public String registerMatch(MatchBoardVO
+	 * matchBoardVO, Model model, HttpServletRequest request) {
+	 * 
+	 * HttpSession session = request.getSession(false); if (session != null &&
+	 * session.getAttribute("mvo") != null) { MemberVO mvo = (MemberVO)
+	 * session.getAttribute("mvo"); matchBoardVO.setMemberVO(mvo); }
+	 * System.out.println(matchBoardVO); int result =
+	 * matchBoardService.registerMatch(matchBoardVO);
+	 * 
+	 * return "redirect:MatchBoardList"; }
+	 */
+	
+	  // 글쓰기
+	  @PostMapping("registerMatch") 
+	  public String registerMatch(MatchBoardVO matchBoardVO, Model model, HttpServletRequest request,@RequestParam("photo") MultipartFile file) {
+		  SimpleDateFormat nowTime = new SimpleDateFormat("yyyyMMddHHmmss");
+			Date now = new Date();
+	  HttpSession session = request.getSession(false); 
+	  if (session != null && session.getAttribute("mvo") != null) { 
+		  MemberVO mvo = (MemberVO) session.getAttribute("mvo"); 
+		  matchBoardVO.setMemberVO(mvo); 
+		  }
+	  System.out.println(matchBoardVO); 
+	  
+	  //-----------------------------------------------------------
+	  
+      String fileName = null;
+      if (file.isEmpty() == false) {
+      fileName = matchBoardVO.getMemberVO().getId()+"_"+nowTime.format(now)+"_"+ file.getOriginalFilename();
+      matchBoardVO.setImage(fileName); 
+      }
+      try(
+    	      // 윈도우일 경우
+    	      FileOutputStream fos = new FileOutputStream("C:\\kosta250\\git-final\\HanBit\\hanbit_final_project\\src\\main\\resources\\static\\images\\" + fileName);
+    		  
+    		  InputStream is = file.getInputStream();
+    	    ){
+    	      int readCount = 0;
+    	      byte[] buffer = new byte[2048];
+    	      while((readCount = is.read(buffer)) != -1){
+    	      fos.write(buffer,0,readCount);
+    	    }
+    	    }catch(Exception ex){
+    	      throw new RuntimeException("file Save Error");
+    	    }
+	  int result =matchBoardService.registerMatch(matchBoardVO);
+	  System.out.println(result);
+	  return "redirect:MatchBoardList"; 
+	  }
+	 
+	
+	
 
 	// 쪽지함가기 (받은편지함)
 	@RequestMapping("myMessage")

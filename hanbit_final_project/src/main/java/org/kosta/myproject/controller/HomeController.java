@@ -9,6 +9,8 @@ public class HomeController {
 	public String home() {
 		return "index";
 	}
-	
-	
+	@RequestMapping("loginInterceptor")
+	public String loginInterceptor() {
+		return "loginInterceptor";
+	}
 }
