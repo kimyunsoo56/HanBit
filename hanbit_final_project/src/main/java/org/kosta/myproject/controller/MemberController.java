@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.myproject.model.service.FreeBoardService;
 import org.kosta.myproject.model.service.MemberService;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
