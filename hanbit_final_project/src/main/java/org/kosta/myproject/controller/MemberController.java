@@ -69,7 +69,7 @@ public class MemberController {
           return "member/myPageDetailList";
      }
    // register form 에서 for문 돌릴 select 부분을 model에 담아서 넘겨줌
-   @RequestMapping("registerForm")
+   @RequestMapping("registerMemberForm")
    public String registerForm(Model model) {
       List<String> question=new ArrayList<>();
       question.add("가장 기억에 남는 장소는?");
@@ -94,14 +94,14 @@ public class MemberController {
       return "member/register-result";
    }
    // 아이디 중복체크 Ajax
-   @RequestMapping("registerCheckId")
+   @RequestMapping("registerMemberCheckId")
    @ResponseBody
    public MemberVO registerCheckId(String id) {
       MemberVO checkId=memberService.findMemberById(id);
       return checkId;
    }
    // 연락처 중복체크 Ajax
-   @RequestMapping("registerCheckTel")
+   @RequestMapping("registerMemberCheckTel")
    @ResponseBody
    public int registerCheckTel(String tel) {
       int checkTel=memberService.checkTel(tel);
