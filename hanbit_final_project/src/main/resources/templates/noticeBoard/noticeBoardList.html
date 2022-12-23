@@ -17,7 +17,9 @@
 			<option th:value="건강정보">건강정보</option>
 			<option th:value="알림정보">알림정보</option>
 		</select> <br>
-		<button type="button" id="searchCategory">검색</button>
+		<button type="button" id="searchCategory" class="btn btn-outline-dark">
+		검색
+		</button>
 		<br> <br>
 		<table class="table table-bordered">
 			<thead>
@@ -46,7 +48,7 @@
 		<th:block th:if="${session.mvo!=null}">
 			<th:block th:if="${session.mvo.memberType == 3}">
 				<form th:action="@{writeNoticeForm}">
-					<button>글쓰기</button>
+					<button type = "submit"  class="btn btn-outline-dark">>글쓰기</button>
 				</form>
 			</th:block>
 		</th:block>
@@ -71,7 +73,6 @@
 			$(function() {
 				$("#searchCategory").click(function() {
 					let category = $("#category").val();
-					alert(category);
 					$.ajax({
 						type : "get",
 						url : "findByCategory",

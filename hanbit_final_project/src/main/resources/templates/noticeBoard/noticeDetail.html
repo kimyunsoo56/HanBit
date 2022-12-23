@@ -17,7 +17,7 @@
 <p th:text="${detail.hits}"></p><br>
 <p th:text="${detail.content}"></p><br>
 <p th:text="${detail.image}"></p><br>
-<img th:src = "@{/images/} + ${detail.image}"><br>
+<img th:src = "@{/images/} + ${detail.image}" class="img-fluid" src="img_chania.jpg" alt="Chania"><br>
 <br> 자세한 내용은 아래 링크에서 확인하세요 <br>
 <a th:href="${detail.link}">홈페이지 바로가기</a>
 </div>
