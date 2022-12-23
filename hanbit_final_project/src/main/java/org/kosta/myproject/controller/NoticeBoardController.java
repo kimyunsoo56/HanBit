@@ -7,11 +7,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.Criteria;
 import org.kosta.myproject.model.service.NoticeBoardService;
 import org.kosta.myproject.model.service.Paging;
+import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.springframework.stereotype.Controller;
@@ -43,16 +45,16 @@ public class NoticeBoardController {
    @RequestMapping("noticeBoardList")
    public String noticeBoardList(Model model, Criteria cri) {
       int totalCnt =  noticeBoardService.totalPostListCnt();
-      System.out.println(totalCnt);
+      //System.out.println(totalCnt);
       
       Paging paging = new Paging();
       paging.setCri(cri);
       paging.setTotalCount(totalCnt);
       
-      System.out.println(cri);
-      System.out.println(paging);
+      //System.out.println(cri);
+      //System.out.println(paging);
       List<Map<String, Object>> list = noticeBoardService.noticeBoardList1(cri);
-      System.out.println(list);
+      //System.out.println(list);
       model.addAttribute("nblvo", list);
       model.addAttribute("paging", paging);
       return "noticeBoard/noticeBoardList";
@@ -81,8 +83,9 @@ public class NoticeBoardController {
  
    // 게시물 상세보기
    @RequestMapping("noticeDetail")
-   public String noticeDetail(Model model, int noticeNo) {
-      NoticeBoardVO vo = noticeBoardService.noticeBoardDetailView(noticeNo);
+   public String noticeDetail(Model model, int noticeNo,HttpSession session) {
+	   session.getAttribute("mvo");
+	   NoticeBoardVO vo = noticeBoardService.noticeBoardDetailView(noticeNo);
     //  System.out.println(vo);
       model.addAttribute("detail", vo);
       return "noticeBoard/noticeDetail";
@@ -141,6 +144,31 @@ public class NoticeBoardController {
       model.addAttribute("nblvo", noticeBoardService.noticeBoardList1(cri));
       return "noticeBoard/noticeBoardList";
    }
+   //글 삭제
+   @PostMapping("noticeDelete")
+	public String noticeDelete(int noticeNo) {
+	   noticeBoardService.noticeDelete(noticeNo);
+		return "redirect:noticeBoardList";
+	}
+   //글 수정 폼으로 이동//안ㄴ됨
+   @RequestMapping("noticeUpdateForm")
+  	public String noticeUpdateForm(int noticeNo, HttpServletRequest request, Model model) {
+  		HttpSession session=request.getSession();
+  		//세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
+  		if (session.getAttribute("mvo") == null)
+  			return "redirect:home";
+  		//freeDetail에 freeNo로 포스팅 정보를 전송해준다.
+  		model.addAttribute("mvo",session);
+  		model.addAttribute("detail",noticeBoardService.noticeBoardDetailView(noticeNo));
+  		System.out.println(noticeNo);
+  		return "noticeBoard/noticeUpdateForm";
+  	}
+   //게시글수정
+   @PostMapping("noticeUpdate")
+	public String noticeUpdate(NoticeBoardVO noticeBoardVO) {
+	   noticeBoardService.noticeUpdate(noticeBoardVO);
+		return "redirect:noticeBoardList";
+	}
    
 // 경매게시판 글 작성
 	/*

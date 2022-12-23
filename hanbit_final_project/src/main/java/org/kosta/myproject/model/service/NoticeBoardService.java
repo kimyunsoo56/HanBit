@@ -36,6 +36,10 @@ void noticeWrite(NoticeBoardVO noticeBoardVO);
 
 int totalPostListCnt();
 
+void noticeDelete(int noticeNo);
+
+void noticeUpdate(NoticeBoardVO noticeBoardVO);
+
 //카테고리별 조회
 // List<NoticeBoardVO>findNoticeByCategory(NoticeBoardVO noticeBoardVO);
 

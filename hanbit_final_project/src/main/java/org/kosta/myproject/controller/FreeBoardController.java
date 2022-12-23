@@ -38,15 +38,15 @@ public class FreeBoardController {
 		//List<FreeBoardVO> FreeBoardList = freeBoardService.findAll();
 		//model.addAttribute("FreeBoardList", FreeBoardList);
 		int totalCnt =  freeBoardService.getTotalPostCount();
-	      System.out.println(totalCnt);
+	      //System.out.println(totalCnt);
 	      Paging paging = new Paging();
 	      paging.setCri(cri);
 	      paging.setTotalCount(totalCnt);
-	      System.out.println(cri);
-	      System.out.println(paging);
+	      //System.out.println(cri);
+	      //System.out.println(paging);
 	      List<Map<String, Object>> FreeBoardList = freeBoardService.findAll(cri);
 	      //System.out.println(FreeBoardList);
-	      model.addAttribute("FreeBoardVO", FreeBoardList);
+	      model.addAttribute("FreeBoardList", FreeBoardList);
 	      model.addAttribute("paging", paging);
 		return "freeBoard/freeBoardList";
 	}

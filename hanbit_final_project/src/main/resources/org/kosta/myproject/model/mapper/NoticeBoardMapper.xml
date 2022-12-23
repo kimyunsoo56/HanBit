@@ -57,7 +57,7 @@
 	
 	<!-- 게시물 상세보기 조회 -->
 	<select id="noticeBoardDetailView" parameterType="int" resultMap="noticeboardRM">
-		SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image, hnb.link
+		SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image, hnb.link, hnb.notice_no
 		FROM hanbit_notice_board hnb
 		INNER JOIN hanbit_member hm ON hnb.id=hm.id
 		WHERE hnb.notice_no = #{values}
@@ -108,25 +108,30 @@
 	<select id="totalPostListCnt" resultType="int">
 		select count(*)
 		from hanbit_notice_board 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</select>
 	
+	<!-- 게시글 삭제 -->
+	<delete id="noticeDelete">
+ 	delete from hanbit_notice_board where notice_no=#{value}
+	</delete>
+	<!-- 게시글 수정 -->
+	<update id="noticeUpdate" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO">
+	update hanbit_notice_board
+	set title=#{title}, content=#{content}, category=#{category}
+	 where notice_no=#{noticeNo}
+	</update>
 
 	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,6 +28,10 @@ public interface NoticeBoardMapper {
 
 	int totalPostListCnt();
 
+	void noticeDelete(int noticeNo);
+
+	void noticeUpdate(NoticeBoardVO noticeBoardVO);
+
 	// List<NoticeBoardVO> findNoticeByCategory(NoticeBoardVO noticeBoardVO);
 
 
