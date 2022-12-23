@@ -33,3 +33,4 @@ FROM hanbit_likes l
 INNER JOIN hanbit_member m ON l.id=m.id
 INNER JOIN hanbit_match_board b ON b.match_no=l.match_no
 WHERE m.id='java'
+

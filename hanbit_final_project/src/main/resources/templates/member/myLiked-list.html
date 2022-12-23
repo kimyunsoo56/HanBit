@@ -12,14 +12,13 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>글번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th>
+						<th>글번호</th><th>제목</th><th>작성일</th><th>조회수</th>
 					</tr>
 				</thead>
 					<tbody>
 						<tr th:each="myLikedList:${myLikedList}">
 							<td th:text="${myLikedList.matchNo}"></td>
 							<td> <a th:href="@{/matchDetail?matchNo=} + ${myLikedList.matchNo}" th:text="${myLikedList.title}"></a></td>
-							<td th:text="${session.mvo.name}"></td>
 							<td th:text="${myLikedList.timePosted}"></td>
 						  	<td th:text="${myLikedList.hits}"></td>   
 						</tr>
