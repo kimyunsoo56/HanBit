@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class LikesVO {
-	private MemberVO memberVO;
-	private MatchBoardVO matchBoardVO;
+	private String id;
+	private int matchNo;
 }

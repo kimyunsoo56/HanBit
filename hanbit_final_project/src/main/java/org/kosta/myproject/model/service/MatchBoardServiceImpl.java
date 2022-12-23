@@ -3,6 +3,7 @@ package org.kosta.myproject.model.service;
 import java.util.List;
 
 import org.kosta.myproject.model.mapper.MatchBoardMapper;
+import org.kosta.myproject.model.vo.LikesVO;
 import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MessageVO;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,18 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 	public void updateMatch(MatchBoardVO matchBoardVO) {
 		matchBoardMapper.updateMatch(matchBoardVO);
 	}
+
+	@Override
+	public void addLikes(LikesVO likesVO) {
+		matchBoardMapper.addLikes(likesVO);
+	}
+
+	@Override
+	public void removeLikes(LikesVO likesVO) {
+		matchBoardMapper.removeLikes(likesVO);
+	}
+
+	
 
 	
 

@@ -2,6 +2,7 @@ package org.kosta.myproject.model.service;
 
 import java.util.List;
 
+import org.kosta.myproject.model.vo.LikesVO;
 import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MessageVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
@@ -31,6 +32,19 @@ public interface MatchBoardService  {
 	void matchDelete(int matchNo);
 
 	void updateMatch(MatchBoardVO matchBoardVO);
+
+	void addLikes(LikesVO likesVO);
+
+	void removeLikes(LikesVO likesVO);
+
+
+
+	
+
+
+	
+
+	
 
 
 

@@ -105,6 +105,17 @@ delete from hanbit_match_board where match_no=#{value}
 	set title=#{title}, content=#{content}, image=#{image}
 	 where match_no=#{matchNo}
 	</update>
+	
+<insert id="addLikes" parameterType="org.kosta.myproject.model.vo.LikesVO">
+insert into hanbit_likes 
+values(#{id},#{matchNo})
+</insert>
+
+<delete id="removeLikes" parameterType="org.kosta.myproject.model.vo.LikesVO">
+delete from hanbit_likes 
+where id=#{id} and match_no=#{matchNo}
+
+</delete>
 
 
 
