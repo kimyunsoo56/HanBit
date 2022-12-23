@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/free_layout}">
+	layout:decorate="~{layouts/notice_layout}">
 <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛</title>
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<h4>※ 자유게시판 글쓰기※</h4>
-	  <form th:action="@{/write}" method="post" id="write_form">
+	<h4>※ 알림 글쓰기※</h4>
+	  <form th:action="@{/write}" method="post" id="write_form" enctype="multipart/form-data">
 	<br>
-	<select name="category">
+	<select name = "category">
 		<option value="자유글">자유글</option>
 		<option value="정보글">정보글</option>
 		<option value="실종신고">실종신고</option>
 	</select> <br> <br><br>
-	<input name="id" th:value="${session.mvo.id}" type = "hidden">
 	제목 &nbsp; &nbsp;
      <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
      <br>
-	 <textarea cols="90" rows="15" name="content" required="required" placeholder="본문내용을 입력하세요"></textarea>
+	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" placeholder="본문내용을 입력하세요"></textarea>
 		<br><br>
 	 <div class="form-group row">
-        <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
+<!--     <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>  -->   
           <div class="col-sm-10">
-            <div class="custom-file" id="inputFile">
-              <input name="file" type="file" class="custom-file-input" id="customFile" />
-        		 <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
-            </div>
+            <br><br>
+     
          </div>
       </div>
       <br><br>
-   
-        		<br><br>
-		<button type = "submit" > 
+      <br><br>
+  	<div>
+    file : <input type="file" name="photo" accept="image/*">
+  	</div>
+  	<input type="submit">
+  		<button type = "submit"  class="btn btn-outline-dark">
 		등록
 		</button> 
 	</form>
+
 	 <!-- jQuery Ajax -->
      <script type="text/javascript">
      	$(document).ready(function() {
@@ -45,15 +46,6 @@
      			return confirm("글을 등록하시겠습니까?"); 
 			});//submit
      	}); //ready
-     
-     </script>
-     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script>
-      $('.custom-file-input').on('change', function () {
-        var fileName = $(this).val().split('\\').pop();
-        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
-      });
     </script>
 </div>
 <!--================End layout Area =================-->

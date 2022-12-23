@@ -42,4 +42,8 @@ public interface FreeBoardMapper {
 
 	int getTotalPostCountByCategory(String category);
 
+	void freeWrite(FreeBoardVO freeBoardVO);
+
+	List<Map<String, Object>> freeBoardList1(Criteria cri);
+
 }

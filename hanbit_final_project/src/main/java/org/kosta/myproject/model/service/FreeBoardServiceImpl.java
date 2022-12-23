@@ -94,6 +94,16 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		int count = freeBoardMapper.getTotalPostCountByCategory(category);
 		return count;
 	}
+	@Override
+	public void freeWrite(FreeBoardVO freeBoardVO) {
+		freeBoardMapper.freeWrite(freeBoardVO);
+		
+	}
+	@Override
+	public List<Map<String, Object>> freeBoardList1(Criteria cri) {
+		return freeBoardMapper.freeBoardList1(cri);
+	}
+	
 	
 	
 

@@ -134,7 +134,12 @@
 		where rm between #{pageStart} and #{perPageNum}*#{page}
 		]]> -->
 	
-	
+	<!-- 글쓰기 ( 관리자만 글 작성 가능 ) -->
+ 	<insert id="freeWrite" parameterType="org.kosta.myproject.model.vo.FreeBoardVO" >
+		
+		INSERT INTO hanbit_free_board(free_no, title, content, time_posted,category, image, id)
+		VALUES(hanbit_free_board_seq.nextval, #{title}, #{content}, sysdate, #{category}, #{image, jdbcType=VARCHAR}, #{memberVO.id})
+	</insert>
 </mapper>
 
 
