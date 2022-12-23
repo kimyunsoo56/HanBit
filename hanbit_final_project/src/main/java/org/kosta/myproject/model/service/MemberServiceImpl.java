@@ -3,6 +3,7 @@ package org.kosta.myproject.model.service;
 import java.util.List;
 
 import org.kosta.myproject.model.mapper.MemberMapper;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +69,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<String> myPostList(String id) {
 		return memberMapper.myPostList(id);
+	}
+
+	@Override
+	public List<MatchBoardVO> myLikedList(String id) {
+		return memberMapper.myLikedList(id);
 	}
 }

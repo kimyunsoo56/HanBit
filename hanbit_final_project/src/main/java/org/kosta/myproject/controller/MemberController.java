@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.MemberService;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -318,4 +319,15 @@ public class MemberController {
 		model.addAttribute("FreeBoardList", FreeBoardService.FreeBoardList());
 		//model.addAttribute("MatchBoardList", MatchBoardService.MatchBoardList());
          return "member/myPagePostList";*/
+      
+      // 마이페이지 찜목록 조회
+      @RequestMapping("myLikedList")
+      public String myLikedList(Model model,HttpServletRequest request) {
+    	  HttpSession session=request.getSession(false);
+    	  MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
+    	  String id=memberVO.getId();
+    	  List<MatchBoardVO> myLikedList=memberService.myLikedList(id);
+    	  model.addAttribute("myLikedList", myLikedList);
+    	  return "member/myLiked-list";
+      }
     }

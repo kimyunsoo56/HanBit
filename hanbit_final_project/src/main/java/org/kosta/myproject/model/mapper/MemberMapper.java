@@ -3,6 +3,7 @@ package org.kosta.myproject.model.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 
 @Mapper
@@ -31,5 +32,7 @@ public interface MemberMapper {
 	int deleteMember(MemberVO memberVO);
 
 	List<String> myPostList(String id);
+
+	List<MatchBoardVO> myLikedList(String id);
 
 }

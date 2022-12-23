@@ -2,6 +2,7 @@ package org.kosta.myproject.model.service;
 
 import java.util.List;
 
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,7 @@ public interface MemberService {
 	int deleteMember(MemberVO memberVO);
 	
 	List<String> myPostList(String id);
+
+	List<MatchBoardVO> myLikedList(String id);
 	
 }

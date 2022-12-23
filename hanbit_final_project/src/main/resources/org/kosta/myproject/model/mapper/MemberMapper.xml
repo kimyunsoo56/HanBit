@@ -48,4 +48,11 @@ UPDATE hanbit_member SET enabled=2 where id=#{id} and password=#{password} and q
 	FROM hanbit_member m
 	INNER JOIN hanbit_match_board mb ON m.id=mb.id WHERE m.id=#{value}
 </select>
+<select id="myLikedList" parameterType="string" resultType="org.kosta.myproject.model.vo.MatchBoardVO">
+	SELECT b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
+	FROM hanbit_likes l
+	INNER JOIN hanbit_member m ON l.id=m.id
+	INNER JOIN hanbit_match_board b ON b.match_no=l.match_no
+	WHERE m.id=#{value}
+</select>
 </mapper>
