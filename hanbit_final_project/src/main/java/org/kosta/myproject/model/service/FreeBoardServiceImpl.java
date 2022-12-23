@@ -1,5 +1,6 @@
 package org.kosta.myproject.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,9 +82,17 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return count;
 	}
 	@Override
-	public List<FreeBoardVO> findFreeByCategory(String category) {
+	public List<Map<String, Object>> findFreeByCategory(String category, Criteria cri) {
+		HashMap<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("cri", cri);
+		paramMap.put("category", category);
+		return freeBoardMapper.findFreeByCategory(paramMap);
 		
-		return freeBoardMapper.findFreeByCategory(category);
+	}
+	@Override
+	public int getTotalPostCountByCategory(String category) {
+		int count = freeBoardMapper.getTotalPostCountByCategory(category);
+		return count;
 	}
 	
 	

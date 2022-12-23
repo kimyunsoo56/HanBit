@@ -34,6 +34,8 @@ public interface FreeBoardService {
 
 	int getTotalPostCount();
 
-	List<FreeBoardVO> findFreeByCategory(String category);
+	List<Map<String, Object>> findFreeByCategory(String category, Criteria cri);
+
+	int getTotalPostCountByCategory(String category);
 
 }

@@ -155,10 +155,30 @@ public class FreeBoardController {
 	}
 	//카테고리별 조회
 	 @RequestMapping("findFreeByCategory")
-	   public String findFreeByCategory(Model model, String category) {
-	     model.addAttribute("FreeCategory", freeBoardService.findFreeByCategory(category)); 
-	     return "freeBoard/freeBoardList"; 
+	   public String findFreeByCategory(Model model, String category,Criteria cri) {
+		 int totalCnt =  freeBoardService.getTotalPostCountByCategory(category);
+		 Paging paging = new Paging();
+	     paging.setCri(cri);
+	     paging.setTotalCount(totalCnt);
+	     List<Map<String, Object>> FreeBoardList = freeBoardService.findFreeByCategory(category,cri);
+	   model.addAttribute("FreeBoardList", FreeBoardList);
+	   
+	     return "freeBoard/freeBoardList :: #freeTbody"; 
+	     /*
+	      * int totalCnt =  freeBoardService.getTotalPostCount();
+	      //System.out.println(totalCnt);
+	      Paging paging = new Paging();
+	      paging.setCri(cri);
+	      paging.setTotalCount(totalCnt);
+	      //System.out.println(cri);
+	      //System.out.println(paging);
+	      List<Map<String, Object>> FreeBoardList = freeBoardService.findAll(cri);
+	      //System.out.println(FreeBoardList);
+	      model.addAttribute("FreeBoardList", FreeBoardList);
+	      model.addAttribute("paging", paging);
+	      */
 	   }
+	
 }
 
 

@@ -11,13 +11,13 @@
 <div layout:fragment="content">
 
 <div class="row">
-      <br> <select name="category">
-		<option value="자유글">자유글</option>
-		<option value="정보글">정보글</option>
-		<option value="실종신고">실종신고</option>
-	</select> <br>
-      <button type="button" id="searchCategory" th:action="@{/findFreeByCategory}" >검색</button>
-      <!-- th:action="@{/findFreeByCategory}"  -->
+      <br> <select id="category">
+     	<option value="">전체 보기</option>
+		<option th:value="자유글">자유글</option>
+		<option th:value="정보글">정보글</option>
+		<option th:value="실종신고">실종신고</option>
+	</select>
+      <button type="button" id="findFreeByCategory">검색</button>
       <br>
 
 
@@ -33,7 +33,7 @@
             <th>카테고리</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="freeTbody">
         <tr th:each="board:${FreeBoardList}">
             <td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}" th:text="${board.freeNo}"></a></td>
             <td th:text="${board.memberVO.nick}"></td>
@@ -78,7 +78,22 @@
       </form>
 </th:block>
 
-
+<script type="text/javascript">
+			$(function() {
+				$("#findFreeByCategory").click(function() {
+					let category = $("#category").val();
+					$.ajax({
+						type : "get",
+						url : "findFreeByCategory",
+						//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
+						data : "category=" + category,
+						success : function(list) {
+							$("#freeTbody").replaceWith(list);//replaceWith
+						}
+					});//ajax
+				});//click
+			});//ready
+		</script>
 
 
 </div>

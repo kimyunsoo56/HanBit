@@ -69,3 +69,25 @@ SELECT * from
 from hanbit_free_board hfb
 inner join hanbit_member hm on hfb.id=hm.id
 order by hfb.free_no desc))
+
+
+
+
+select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits
+from hanbit_free_board hfb
+inner join hanbit_member hm ON hfb.id=hm.id
+where hfb.category='자유글';
+
+
+
+
+SELECT * from
+		(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
+		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
+		from hanbit_free_board hfb
+		inner join hanbit_member hm on hfb.id=hm.id
+		order by hfb.free_no desc))
+		where rm between 1 and 5*1 and category='실종신고'
+
+
+
