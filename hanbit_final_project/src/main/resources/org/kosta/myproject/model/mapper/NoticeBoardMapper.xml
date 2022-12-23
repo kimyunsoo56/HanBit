@@ -42,9 +42,9 @@
       from hanbit_notice_board hnb
       inner join hanbit_member hm on hnb.id=hm.id
       order by hnb.notice_no desc))
-      <![CDATA[
+<!--       <![CDATA[
       where rm between #{pageStart} and #{perPageNum}*#{page}
-      ]]>
+      ]]> -->
       <where>
       <if test="category != ''">
       category=#{category}
