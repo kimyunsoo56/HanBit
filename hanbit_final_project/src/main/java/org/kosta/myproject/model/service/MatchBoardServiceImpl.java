@@ -88,6 +88,14 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 		matchBoardMapper.removeLikes(likesVO);
 	}
 
+	@Override
+	public int checkLikes(LikesVO likesVO) {
+		
+		return matchBoardMapper.checkLikes(likesVO);
+	}
+
+
+
 	
 
 	

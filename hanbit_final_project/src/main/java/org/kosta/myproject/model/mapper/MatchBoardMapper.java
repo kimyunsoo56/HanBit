@@ -35,6 +35,8 @@ public interface MatchBoardMapper {
 
 	void removeLikes(LikesVO likesVO);
 
+	int checkLikes(LikesVO likesVO);
+
 
 
 

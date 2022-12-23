@@ -42,7 +42,7 @@ public class MemberController {
 				//쪽지 읽음 여부!
 				session.setAttribute("noListMessage",  new ArrayList<Integer>());
 				//찜을 위한 세션 생성
-				session.setAttribute("noListLike",new ArrayList<Integer>());
+				session.setAttribute("noListLike",new ArrayList<String>());
 				
 				return "redirect:/";
 			}
