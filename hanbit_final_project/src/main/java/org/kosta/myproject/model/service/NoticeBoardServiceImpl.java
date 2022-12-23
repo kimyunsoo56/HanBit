@@ -74,6 +74,18 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		int count = noticeBoardMapper.totalPostListCnt();
 		return count;
 	}
+	//글삭제
+	@Override
+	public void noticeDelete(int noticeNo) {
+		noticeBoardMapper.noticeDelete(noticeNo);
+		
+	}
+
+	@Override
+	public void noticeUpdate(NoticeBoardVO noticeBoardVO) {
+		noticeBoardMapper.noticeUpdate(noticeBoardVO);
+		
+	}
 
 
 	/*

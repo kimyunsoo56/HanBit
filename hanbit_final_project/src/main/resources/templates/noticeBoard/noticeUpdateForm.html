@@ -8,8 +8,11 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<h4>※ 알림 글쓰기※</h4>
-	  <form th:action="@{/noticeWrite}" method="post" id="write_form" enctype="multipart/form-data">
+	<h4>※ 알림 글수정※</h4>
+	  <form th:action="@{/noticeUpdate}" method="post" id="update_form" enctype="multipart/form-data">
+   <input name="noticeNo" th:value="${param.noticeNo}" type = "hidden">
+   <input name="noticeNo" th:value="${detail.noticeNo}" type = "hidden">
+	 <input name="id" th:value="${session.mvo.id}" type = "hidden">
 	<br>
 	<select name = "category">
 		<option value= "알림 정보">알림 정보</option>
@@ -17,9 +20,9 @@
 		<option value= "공지사항">공지 사항</option>
 	</select> <br> <br><br>
 	제목 &nbsp; &nbsp;
-     <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
+     <input type="text" name="title" th:value=${detail.title} required="required"> <br>
      <br>
-	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" placeholder="본문내용을 입력하세요"></textarea>
+	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" th:text=${detail.content}></textarea>
 		<br><br>
 	 <div class="form-group row">
 <!--     <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>  -->   
@@ -30,7 +33,7 @@
       		링크 양식 예시: 
       		<br> https://www.naver.com 
       		<br> https://www.seouldementia.or.kr/info/notice.asp?pagename=view&num=237528&page=1&search=
-      		<br><br>
+      		<br><br>4444
          </div>
       </div>
       <br><br>
@@ -39,7 +42,7 @@
     file : <input type="file" name="photo" accept="image/*">
   	</div>
   	<input type="submit">
-  		<button type = "submit"  class="btn btn-outline-dark">
+  		<button type = "submit" > 
 		등록
 		</button> 
 	</form>
@@ -47,7 +50,7 @@
 	 <!-- jQuery Ajax -->
      <script type="text/javascript">
      	$(document).ready(function() {
-     		$("#write_form").submit(function() {
+     		$("#update_form").submit(function() {
      			return confirm("글을 등록하시겠습니까?"); 
 			});//submit
      	}); //ready

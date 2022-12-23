@@ -10,15 +10,31 @@
 <div layout:fragment="content">
 	<br>
 	<br>
+
 <h4 th:text="${detail.title}"></h4>&nbsp;
+<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
 <p th:text="${detail.category}"></p>
 <p th:text="${detail.memberVO.nick}"></p>
 <p th:text="${detail.timePosted}"></p>
 <p th:text="${detail.hits}"></p><br>
 <p th:text="${detail.content}"></p><br>
 <p th:text="${detail.image}"></p><br>
-<img th:src = "@{/images/} + ${detail.image}"><br>y
+<img th:src = "@{/images/} + ${detail.image}" class="img-fluid" src="img_chania.jpg" alt="Chania"><br>
 <br> 자세한 내용은 아래 링크에서 확인하세요 <br>
 <a th:href="${detail.link}">홈페이지 바로가기</a>
+
+<th:block th:if="${session.mvo!=null}">
+		<th:block th:if="${session.mvo.memberType == 3}">
+			<form th:action="@{noticeDelete?noticeNo=}+${detail.noticeNo}"
+				method="post">
+				<button>삭제</button>
+			</form>
+			<form th:action="@{noticeUpdateForm?noticeNo=}+${detail.noticeNo}">
+			<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
+				<button>수정</button>
+			</form>
+			</th:block>
+			</th:block>
+
 </div>
 <!--================End layout Area =================-->
