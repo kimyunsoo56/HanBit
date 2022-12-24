@@ -4064,6 +4064,9 @@ h6 {
 .footer-bottom .footer-social a:hover {
   color: #a7cb00;
 }
+a.line:hover {
+   text-decoration: underline;
+}
 
 /*---------------------------------------------------- */
 

@@ -9,7 +9,8 @@
 </head>
  <!--================Start layout Area =================-->
         <div layout:fragment="content">
-			<table class="table table-bordered">
+        <div align="center">
+			<table class="table" style="width: 1100px; word-break:break-all; text-align: center;">
 				<thead>
 					<tr>
 						<th>글번호</th><th>제목</th><th>작성일</th><th>조회수</th>
@@ -18,11 +19,12 @@
 					<tbody>
 						<tr th:each="myLikedList:${myLikedList}">
 							<td th:text="${myLikedList.matchNo}"></td>
-							<td> <a th:href="@{/matchDetail?matchNo=} + ${myLikedList.matchNo}" th:text="${myLikedList.title}"></a></td>
+							<td> <a class="line" style="color: #676766;" th:href="@{/matchDetail?matchNo=} + ${myLikedList.matchNo}" th:text="${myLikedList.title}"></a></td>
 							<td th:text="${myLikedList.timePosted}"></td>
 						  	<td th:text="${myLikedList.hits}"></td>   
 						</tr>
 					</tbody>
-			</table>
+				</table>
+			</div>
         </div>
  <!--================End layout Area =================-->
