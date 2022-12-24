@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.MemberService;
+import org.kosta.myproject.model.vo.FreeBoardVO;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
    //로그인 폼
     @RequestMapping("loginForm")
     public String loginForm() {
@@ -310,12 +313,18 @@ public class MemberController {
          int checkTel=memberService.checkTel(tel);
          return checkTel;
       }
-/*      // 내가쓴글, 작성글조회
-      @GetMapping("/myPagePostList")
+      // 내가쓴글, 작성글조회
+      @RequestMapping("/myPagePostList")
+      
+      
       public String myPagePostList(HttpServletRequest request, Model model) {
-		ArrayList<FreeBoardVO> myPagePostList= FreeBoardService.
-
-		model.addAttribute("FreeBoardList", FreeBoardService.FreeBoardList());
-		//model.addAttribute("MatchBoardList", MatchBoardService.MatchBoardList());
-         return "member/myPagePostList";*/
+    	HttpSession session=request.getSession(false);
+    	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
+    	String id=memberVO.getId();
+		List<FreeBoardVO> myPageFreePostList= memberService.findFreePostList(id);
+		List<MatchBoardVO> myPageMatchPostList= memberService.findMatchPostList(id);
+		model.addAttribute("myPageFreePostList", myPageFreePostList);
+		model.addAttribute("myPageMatchPostList", myPageMatchPostList);
+         return "member/myPagePostList";
     }
+}

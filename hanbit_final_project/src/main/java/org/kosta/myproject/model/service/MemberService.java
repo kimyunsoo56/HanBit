@@ -2,6 +2,8 @@ package org.kosta.myproject.model.service;
 
 import java.util.List;
 
+import org.kosta.myproject.model.vo.FreeBoardVO;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,8 @@ public interface MemberService {
 	void updateMember(MemberVO memberVO);
 
 	int deleteMember(MemberVO memberVO);
-	
-	List<String> myPostList(String id);
-	
+
+	List<FreeBoardVO> findFreePostList(String id);
+
+	List<MatchBoardVO> findMatchPostList(String id);
 }
