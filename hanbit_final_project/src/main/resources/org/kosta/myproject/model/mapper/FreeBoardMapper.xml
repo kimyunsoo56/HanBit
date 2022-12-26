@@ -13,6 +13,13 @@
 		FROM   hanbit_free_board
 		where category=#{value}
 	</select>
+	<!-- 검색별 게시물 수 -->
+	<select id="getTotalPostCountByKeyword" resultType="int">
+		SELECT COUNT(*)
+		FROM   hanbit_free_board
+		where title LIKE '%'||#{value}||'%' 
+	</select>
+	
 	
 	<!-- has a 관계 표현 -->
 	<resultMap type="org.kosta.myproject.model.vo.FreeBoardVO" id="freeBoardList">
@@ -114,32 +121,48 @@
 		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
 		from hanbit_free_board hfb
 		inner join hanbit_member hm on hfb.id=hm.id
+		where hfb.category=#{category}
 		order by hfb.free_no desc))
 		<![CDATA[
-		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page} and category=#{category}
+		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page}
 		]]>
 		</select>
-		<!-- <where>
-		<if test="category != ''">
-		category=#{category}
-		</if>
-		</where> -->
-		<!-- 	SELECT * from
+<!-- 	<select id="findFreeByCategory" parameterType="map" resultMap="freeBoardList">
+		SELECT * from
 		(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
 		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
 		from hanbit_free_board hfb
 		inner join hanbit_member hm on hfb.id=hm.id
 		order by hfb.free_no desc))
 		<![CDATA[
-		where rm between #{pageStart} and #{perPageNum}*#{page}
-		]]> -->
+		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page} and category=#{category}
+		]]>
+		</select> -->
+		
 	
-	<!-- 글쓰기 ( 관리자만 글 작성 가능 ) -->
+	<!-- 글쓰기  -->
  	<insert id="freeWrite" parameterType="org.kosta.myproject.model.vo.FreeBoardVO" >
 		
 		INSERT INTO hanbit_free_board(free_no, title, content, time_posted,category, image, id)
 		VALUES(hanbit_free_board_seq.nextval, #{title}, #{content}, sysdate, #{category}, #{image, jdbcType=VARCHAR}, #{memberVO.id})
 	</insert>
+	
+	
+	<!-- 검색 -->
+	<select id="findFreeByKeyword" parameterType="map" resultMap="freeBoardList">
+		SELECT * from
+		(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
+		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
+		from hanbit_free_board hfb
+		inner join hanbit_member hm on hfb.id=hm.id
+		where hfb.title LIKE '%'||#{keyword}||'%' or hfb.content LIKE '%'||#{keyword}||'%' or hm.nick  LIKE '%'||#{keyword}||'%'
+		order by hfb.free_no desc))
+		<![CDATA[
+		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page}
+		]]>
+		</select>
+		
+		
 </mapper>
 
 

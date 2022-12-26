@@ -81,6 +81,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		int count = freeBoardMapper.getTotalPostCount();
 		return count;
 	}
+	//카테고리별검색
 	@Override
 	public List<Map<String, Object>> findFreeByCategory(String category, Criteria cri) {
 		HashMap<String,Object> paramMap=new HashMap<String,Object>();
@@ -102,6 +103,19 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	@Override
 	public List<Map<String, Object>> freeBoardList1(Criteria cri) {
 		return freeBoardMapper.freeBoardList1(cri);
+	}
+	@Override
+	public int getTotalPostCountByKeyword(String keyword) {
+		int count = freeBoardMapper.getTotalPostCountByKeyword(keyword);
+		return count;
+	}
+	//키워드검색
+	@Override
+	public List<Map<String, Object>> findFreeByKeyword(String keyword, Criteria cri) {
+		HashMap<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("cri", cri);
+		paramMap.put("keyword", keyword);
+		return freeBoardMapper.findFreeByKeyword(paramMap);
 	}
 	
 	

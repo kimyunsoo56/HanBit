@@ -10,6 +10,7 @@ public class Criteria {
 	private int perPageNum; // 페이지당 보여줄 게시글의 개수
 	private int totalCount;
 	private String category;
+	private String keyword;
 	
 	public int getPageStart() {
 		// 특정 페이지의 범위를 정하는 구간, 현재 페이지의 게시글 시작 번호
@@ -69,6 +70,14 @@ public class Criteria {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }
 
