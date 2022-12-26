@@ -2,6 +2,7 @@ package org.kosta.myproject.model.service;
 
 import java.util.List;
 
+import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
@@ -35,4 +36,7 @@ public interface MemberService {
 	List<FreeBoardVO> findFreePostList(String id);
 
 	List<MatchBoardVO> findMatchPostList(String id);
+
+	List<CommentVO> findFreePostCommentList(String id);
+
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/member_layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<!--================자유게시판 글 목록 =================-->
+<div layout:fragment="content">
+<h3 style="color: #a7cb00">자유게시판 댓글 목록</h3>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			 <th>내용</th>
+			 <th width="15%">시간</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="FreeComment:${myPageFreePostCommentList}">
+         <td width="75%" ><a th:href="@{/freeDetail?freeNo=} + ${FreeComment.freeNo}" th:text="${FreeComment.content}"></a></td>
+         <td width="25%" th:text="${FreeComment.timePosted}"></td>
+	</tbody>
+</table>
+</div>
+
+	<!--================End layout Area =================-->

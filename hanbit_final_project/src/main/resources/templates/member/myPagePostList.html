@@ -21,22 +21,20 @@
 	</thead>
 	<tbody>
 		<tr th:each="freeBoard:${myPageFreePostList}">
-			<td th:text="${freeBoard.freeNo}"></td>
-			<td><a th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}"
+			<td width="10%" th:text="${freeBoard.freeNo}"></td>
+			<td width="60%" ><a th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}"
 				th:text="${freeBoard.title}"></a></td>
 			<td th:text="${freeBoard.timePosted}"></td>
 			<td th:text="${freeBoard.hits}"></td>
 		</tr>
 	</tbody>
+	
 </table>
-</div>
-
-<!--================ 매칭게시판 글 목록 =================-->
-	 <!-- <div layout:fragment="content"> -->
-	<th:block th:if="${session.mvo.memberType==2}"> 
-	<h3 style="color: #a7cb00">매칭게시판 목록</h3>
-	<table class="table table-bordered">
-		<thead>
+<!--================매칭게시판 글 목록 =================-->
+<th:block th:if="${session.mvo.memberType==2}">
+<h3 style="color: #a7cb00">매칭게시판 목록</h3>
+<table class="table table-bordered">
+<thead>
 			<tr>
 				<th>글번호</th>
 				<th>제목</th>
@@ -44,17 +42,16 @@
 				<th>조회수</th>
 			</tr>
 		</thead>
-			<tr th:each="matchBoard:${myPageMatchPostList}">
-				<td th:text="${matchBoard.matchNo}"></td>
-				<td><a th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}"
+		<tr th:each="matchBoard:${myPageMatchPostList}">
+				<td width="10%" th:text="${matchBoard.matchNo}"></td>
+				<td width="60%"><a th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}"
 					th:text="${matchBoard.title}"></a></td>
 				<td th:text="${matchBoard.timePosted}"></td>
 				<td th:text="${matchBoard.hits}"></td>
 			</tr>
 		</tbody>
-	</table>
-	</div>
-	<br> 
-
+</table>
+</th:block>
+</div>
 
 	<!--================End layout Area =================-->
