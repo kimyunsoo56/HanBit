@@ -1,6 +1,7 @@
 package org.kosta.myproject.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.myproject.model.vo.LikesVO;
 import org.kosta.myproject.model.vo.MatchBoardVO;
@@ -38,6 +39,12 @@ public interface MatchBoardService  {
 	void removeLikes(LikesVO likesVO);
 
 	int checkLikes(LikesVO likesVO);
+
+	int getTotalPostCount();
+
+	List<Map<String, Object>> findAll(Criteria cri);
+
+	int getTotalPostCountByCategory(MatchBoardVO matchBoardVO);
 
 
 

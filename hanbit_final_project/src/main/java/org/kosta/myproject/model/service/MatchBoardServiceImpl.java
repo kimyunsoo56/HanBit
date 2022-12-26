@@ -1,6 +1,7 @@
 package org.kosta.myproject.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.myproject.model.mapper.MatchBoardMapper;
 import org.kosta.myproject.model.vo.LikesVO;
@@ -94,27 +95,27 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 		return matchBoardMapper.checkLikes(likesVO);
 	}
 
+	@Override
+	public int getTotalPostCount() {
+		int count=matchBoardMapper.getTotalPostCount();
+		return count;
+		
+	}
 
+	@Override
+	public List<Map<String, Object>> findAll(Criteria cri) {
+		//List<BoardEntity> boardEntityList = br.findAll();
+		List<Map<String, Object>> matchBoardList = matchBoardMapper.findAll(cri);
+		return matchBoardList;
+	}
 
+	@Override
+	public int getTotalPostCountByCategory(MatchBoardVO matchBoardVO) {
+		
+		int count = matchBoardMapper.getTotalPostCountByCategory(matchBoardVO);
+		return count;
+	}
 	
-
-	
-
-	
-
-
-
-
-
-
-
-
-
 	
 	
-
-	
-
-	
-
 }

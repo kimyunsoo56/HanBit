@@ -22,7 +22,7 @@ public interface NoticeBoardService {
 List<Map<String, Object>> noticeBoardList1(Criteria cri);
 
 // 카테고리별 조회 - 페이징 적용
-List<Map<String, Object>> findByCategory(Criteria cri);
+// List<Map<String, Object>> findByCategory(Criteria cri);
 
 // 게시물 조회 (PagingBean 객체 매개변수로 설정)
 // List<NoticeBoardVO> getListWithPaging(Criteria cri);
@@ -52,6 +52,12 @@ void registerComment(NoticeCommentVO commentVO);
 
 // 댓글 목록
 List<NoticeCommentVO> findCommentList(int noticeNo);
+
+// 카테고리별 목록 조회 (페이징 적용)
+int getTotalPostCountByCategory(String category);
+
+// 카테고리별 목록 조회 (페이징 적용)
+List<Map<String, Object>> findNoticeByCategory(Criteria cri, String category);
 
 
 

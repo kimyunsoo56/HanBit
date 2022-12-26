@@ -81,7 +81,7 @@ public class FreeBoardController {
 		   SimpleDateFormat nowTime = new SimpleDateFormat("yyyyMMddHHmmss");
 			Date now = new Date();
 	      if (session.getAttribute("mvo") == null)
-	         return "redirect:noticeBoard/noticeBoardList";
+	         return "redirect:freeBoard/freeBoardList";
 	     
 	      MemberVO mvo = (MemberVO) session.getAttribute("mvo");
 	      freeBoardVO.setMemberVO(mvo);
@@ -209,20 +209,24 @@ public class FreeBoardController {
 	   model.addAttribute("FreeBoardList", FreeBoardList);
 	   
 	     return "freeBoard/freeBoardList :: #freeTbody"; 
-	     /*
-	      * int totalCnt =  freeBoardService.getTotalPostCount();
-	      //System.out.println(totalCnt);
-	      Paging paging = new Paging();
-	      paging.setCri(cri);
-	      paging.setTotalCount(totalCnt);
-	      //System.out.println(cri);
-	      //System.out.println(paging);
-	      List<Map<String, Object>> FreeBoardList = freeBoardService.findAll(cri);
-	      //System.out.println(FreeBoardList);
-	      model.addAttribute("FreeBoardList", FreeBoardList);
-	      model.addAttribute("paging", paging);
-	      */
+	   
 	   }
+	 //검색기능
+	 @GetMapping("findFreeByKeyword")
+	 public String findFreeByKeyword(Model model, String keyword,Criteria cri) {
+		 int totalCnt =  freeBoardService.getTotalPostCountByKeyword(keyword);
+		 System.out.println(keyword);
+		 System.out.println(totalCnt);
+		 Paging paging = new Paging();
+	     paging.setCri(cri);
+	     paging.setTotalCount(totalCnt);
+	     List<Map<String, Object>> FreeBoardList = freeBoardService.findFreeByKeyword(keyword,cri);
+	   model.addAttribute("FreeBoardList", FreeBoardList);
+	   System.out.println(freeBoardService.findFreeByKeyword(keyword,cri));
+	  
+	     return "freeBoard/freeBoardList :: #freeTbody"; 
+	 }
+	   
 	
 }
 

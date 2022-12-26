@@ -1,138 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.kosta.myproject.model.mapper.MatchBoardMapper">
-<resultMap type="org.kosta.myproject.model.vo.MatchBoardVO" id="matchResultMap">
-      <result column="id"  property="memberVO.id"/> 
-      <result column="name"  property="memberVO.name"/> 
-      <result column="location"  property="memberVO.location"/> 
-      <result column="nick"  property="memberVO.nick"/> 
-      <result column="gender"  property="memberVO.gender"/>
-      <result column="work_history"  property="memberVO.workHistory"/>
-      <result column="work_type"  property="memberVO.workType"/> 
-      <result column="tel"  property="memberVO.tel"/> 
-   </resultMap>
-   
-   <resultMap type="org.kosta.myproject.model.vo.MessageVO" id="messageResultMap">
-      <result column="id"  property="memberVO.id"/> 
-      <result column="name"  property="memberVO.name"/> 
-      <result column="location"  property="memberVO.location"/> 
-      <result column="nick"  property="memberVO.nick"/> 
-      <result column="gender"  property="memberVO.gender"/>
-      <result column="work_history"  property="memberVO.workHistory"/>
-      <result column="work_type"  property="memberVO.workType"/> 
-      <result column="tel"  property="memberVO.tel"/> 
-   </resultMap>
+<mapper
+	namespace="org.kosta.myproject.model.mapper.MatchBoardMapper">
+	<resultMap type="org.kosta.myproject.model.vo.MatchBoardVO"
+		id="matchResultMap">
+		<result column="id" property="memberVO.id" />
+		<result column="name" property="memberVO.name" />
+		<result column="location" property="memberVO.location" />
+		<result column="nick" property="memberVO.nick" />
+		<result column="gender" property="memberVO.gender" />
+		<result column="work_history" property="memberVO.workHistory" />
+		<result column="work_type" property="memberVO.workType" />
+		<result column="tel" property="memberVO.tel" />
+	</resultMap>
 
-<select id="matchBoardList" resultMap="matchResultMap">
-select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
-from hanbit_match_board b
-inner join hanbit_member m on b.id=m.id
-order by b.time_posted DESC
+	<resultMap type="org.kosta.myproject.model.vo.MessageVO"
+		id="messageResultMap">
+		<result column="id" property="memberVO.id" />
+		<result column="name" property="memberVO.name" />
+		<result column="location" property="memberVO.location" />
+		<result column="nick" property="memberVO.nick" />
+		<result column="gender" property="memberVO.gender" />
+		<result column="work_history" property="memberVO.workHistory" />
+		<result column="work_type" property="memberVO.workType" />
+		<result column="tel" property="memberVO.tel" />
+	</resultMap>
 
-</select>
+	<select id="matchBoardList" resultMap="matchResultMap">
+		select
+		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		order by b.time_posted DESC
 
-<select id="matchDetail" parameterType="int" resultMap="matchResultMap">
-select b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type,m.work_history,m.tel,m.nick,m.id
-from hanbit_match_board b
-inner join hanbit_member m on b.id=m.id
-where b.match_no=#{value}
+	</select>
 
-</select>
+	<select id="matchDetail" parameterType="int"
+		resultMap="matchResultMap">
+		select
+		b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type,m.work_history,m.tel,m.nick,m.id
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		where b.match_no=#{value}
 
-<select id="findMatchListBylgw" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultMap="matchResultMap">
-select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
-from hanbit_match_board b
-inner join hanbit_member m on b.id=m.id
-<where>
-<if test="memberVO!=null and memberVO.location!=''">
-m.location=#{memberVO.location}
-</if>
-<if test="memberVO!=null and memberVO.gender!=''">
-and m.gender=#{memberVO.gender}
-</if>
-<if test="memberVO!=null and memberVO.workType!=''">
-and m.work_type=#{memberVO.workType}
-</if>
-</where>
-
-
-</select>
-
-<insert id="realSendMessage" parameterType="org.kosta.myproject.model.vo.MessageVO">
-insert into hanbit_message values(hanbit_message_seq.nextval,#{content},default,default,#{sendId},#{receiveId})
-</insert>
-
-
-<!-- 글쓰기 -->
-<!-- <insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" >
-	insert into hanbit_match_board(match_no, title, content, image, id)
-	values (hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image}, #{memberVO.id})
-</insert> -->
-
-<insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" >
-	insert into hanbit_match_board(match_no, title, content, image, id)
-	values (hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image, jdbcType=VARCHAR}, #{memberVO.id})
-</insert>
+	</select>
+<!--  기존 카테고리별 조회 에이잭스 메서드 -->
+	<!-- <select id="findMatchListBylgw"
+		parameterType="org.kosta.myproject.model.vo.MatchBoardVO"
+		resultMap="matchResultMap">
+		select
+		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		<where>
+			<if test="memberVO!=null and memberVO.location!=''">
+				m.location=#{memberVO.location}
+			</if>
+			<if test="memberVO!=null and memberVO.gender!=''">
+				and m.gender=#{memberVO.gender}
+			</if>
+			<if test="memberVO!=null and memberVO.workType!=''">
+				and m.work_type=#{memberVO.workType}
+			</if>
+		</where>
 
 
-<select id="messageList" parameterType="String" resultType="org.kosta.myproject.model.vo.MessageVO">
-select message_no,checking,time_posted,send_id,receive_id,content
-from hanbit_message 
-where #{value}=receive_id
+	</select> -->
+	<select id="findMatchListBylgw"
+		parameterType="org.kosta.myproject.model.vo.MatchBoardVO"
+		resultMap="matchResultMap">
+		
+		select * from
+		(select ROWNUM rm,match_no,title,content,time_posted,hits,image,id,name,location,gender,work_type from 
+		(select
+		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id))
+		<where>
+			<if test="memberVO!=null and memberVO.location!=''">
+				m.location=#{memberVO.location}
+			</if>
+			<if test="memberVO!=null and memberVO.gender!=''">
+				and m.gender=#{memberVO.gender}
+			</if>
+			<if test="memberVO!=null and memberVO.workType!=''">
+				and m.work_type=#{memberVO.workType}
+			</if>
+		</where>
 
-</select>
 
-<select id="messageList1" parameterType="String" resultType="org.kosta.myproject.model.vo.MessageVO">
-select checking,time_posted,send_id,receive_id,content
-from hanbit_message 
-where #{value}=send_id
+	</select>
 
-</select>
+	<insert id="realSendMessage"
+		parameterType="org.kosta.myproject.model.vo.MessageVO">
+		insert into hanbit_message
+		values(hanbit_message_seq.nextval,#{content},default,default,#{sendId},#{receiveId})
+	</insert>
 
-	<!--  매칭 게시판 조회수 증가 -->
+
+	<!-- 글쓰기 -->
+	<!-- <insert id="registerMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" 
+		> insert into hanbit_match_board(match_no, title, content, image, id) values 
+		(hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image}, #{memberVO.id}) 
+		</insert> -->
+
+	<insert id="registerMatch"
+		parameterType="org.kosta.myproject.model.vo.MatchBoardVO">
+		insert into hanbit_match_board(match_no, title, content, image, id)
+		values (hanbit_match_board_msk_seq.nextval, #{title}, #{content}, #{image,
+		jdbcType=VARCHAR}, #{memberVO.id})
+	</insert>
+
+
+	<select id="messageList" parameterType="String"
+		resultType="org.kosta.myproject.model.vo.MessageVO">
+		select message_no,checking,time_posted,send_id,receive_id,content
+		from hanbit_message
+		where #{value}=receive_id
+
+	</select>
+
+	<select id="messageList1" parameterType="String"
+		resultType="org.kosta.myproject.model.vo.MessageVO">
+		select checking,time_posted,send_id,receive_id,content
+		from hanbit_message
+		where #{value}=send_id
+
+	</select>
+
+	<!-- 매칭 게시판 조회수 증가 -->
 	<update id="addHits">
-	update hanbit_match_board
-	set hits=hits+1
-	 where match_no=#{value}
+		update hanbit_match_board
+		set hits=hits+1
+		where match_no=#{value}
 	</update>
-	
-	<!--  매칭 게시판 조회수 증가 -->
+
+	<!-- 매칭 게시판 조회수 증가 -->
 	<update id="addChecking">
-	update hanbit_message
-	set checking=checking+1
-	 where message_no=#{value}
+		update hanbit_message
+		set checking=checking+1
+		where message_no=#{value}
 	</update>
-	<!--  매칭 게시판 삭제 -->
-<delete id="matchDelete">
-delete from hanbit_match_board where match_no=#{value}
-</delete>
+	<!-- 매칭 게시판 삭제 -->
+	<delete id="matchDelete">
+		delete from hanbit_match_board where match_no=#{value}
+	</delete>
 
-<!-- 매칭 게시판 수정 -->
-<!-- 게시글수정 -->
-	<update id="updateMatch" parameterType="org.kosta.myproject.model.vo.MatchBoardVO">
-	update hanbit_match_board
-	set title=#{title}, content=#{content}, image=#{image}
-	 where match_no=#{matchNo}
+	<!-- 매칭 게시판 수정 -->
+	<!-- 게시글수정 -->
+	<update id="updateMatch"
+		parameterType="org.kosta.myproject.model.vo.MatchBoardVO">
+		update hanbit_match_board
+		set title=#{title}, content=#{content}, image=#{image}
+		where match_no=#{matchNo}
 	</update>
+
+	<insert id="addLikes"
+		parameterType="org.kosta.myproject.model.vo.LikesVO">
+		insert into hanbit_likes
+		values(#{id},#{matchNo})
+	</insert>
+
+	<delete id="removeLikes"
+		parameterType="org.kosta.myproject.model.vo.LikesVO">
+		delete from hanbit_likes
+		where id=#{id} and match_no=#{matchNo}
+
+	</delete>
+
+	<select id="checkLikes"
+		parameterType="org.kosta.myproject.model.vo.LikesVO" resultType="int">
+		SELECT COUNT(*)
+		FROM HANBIT_LIKES
+		where id=#{id} and match_no=#{matchNo}
+
+
+	</select>
+
+	<!-- 총 게시물 수 -->
+	<select id="getTotalPostCount" resultType="int">
+		select count(*)
+		from
+		hanbit_match_board
+	</select>
+
+	<select id="findAll"
+		resultType="org.kosta.myproject.model.vo.MatchBoardVO"
+		resultMap="matchResultMap"
+		parameterType="org.kosta.myproject.model.service.Criteria">
+		
+		select * from
+		(select ROWNUM rm,match_no,title,content,time_posted,hits,image,id,name,location from
+		(select
+		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		order by b.time_posted DESC))
+		<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]>
+	</select>
 	
-<insert id="addLikes" parameterType="org.kosta.myproject.model.vo.LikesVO">
-insert into hanbit_likes 
-values(#{id},#{matchNo})
-</insert>
-
-<delete id="removeLikes" parameterType="org.kosta.myproject.model.vo.LikesVO">
-delete from hanbit_likes 
-where id=#{id} and match_no=#{matchNo}
-
-</delete>
-
-<select id="checkLikes" parameterType="org.kosta.myproject.model.vo.LikesVO" resultType="int">
-SELECT COUNT(*)
-FROM HANBIT_LIKES
-where id=#{id} and match_no=#{matchNo}
-
-
-</select>
+	
+	<!-- 카테고리별 게시물 수 -->
+	<select id="getTotalPostCountByCategory" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultType="int" resultMap="matchResultMap">
+		SELECT COUNT(*)
+		FROM   hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		where m.location=#{memberVO.location} and m.gender=#{memberVO.gender} and m.work_type=#{memberVO.workType}
+		
+	</select>
 
 
 

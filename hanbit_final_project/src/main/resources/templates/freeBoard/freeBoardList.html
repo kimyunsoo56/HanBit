@@ -19,6 +19,16 @@
 	</select>
       <button type="button" id="findFreeByCategory">검색</button>
       <br>
+     
+       	<!-- <select id="type">
+       		<option selected value="">검색 내용 선택</option>
+       		<option th:value="title">제목</option>
+       		<option th:value="content">내용</option>
+       		<option th:value="nick">작성자</option>
+       	</select> -->
+       	<input type="text" id="keyword" ></input>
+       <button type="button" id="findFreeByKeyword">검색</button>
+     
 
 
 <table class="table table-bordered">
@@ -58,7 +68,7 @@
       </th:block> -->
       <ul class="pagination justify-content-center">
 		<th:block th:if="${paging.prev}">
-          <li class="page-item active"><a class="page-link" th:href="@{/freeBoardListpage=${paging.startPage-1})}">Pre</a></li>
+          <li class="page-item active"><a class="page-link" th:href="@{/freeBoardList(page=${paging.startPage-1})}">Pre</a></li>
         </th:block>
         <th:block th:each="num : ${#numbers.sequence(paging.startPage,paging.endPage)}" var="num">
           <li class="page-item"><a class="page-link" th:href="@{/freeBoardList(page=${num})}" th:text="${num}"></a></li>
@@ -70,7 +80,7 @@
       
 
 
-<!-- <th:block th:if="${session.mvo.memberType == 3}"> -->
+ <th:block th:if="${session.mvo.memberType == 3}">
  <form th:action="@{/freeReportList}">
          <button>
            신고리스트 보기
@@ -93,6 +103,24 @@
 					});//ajax
 				});//click
 			});//ready
+			
+			$(function() {
+				$("#findFreeByKeyword").click(function() {
+					let keyword = $("#keyword").val();
+					$.ajax({
+						type : "get",
+						url : "findFreeByKeyword",
+						//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
+						data : "keyword=" + keyword,
+						success : function(list) {
+							$("#freeTbody").replaceWith(list);//replaceWith
+						}
+					});//ajax
+				});//click
+			});//ready
+			
+			
+			
 		</script>
 
 
