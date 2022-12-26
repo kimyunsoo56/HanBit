@@ -63,7 +63,7 @@ public class MemberController {
        public String myPage() {
           return "member/myPage";
        }
-     // 회원정보상세조회
+     // 내 정보 조회
      @GetMapping("/myPageDetail")
        public String myPageDetail(HttpServletRequest request,Model model) {
         HttpSession session=request.getSession(false);
@@ -324,7 +324,7 @@ public class MemberController {
     	  model.addAttribute("myLikedList", myLikedList);
     	  return "member/myLiked-list";
       }
-      // 내가쓴글보기, 작성글조회
+      // 내가 쓴 글 보기, 작성글목록
       @GetMapping("/myPagePostList")
       public String myPagePostList(HttpServletRequest request, Model model) {
     	HttpSession session=request.getSession(false);

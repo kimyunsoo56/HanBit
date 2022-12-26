@@ -10,7 +10,7 @@
 		<div layout:fragment="content">
 			<div class="row g-4">
 	        	 <div class="col-lg12 offset-lg-5 col-md-7">
-					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myPageDetail?id=}+${session.mvo.id}">회원정보조회</a></h2><br>
+					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myPageDetail?id=}+${session.mvo.id}">내 정보조회</a></h2><br>
 					<th:block th:if=${session.mvo.memberType==1}>
 						<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/registerCareWorkerForm}">요양보호사등록</a></h2><br>
 					</th:block>
