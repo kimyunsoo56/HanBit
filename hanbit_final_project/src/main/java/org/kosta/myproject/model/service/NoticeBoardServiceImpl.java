@@ -1,10 +1,10 @@
 package org.kosta.myproject.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
-import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.kosta.myproject.model.vo.NoticeCommentVO;
 import org.springframework.stereotype.Service;
@@ -42,10 +42,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 	
 	// 카테고리별 조회 (페이징 적용)
-	@Override
+	/* @Override
 	public List<Map<String, Object>> findByCategory(Criteria cri) {
 		return  noticeBoardMapper.findByCategory(cri);
-	}
+	} */
 	
 	// 게시물 카테고리별 조회
 	//@Override
@@ -108,6 +108,24 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		List<NoticeCommentVO> commentList = noticeBoardMapper.findCommentList(noticeNo);
 		return commentList;
 	}
+
+	@Override
+	public int getTotalPostCountByCategory(String category) {
+		int count = noticeBoardMapper.getTotalPostCountByCategory(category);
+		return count;
+	}
+
+	@Override
+	public List<Map<String, Object>> findNoticeByCategory(Criteria cri, String category) {
+		HashMap<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("cri", cri);
+		paramMap.put("category", category);
+		return noticeBoardMapper.findNoticeByCategory(paramMap);
+	}
+
+
+
+	
 
 
 

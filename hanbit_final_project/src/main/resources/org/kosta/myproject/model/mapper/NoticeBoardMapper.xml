@@ -10,94 +10,61 @@
 		<result property="memberVO.nick" column="nick" />
 	</resultMap>
 
-	<!-- 게시물 리스트 조회 -->
-	<!-- <select id="noticeBoardList1" parameterType="org.kosta.myproject.model.service.PagingBean" 
+	<!-- 게시물 리스트 조회 
+	 <select id="noticeBoardList1" parameterType="org.kosta.myproject.model.service.PagingBean" 
 		resultMap="noticeboardRM"> SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, 
 		hnb.time_posted, hnb.hits, hnb.category FROM ( SELECT ROW_NUMBER() OVER (ORDER 
 		BY notice_no DESC) AS rnum, notice_no, title, SYSDATE AS time_posted, hits, 
 		category, id FROM hanbit_notice_board ) hnb INNER JOIN hanbit_member hm ON 
-		hnb.id=hm.id ORDER BY hnb.notice_no DESC </select> -->
+		hnb.id=hm.id ORDER BY hnb.notice_no DESC </select>  -->
 
-	<!-- 게시물 리스트 조회 (페이징 처리) -->
+	<!--게시물 리스트 조회 (페이징 처리) -->
 
 	<select id="noticeBoardList1"
 		resultType="org.kosta.myproject.model.vo.NoticeBoardVO"
 		parameterType="org.kosta.myproject.model.service.Criteria"
 		resultMap="noticeboardRM">
 		SELECT * from
-		(select ROWNUM rm, notice_no, title, nick,time_posted,
-		hits, category from
-		(select hnb.notice_no, hnb.title, hm.nick,
-		hnb.time_posted, hnb.hits, hnb.category
+		(select ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+		(select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
 		from hanbit_notice_board hnb
 		inner join hanbit_member hm on hnb.id=hm.id
-		order by hnb.notice_no
-		desc))
+		order by hnb.notice_no desc))
 		<![CDATA[
 		where rm between #{pageStart} and #{perPageNum}*#{page}
 		]]>
 	</select>
-			<!--  카테고리별 조회 (페이징 처리)-->
-	<select id="findByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" resultMap="noticeboardRM">
-	   SELECT * from
-      (select ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
-      (select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
-      from hanbit_notice_board hnb
-      inner join hanbit_member hm on hnb.id=hm.id
-      order by hnb.notice_no desc))
-<!--       <![CDATA[
-      where rm between #{pageStart} and #{perPageNum}*#{page}
-      ]]> -->
-      <where>
-      <if test="category != ''">
-      category=#{category}
-      </if>
-      </where>
-      </select>
 
 	<!-- 카테고리별 조회 (페이징 처리) -->
-	
-	
-	<select id="findByCategory"
-		parameterType="org.kosta.myproject.model.vo.NoticeBoardVO"
-		resultMap="noticeboardRM">
-		SELECT * from (select ROWNUM rm, notice_no, title,
-		nick,time_posted, hits, category from (select hnb.notice_no, hnb.title, hm.nick,
-		hnb.time_posted, hnb.hits, hnb.category from hanbit_notice_board hnb
-		inner
+	<!-- <select id="findByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" 
+		resultMap="noticeboardRM"> SELECT * from (select ROWNUM rm, notice_no, title, 
+		nick,time_posted, hits, category from (select hnb.notice_no, hnb.title, hm.nick, 
+		hnb.time_posted, hnb.hits, hnb.category from hanbit_notice_board hnb inner 
 		join hanbit_member hm on hnb.id=hm.id order by hnb.notice_no desc)) <![CDATA[ 
-		where rm between #{pageStart} and #{perPageNum}*#{page} ]]>
-		<where>
-			<if test="category 
-		!= ''"> category=#{category} </if>
-		</where>
-	</select>
+		where rm between #{pageStart} and #{perPageNum}*#{page} ]]> <where> <if test="category 
+		!= ''"> category=#{category} </if> </where> </select> -->
 
-	<!-- 카테고리별 조회2 (페이징 처리) -->
-	<!--  <select id="findByCategory"
-		resultType="org.kosta.myproject.model.vo.NoticeBoardVO"
-		resultMap="noticeboardRM"
-		parameterType="org.kosta.myproject.model.service.Criteria">
-		SELECT * from
-		(select ROWNUM rm, notice_no, title, nick,time_posted,
-		hits, category from
-		(select hnb.notice_no, hnb.title, hm.nick,
-		hnb.time_posted, hnb.hits,
-		hnb.category
-		from hanbit_notice_board hnb
-		inner join hanbit_member hm on hnb.id=hm.id
-		order by hnb.notice_no desc
-		))
-		where
-		<if test="category != ''">
-			category=#{category}
+	<!-- 카테고리별 조회 (페이징 처리) -->
 
-			rm between <![CDATA[#{pageStart}]]>
-			and  <![CDATA[ #{perPageNum}*#{page}]]>
-		</if>
-		</select>
 
--->
+	<!-- <select id="findByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" 
+		resultMap="noticeboardRM"> SELECT * from (select ROWNUM rm, notice_no, title, 
+		nick,time_posted, hits, category from (select hnb.notice_no, hnb.title, hm.nick, 
+		hnb.time_posted, hnb.hits, hnb.category from hanbit_notice_board hnb inner 
+		join hanbit_member hm on hnb.id=hm.id order by hnb.notice_no desc)) <![CDATA[ 
+		where rm between #{pageStart} and #{perPageNum}*#{page} ]]> <where> <if test="category 
+		!= ''"> category=#{category} </if> </where> </select> -->
+
+	<!-- 카테고리별 조회2 (페이징 처리) 
+	<select id="findByCategory" resultType="org.kosta.myproject.model.vo.NoticeBoardVO" 
+		resultMap="noticeboardRM" parameterType="org.kosta.myproject.model.service.Criteria"> 
+		SELECT * from (select ROWNUM rm, notice_no, title, nick,time_posted, hits, 
+		category from (select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, 
+		hnb.hits, hnb.category from hanbit_notice_board hnb inner join hanbit_member 
+		hm on hnb.id=hm.id order by hnb.notice_no desc )) where <if test="category 
+		!= ''"> category=#{category} rm between <![CDATA[#{pageStart}]]> and <![CDATA[ 
+		#{perPageNum}*#{page}]]> </if> </select> -->
+		
 	<!-- 게시물 상세보기 조회 -->
 	<select id="noticeBoardDetailView" parameterType="int"
 		resultMap="noticeboardRM">
@@ -113,8 +80,8 @@
 
 
 
-	<!-- 게시물 카테고리별 조회 -->
-	<!-- <select id="findMatchListByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" 
+	<!-- 게시물 카테고리별 조회 
+	 <select id="findMatchListByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" 
 		resultMap="noticeboardRM"> SELECT * from (SELECT ROWNUM rm, notice_no, title, 
 		nick,time_posted, hits, category from (SELECT hnb.notice_no, hnb.title, hm.nick, 
 		hnb.time_posted, hnb.hits, hnb.category FROM hanbit_notice_board hnb INNER 
@@ -173,15 +140,45 @@
 	</update>
 
 	<!-- 댓글 작성 -->
-	<insert id="registerComment" parameterType="org.kosta.myproject.model.vo.NoticeCommentVO">
-		insert into hanbit_notice_comment(comment_no, content,time_posted, id, notice_no)
-		values(hanbit_notice_comment_seq.nextval, #{content}, sysdate, #{id}, #{noticeNo})
-	</insert>
+	<!-- <insert id="registerComment" parameterType="org.kosta.myproject.model.vo.NoticeCommentVO"> 
+		insert into hanbit_notice_comment(comment_no, content,time_posted, id, notice_no) 
+		values(hanbit_notice_comment_seq.nextval, #{content}, sysdate, #{id}, #{noticeNo}) 
+		</insert> -->
+
+	<!-- 댓글 목록조회 -->
+	<!-- <select id="findCommentList" resultType="org.kosta.myproject.model.vo.NoticeCommentVO"> 
+		select content,time_posted,id,comment_no from hanbit_notice_comment where 
+		notice_no=#{value} </select> -->
+
+
+	<!-- 카테고리별 게시물 수 -->
+	<select id="getTotalPostCountByCategory" resultType="int">
+		SELECT COUNT(*)
+		FROM   hanbit_notice_board
+		where category=#{value}
+	</select>
+
+	<!-- 카테고리별 조회 -->
+	<select id="findNoticeByCategory" parameterType="map"
+		resultMap="noticeboardRM">
+		SELECT * from (SELECT ROWNUM rm, notice_no, title,
+		nick,time_posted,
+		hits, category from (SELECT hnb.notice_no, hnb.title, hm.nick,
+		hnb.time_posted, hnb.hits, hnb.category FROM hanbit_notice_board hnb
+		INNER
+		JOIN hanbit_member hm on hnb.id=hm.id ORDER BY hnb.notice_no
+		desc))
+		<![CDATA[
+		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page} and category=#{category}
+		]]>
+	</select>
 	
-		<!-- 댓글 목록조회 -->
-	<select id="findCommentList" resultType="org.kosta.myproject.model.vo.NoticeCommentVO">
-	select content,time_posted,id,comment_no from hanbit_notice_comment where notice_no=#{value}
-	</select> 
+	<!-- <where> <if test="category != ''"> category=#{category} </if> </where> -->
+	<!-- SELECT * from (select ROWNUM rm, free_no, title, nick, time_posted, 
+		hits, category from (select hfb.free_no, hfb.category, hfb.title, hm.nick, 
+		hfb.time_posted, hfb.hits, hm.id from hanbit_free_board hfb inner join hanbit_member 
+		hm on hfb.id=hm.id order by hfb.free_no desc)) <![CDATA[ where rm between 
+		#{pageStart} and #{perPageNum}*#{page} ]]> -->
 
 </mapper>
 
