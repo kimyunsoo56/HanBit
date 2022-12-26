@@ -46,4 +46,8 @@ public interface FreeBoardMapper {
 
 	List<Map<String, Object>> freeBoardList1(Criteria cri);
 
+	int getTotalPostCountByKeyword(String keyword);
+
+	List<Map<String, Object>> findFreeByKeyword(HashMap<String, Object> paramMap);
+
 }
