@@ -143,7 +143,7 @@ FROM hanbit_notice_board hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 
 -- 알림 게시판 게시물 리스트 출력 (rnum 추가한 버전)
-SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category, hnb.image
+SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
 FROM (
 SELECT ROW_NUMBER() OVER (ORDER BY notice_no DESC) AS rnum,  
 notice_no, title, time_posted, hits, category, id, image
