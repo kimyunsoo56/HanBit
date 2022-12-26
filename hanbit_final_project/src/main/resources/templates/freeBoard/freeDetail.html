@@ -38,14 +38,17 @@
          <td th:text="${freeDetail.memberVO.nick}"></td>
          <td th:text="${freeDetail.hits}"></td>
          <td th:text="${freeDetail.category}"></td>
+      
         
       </tr>
       </tbody>
     </table>
+       <p th:text="${freeDetail.image}"></p>
+    <img th:src = "@{/images/} + ${freeDetail.image}" class="img-fluid" ><br>
     내용<br>
     <textarea cols="90" rows="15" name="content" required="required" th:text="${freeDetail.content}"></textarea>
- <p th:text="${freeDetail.image}"></p>
-<img th:src = "@{/images/} + ${freeDetail.image}" class="img-fluid" src="img_chania.jpg" alt="Chania">
+
+
 	<!-- <p th:text="${freeDetail.freeNo}">글번호</p>
 	<p th:text="${freeDetail.title}">제목</p>
 	<p th:text="${freeDetail.memberVO.nick}">작성자</p>

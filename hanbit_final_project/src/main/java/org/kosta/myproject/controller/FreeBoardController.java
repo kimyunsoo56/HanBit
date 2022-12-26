@@ -89,7 +89,8 @@ public class FreeBoardController {
 	      String fileName = null;
 	      if (file.isEmpty() == false) {
 	      fileName = freeBoardVO.getMemberVO().getId()+"_"+nowTime.format(now)+"_"+ file.getOriginalFilename();
-	      freeBoardVO.setImage(fileName);      
+	      freeBoardVO.setImage(fileName);   
+	      System.out.println(freeBoardVO.getImage());
 	      }
 	      try(
 	    	      // 윈도우일 경우
