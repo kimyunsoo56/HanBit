@@ -45,8 +45,15 @@ SELECT mb.match_no, mb.title, mb.hits, mb.time_posted
 FROM hanbit_member m
 INNER JOIN hanbit_match_board mb ON m.id=mb.id WHERE m.id='java3'
 
+-- 총 게시물 수
+SELECT COUNT(*)
+FROM hanbit_free_board
 
-
+--마이페이지 자유게시판 작성 댓글 목록
+SELECT fbc.id, fbc.content, fbc.time_posted, fbc.comment_no, fb.free_no
+FROM hanbit_member m
+INNER JOIN hanbit_comment fbc ON m.id=fbc.id 
+INNER JOIN hanbit_free_board fb ON fb.id=fbc.id WHERE m.id='spring'
 
 
 

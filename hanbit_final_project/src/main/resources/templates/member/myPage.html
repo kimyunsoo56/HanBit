@@ -16,6 +16,9 @@
 					</th:block>
 					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myPagePostList?id}+${session.mvo.id}">작성글목록 조회</a></h2><br>
 					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myLikedList?id}+${session.mvo.id}">찜목록 조회</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#" th:href="@{/myPagePostList?id}+${session.mvo.id}">작성 글 목록</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#" th:href="@{/myPagePostComment?id}+${session.mvo.id}">작성 댓글 목록</a></h2><br>
+					<h2><a style="color: #a7cb00" href="#">찜목록 조회</a></h2><br>
 					<form action="" th:action="@{/deleteMemberForm}" id="deleteForm"></form>
 					<h2><a class="line" style="color: #a7cb00" href="#" id="deleteFormBtn">회원탈퇴</a></h2>
 					<script type="text/javascript">

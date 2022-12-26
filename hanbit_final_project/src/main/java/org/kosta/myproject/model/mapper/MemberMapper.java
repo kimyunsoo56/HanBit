@@ -3,6 +3,9 @@ package org.kosta.myproject.model.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.kosta.myproject.model.vo.CommentVO;
+import org.kosta.myproject.model.vo.FreeBoardVO;
+//github.com/kimyunsoo56/HanBit.git
 import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 
@@ -31,8 +34,12 @@ public interface MemberMapper {
 
 	int deleteMember(MemberVO memberVO);
 
-	List<String> myPostList(String id);
-
 	List<MatchBoardVO> myLikedList(String id);
+
+	List<FreeBoardVO> findFreePostList(String id);
+
+	List<MatchBoardVO> findMatchPostList(String id);
+
+	List<CommentVO> findFreePostCommentList(String id);
 
 }

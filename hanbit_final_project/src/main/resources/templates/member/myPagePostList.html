@@ -8,33 +8,33 @@
 </head>
 <!--================Start layout Area =================-->
 <!--================자유게시판 글 목록 =================-->
+<div layout:fragment="content">
 <h3 style="color: #a7cb00">자유게시판 목록</h3>
 <table class="table table-bordered">
 	<thead>
 		<tr>
 			<th>글번호</th>
 			<th>제목</th>
-			<th>작성일자</th>
+			<th>작성일</th>
 			<th>조회수</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each="board:${FreeBoardList}">
-			<td th:text="${session.mvo.board.freeNo}"></td>
-			<td><a th:href="@{/freeDetail?freeNo=} + ${board.freeNo}"
-				th:text="${session.mvo.board.title}"></a></td>
-			<td th:text="${session.mvo.board.timePosted}"></td>
-			<td th:text="${session.mvo.board.hits}"></td>
+		<tr th:each="freeBoard:${myPageFreePostList}">
+			<td width="10%" th:text="${freeBoard.freeNo}"></td>
+			<td width="60%" ><a th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}"
+				th:text="${freeBoard.title}"></a></td>
+			<td th:text="${freeBoard.timePosted}"></td>
+			<td th:text="${freeBoard.hits}"></td>
 		</tr>
 	</tbody>
+	
 </table>
-
-<!--================ 매칭게시판 글 목록 =================-->
-<
+<!--================매칭게시판 글 목록 =================-->
 <th:block th:if="${session.mvo.memberType==2}">
-	<h3 style="color: #a7cb00">매칭게시판 목록</h3>
-	<table class="table table-bordered">
-		<thead>
+<h3 style="color: #a7cb00">매칭게시판 목록</h3>
+<table class="table table-bordered">
+<thead>
 			<tr>
 				<th>글번호</th>
 				<th>제목</th>
@@ -42,17 +42,16 @@
 				<th>조회수</th>
 			</tr>
 		</thead>
-		<tbody id="matchTbody">
-			<tr th:each="match:${matchList}">
-				<td th:text="${match.matchNo}"></td>
-				<td><a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}"
-					th:text="${match.title}"></a></td>
-				<td th:text="${match.timePosted}"></td>
-				<td th:text="${match.hits}"></td>
+		<tr th:each="matchBoard:${myPageMatchPostList}">
+				<td width="10%" th:text="${matchBoard.matchNo}"></td>
+				<td width="60%"><a th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}"
+					th:text="${matchBoard.title}"></a></td>
+				<td th:text="${matchBoard.timePosted}"></td>
+				<td th:text="${matchBoard.hits}"></td>
 			</tr>
 		</tbody>
-	</table>
-	<br>
-
+</table>
+</th:block>
+</div>
 
 	<!--================End layout Area =================-->
