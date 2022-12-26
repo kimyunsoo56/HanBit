@@ -57,6 +57,22 @@ DROP TABLE hanbit_free_board;
 DROP SEQUENCE hanbit_free_board_seq;
 SELECT * FROM hanbit_free_board;
 
+-- 한빛 알림 게시판 댓글 테이블 생성
+CREATE TABLE hanbit_notice_comment(
+	comment_no NUMBER PRIMARY KEY,
+	content CLOB NOT NULL,
+	time_posted DATE DEFAULT SYSDATE,
+	id VARCHAR2(100) NOT NULL,
+	notice_no NUMBER NOT NULL,
+	CONSTRAINT hanbit_notice_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
+	CONSTRAINT hanbit_notice_comment_no_fk FOREIGN KEY(notice_no) REFERENCES hanbit_notice_board(notice_no)
+)
+
+CREATE SEQUENCE hanbit_notice_comment_seq;
+DROP TABLE hanbit_notice_commentt;
+DROP SEQUENCEhanbit_notice_comment_seq;
+SELECT * FROM hanbit_notice_comment;
+
 -- 한빛 자유 댓글 테이블 생성
 CREATE TABLE hanbit_comment(
 	comment_no NUMBER PRIMARY KEY,
@@ -64,6 +80,21 @@ CREATE TABLE hanbit_comment(
 	time_posted DATE DEFAULT SYSDATE,
 	id VARCHAR2(100) NOT NULL,
 	free_no NUMBER NOT NULL,
+	CONSTRAINT hanbit_free_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
+	CONSTRAINT hanbit_free_comment_no_fk FOREIGN KEY(free_no) REFERENCES hanbit_free_board(free_no)
+)
+CREATE SEQUENCE hanbit_comment_seq;
+DROP TABLE hanbit_comment;
+DROP SEQUENCE hanbit_comment_seq;
+SELECT * FROM hanbit_comment;
+
+-- 한빛 알림 댓글 테이블 생성
+CREATE TABLE hanbit_notice_comment(
+	comment_no NUMBER PRIMARY KEY,
+	content CLOB NOT NULL,
+	time_posted DATE DEFAULT SYSDATE,
+	id VARCHAR2(100) NOT NULL,
+	notice_no NUMBER NOT NULL,
 	CONSTRAINT hanbit_free_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
 	CONSTRAINT hanbit_free_comment_no_fk FOREIGN KEY(free_no) REFERENCES hanbit_free_board(free_no)
 )

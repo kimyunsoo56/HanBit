@@ -101,11 +101,13 @@
 	<select id="findReportList" resultType="int">
 		select * from hanbit_report_board
 	</select> 
+	
 	<!-- 댓글 작성 -->
 	<insert id="registerComment" parameterType="org.kosta.myproject.model.vo.CommentVO">
 		insert into hanbit_comment(comment_no,content,time_posted,id,free_no)
 		values(hanbit_comment_seq.nextval,#{content}, sysdate, #{id},#{freeNo})
 	</insert> 
+	
 	<!-- 댓글 목록조회 -->
 	<select id="findCommentList" resultType="org.kosta.myproject.model.vo.CommentVO">
 		select content,time_posted,id,comment_no from hanbit_comment where free_no=#{value}

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.kosta.myproject.model.mapper.NoticeBoardMapper;
+import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
+import org.kosta.myproject.model.vo.NoticeCommentVO;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -57,6 +59,12 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	public NoticeBoardVO noticeBoardDetailView(int noticeNo) {
 		return noticeBoardMapper.noticeBoardDetailView(noticeNo);
 	}
+	
+	@Override
+	public void addHits(int noticeNo) {
+		noticeBoardMapper.addHits(noticeNo);
+	}
+
 
 	// 글쓰기 ( 세션 연결 ) 
 	@Override
@@ -81,11 +89,26 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		
 	}
 
+	// 게시물 수정
 	@Override
 	public void noticeUpdate(NoticeBoardVO noticeBoardVO) {
 		noticeBoardMapper.noticeUpdate(noticeBoardVO);
 		
 	}
+
+	// 댓글 등록
+	@Override
+	public void registerComment(NoticeCommentVO commentVO) {
+		noticeBoardMapper.registerComment(commentVO);
+	}
+	
+	// 댓글 목록 조회
+	@Override
+	public List<NoticeCommentVO> findCommentList(int noticeNo) {
+		List<NoticeCommentVO> commentList = noticeBoardMapper.findCommentList(noticeNo);
+		return commentList;
+	}
+
 
 
 	/*
