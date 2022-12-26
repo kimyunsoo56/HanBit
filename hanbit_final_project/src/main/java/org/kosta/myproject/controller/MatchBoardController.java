@@ -85,11 +85,11 @@ public class MatchBoardController {
 		likesVO.setMatchNo(matchNo);
 		int result=matchBoardService.checkLikes(likesVO);
 		if(result==0) {
-			model.addAttribute("likePic", "nolike.png");// 동적으로 변화될 수 있는 이미지 정보 
+			model.addAttribute("likePic", "nonolike.png");// 동적으로 변화될 수 있는 이미지 정보 
 			
 		}else {
 			
-			model.addAttribute("likePic", "like.png");// 동적으로 변화될 수 있는 이미지 정보 
+			model.addAttribute("likePic", "likelike.png");// 동적으로 변화될 수 있는 이미지 정보 
 		}
 		System.out.println(likesVO);
 		System.out.println(result);
@@ -230,6 +230,7 @@ public class MatchBoardController {
 		ArrayList<Integer> noListMessage = (ArrayList<Integer>) session.getAttribute("noListMessage");
 		if (noListMessage.contains(messageNo) == false) {
 			noListMessage.add(messageNo); // noList에 조회한 게시글 no 추가
+			matchBoardService.addChecking(messageNo);
 		}
 		model.addAttribute("receiveId", receiveId);
 		model.addAttribute("content", content);
