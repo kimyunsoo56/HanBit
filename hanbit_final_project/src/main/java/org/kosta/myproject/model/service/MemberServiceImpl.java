@@ -1,6 +1,12 @@
 package org.kosta.myproject.model.service;
 
+import java.util.List;
+
 import org.kosta.myproject.model.mapper.MemberMapper;
+import org.kosta.myproject.model.vo.CommentVO;
+import org.kosta.myproject.model.vo.FreeBoardVO;
+//github.com/kimyunsoo56/HanBit.git
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
 
@@ -62,4 +68,27 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteMember(MemberVO memberVO) {
 		return memberMapper.deleteMember(memberVO);
 	}
+
+	@Override
+	public List<FreeBoardVO> findFreePostList(String id) {
+		List<FreeBoardVO> list = memberMapper.findFreePostList(id);
+		System.out.println(list);
+		return memberMapper.findFreePostList(id);
+	}
+
+	@Override
+	public List<MatchBoardVO> myLikedList(String id) {
+		return memberMapper.myLikedList(id);
+	}
+	
+	@Override
+	public List<MatchBoardVO> findMatchPostList(String id) {
+		return memberMapper.findMatchPostList(id);
+	}
+
+	@Override
+	public List<CommentVO> findFreePostCommentList(String id) {
+		return memberMapper.findFreePostCommentList(id);
+	}
+
 }

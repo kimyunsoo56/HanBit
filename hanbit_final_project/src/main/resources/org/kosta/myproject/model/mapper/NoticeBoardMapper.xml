@@ -37,6 +37,23 @@
 		where rm between #{pageStart} and #{perPageNum}*#{page}
 		]]>
 	</select>
+			<!--  카테고리별 조회 (페이징 처리)-->
+	<select id="findByCategory" parameterType="org.kosta.myproject.model.vo.NoticeBoardVO" resultMap="noticeboardRM">
+	   SELECT * from
+      (select ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+      (select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+      from hanbit_notice_board hnb
+      inner join hanbit_member hm on hnb.id=hm.id
+      order by hnb.notice_no desc))
+<!--       <![CDATA[
+      where rm between #{pageStart} and #{perPageNum}*#{page}
+      ]]> -->
+      <where>
+      <if test="category != ''">
+      category=#{category}
+      </if>
+      </where>
+      </select>
 
 	<!-- 카테고리별 조회 (페이징 처리) -->
 	

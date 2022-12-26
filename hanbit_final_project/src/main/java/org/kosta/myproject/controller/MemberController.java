@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.MemberService;
+import org.kosta.myproject.model.vo.CommentVO;
+import org.kosta.myproject.model.vo.FreeBoardVO;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +23,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
    //로그인 폼
-    @RequestMapping("loginForm")
+    @GetMapping("loginForm")
     public String loginForm() {
        return "member/login-form";
     }
@@ -41,7 +45,7 @@ public class MemberController {
 				//쪽지 읽음 여부!
 				session.setAttribute("noListMessage",  new ArrayList<Integer>());
 				//찜을 위한 세션 생성
-				session.setAttribute("noListLike",new ArrayList<Integer>());
+				session.setAttribute("noListLike",new ArrayList<String>());
 				
 				return "redirect:/";
 			}
@@ -55,7 +59,7 @@ public class MemberController {
             return "redirect:/";
     }
      // 마이페이지 
-     @RequestMapping("myPage")
+     @GetMapping("myPage")
        public String myPage() {
           return "member/myPage";
        }
@@ -63,13 +67,12 @@ public class MemberController {
      @GetMapping("/myPageDetail")
        public String myPageDetail(HttpServletRequest request,Model model) {
         HttpSession session=request.getSession(false);
-        MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
-       // String id=memberVO.getId();        
+        MemberVO memberVO=(MemberVO) session.getAttribute("mvo");   
         session.setAttribute("mvo", memberVO);
           return "member/myPageDetailList";
      }
    // register form 에서 for문 돌릴 select 부분을 model에 담아서 넘겨줌
-   @RequestMapping("registerForm")
+   @GetMapping("registerMemberForm")
    public String registerForm(Model model) {
       List<String> question=new ArrayList<>();
       question.add("가장 기억에 남는 장소는?");
@@ -89,31 +92,31 @@ public class MemberController {
       return "redirect:registerMemberResult";
    }
    // 회원가입
-   @RequestMapping("registerMemberResult")
+   @GetMapping("registerMemberResult")
    public String registerMemberResult() {
       return "member/register-result";
    }
    // 아이디 중복체크 Ajax
-   @RequestMapping("registerCheckId")
+   @GetMapping("registerMemberCheckId")
    @ResponseBody
    public MemberVO registerCheckId(String id) {
       MemberVO checkId=memberService.findMemberById(id);
       return checkId;
    }
    // 연락처 중복체크 Ajax
-   @RequestMapping("registerCheckTel")
+   @GetMapping("registerMemberCheckTel")
    @ResponseBody
    public int registerCheckTel(String tel) {
       int checkTel=memberService.checkTel(tel);
       return checkTel;
    }
    // 아이디 찾기 폼
-   @RequestMapping("findIdForm")
+   @GetMapping("findIdForm")
    public String findIdForm() {
       return "member/findid-form";
    } 
    // 아이디 찾기
-   @RequestMapping("findId")
+   @GetMapping("findId")
    public String findId(String name,String tel,Model model) {
       String viewName=null;
       String findId=memberService.findId(name,tel);
@@ -126,7 +129,7 @@ public class MemberController {
       return viewName;
    }
    // 비밀번호 찾기 폼
-   @RequestMapping("findPasswordForm")
+   @GetMapping("findPasswordForm")
    public String findPasswordForm(Model model) {
       List<String> question=new ArrayList<>();
       question.add("가장 기억에 남는 장소는?");
@@ -140,7 +143,7 @@ public class MemberController {
       return "member/findpassword-form";
    }
    // 비밀번호 찾기
-   @RequestMapping("findPassword")
+   @GetMapping("findPassword")
    public String findPassword(String id,String name,String tel,String question,String answer,Model model) {
       String viewName=null;
       String findPassword=memberService.findPassword(id,name,tel,question,answer);
@@ -153,7 +156,7 @@ public class MemberController {
       return viewName;
    }
    // 요양보호사 등록 폼
-   @RequestMapping("registerCareWorkerForm")
+   @GetMapping("registerCareWorkerForm")
    public String registerCareWorkerForm(Model model) {
       // 성별
       List<String> gender=new ArrayList<>();
@@ -191,7 +194,7 @@ public class MemberController {
       return "member/register-careworker-form";
    }
    // 자격증 번호 중복체크
-	@RequestMapping("registerCheckLicenseNo")
+	@GetMapping("registerCheckLicenseNo")
 	@ResponseBody
 	public int registerCheckLicenseNo(int licenseNo) {
 		int checkLicenseNo=memberService.checkLicenseNo(licenseNo);
@@ -209,12 +212,12 @@ public class MemberController {
 		return "redirect:registerCareWorkerResult";
 	}
 	// 요양보호사 등록 결과
-	@RequestMapping("registerCareWorkerResult")
+	@GetMapping("registerCareWorkerResult")
 	public String registerCareWorkerResult() {
 		return "member/register-careworker-result";
 	}
    // 탈퇴 페이지 폼 
-    @RequestMapping("deleteMemberForm")
+    @GetMapping("deleteMemberForm")
     public String deleteMemberForm(Model model) {
        List<String> delectquestion=new ArrayList<>();
        delectquestion.add("가장 기억에 남는 장소는?");
@@ -247,7 +250,7 @@ public class MemberController {
        }
      
    // 회원 정보 수정 폼
-      @RequestMapping("updateMemberForm")
+      @GetMapping("updateMemberForm")
       public String updateMemberForm(Model model) {
          // 개별질문
          List<String> question = new ArrayList<>();
@@ -300,15 +303,47 @@ public class MemberController {
     	  session.setAttribute("mvo", mvo);
     	  return "redirect:updateMemberResult";
       }
-      @RequestMapping("updateMemberResult")
+      @GetMapping("updateMemberResult")
       public String updateMemberResult() {
     	  return "member/update-member-result";
       }
       // 연락처 중복체크 Ajax
-      @RequestMapping("updateCheckTel")
+      @GetMapping("updateCheckTel")
       @ResponseBody
       public int updateCheckTel(String tel) {
          int checkTel=memberService.checkTel(tel);
          return checkTel;
+      }
+      // 마이페이지 찜목록 조회
+      @RequestMapping("myLikedList")
+      public String myLikedList(Model model,HttpServletRequest request) {
+    	  HttpSession session=request.getSession(false);
+    	  MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
+    	  String id=memberVO.getId();
+    	  List<MatchBoardVO> myLikedList=memberService.myLikedList(id);
+    	  model.addAttribute("myLikedList", myLikedList);
+    	  return "member/myLiked-list";
+      }
+      // 내가쓴글보기, 작성글조회
+      @GetMapping("/myPagePostList")
+      public String myPagePostList(HttpServletRequest request, Model model) {
+    	HttpSession session=request.getSession(false);
+    	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
+    	String id=memberVO.getId();
+		List<FreeBoardVO> myPageFreePostList= memberService.findFreePostList(id);
+		List<MatchBoardVO> myPageMatchPostList= memberService.findMatchPostList(id);
+		model.addAttribute("myPageFreePostList", myPageFreePostList);
+		model.addAttribute("myPageMatchPostList", myPageMatchPostList);
+         return "member/myPagePostList";
+    }
+      // 내가 쓴 댓글 보기 
+      @GetMapping("/myPagePostComment")
+      public String myPagePostComment(HttpServletRequest request, Model model) {
+    	HttpSession session=request.getSession(false);
+      	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
+      	String id=memberVO.getId();
+  		List<CommentVO> myPageFreePostCommentList= memberService.findFreePostCommentList(id);
+  		model.addAttribute("myPageFreePostCommentList", myPageFreePostCommentList);
+    	  return "member/myPagePostComment";
       }
 }

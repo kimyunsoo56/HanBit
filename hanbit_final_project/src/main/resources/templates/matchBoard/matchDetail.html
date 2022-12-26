@@ -27,6 +27,7 @@
     <br><br>
      사진 :
 	<h4 th:text="${matchDetail.image}">사진나오는부분!</h4>
+	<img th:src = "@{/images/} + ${matchDetail.image}"><br>
 	<br><br>
 	이름과 소개글:
 	<h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4> 요양보호사입니다!
@@ -67,14 +68,26 @@
 	<!--  수정 삭제부분 끝  -->
 	
 	<!-- <a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp; -->
-	<a th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} ">쪽지보내기</a>  &nbsp; &nbsp; &nbsp;
+	<a th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} ">쪽지보내기</a> <br><br>
 	<a th:href="@{/MatchBoardList}">목록으로</a>  &nbsp; &nbsp; &nbsp;
 	
 	
 	<form th:action="@{/showLike}">
 	<input name="id" th:value="${session.mvo.id}" type = "hidden">
 	<input type="hidden" name="matchNo" th:value="${matchNo}">
-	<button>찜</button>
+	<!-- 
+					th:each th:block th:if
+					세션 리스트를(NoListLike) 돌며 (리스트는 String 형태의 번호만 가지고있음) 그 중 번호가 ${matchNo}와 같은게 있다면!
+					-> <span th:text="찜한 상태!"></span>
+					없다면!
+					-> <span th:text="안 찜한 상태!"></span> -->
+					
+					
+					
+	<button>찜</button> &nbsp;
+	 <img th:src="@{/images/}+${likePic}" width="30" height="30">
+	
+	
 	</form>
 	
 	

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/member_layout}">
+<!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
+<head>
+<title>한빛</title>
+</head>
+<!--================Start layout Area =================-->
+<!--================자유게시판 글 목록 =================-->
+<div layout:fragment="content">
+<h3 style="color: #a7cb00">자유게시판 목록</h3>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>글번호</th>
+			<th>제목</th>
+			<th>작성일</th>
+			<th>조회수</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="freeBoard:${myPageFreePostList}">
+			<td width="10%" th:text="${freeBoard.freeNo}"></td>
+			<td width="60%" ><a th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}"
+				th:text="${freeBoard.title}"></a></td>
+			<td th:text="${freeBoard.timePosted}"></td>
+			<td th:text="${freeBoard.hits}"></td>
+		</tr>
+	</tbody>
+	
+</table>
+<!--================매칭게시판 글 목록 =================-->
+<th:block th:if="${session.mvo.memberType==2}">
+<h3 style="color: #a7cb00">매칭게시판 목록</h3>
+<table class="table table-bordered">
+<thead>
+			<tr>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tr th:each="matchBoard:${myPageMatchPostList}">
+				<td width="10%" th:text="${matchBoard.matchNo}"></td>
+				<td width="60%"><a th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}"
+					th:text="${matchBoard.title}"></a></td>
+				<td th:text="${matchBoard.timePosted}"></td>
+				<td th:text="${matchBoard.hits}"></td>
+			</tr>
+		</tbody>
+</table>
+</th:block>
+</div>
+
+	<!--================End layout Area =================-->

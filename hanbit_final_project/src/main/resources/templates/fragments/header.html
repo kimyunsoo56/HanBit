@@ -31,7 +31,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<th:block th:if="${session.mvo==null}">
 							<li class="nav-item"><a href="#" th:href="@{/loginForm}">로그인</a></li>
-							<li class="nav-item"><a href="#" th:href="@{/registerForm}">회원가입</a></li>
+							<li class="nav-item"><a href="#" th:href="@{/registerMemberForm}">회원가입</a></li>
 						</th:block>
 						<th:block th:if="${session.mvo!=null}">
 							<span th:text="|${session.mvo.name} 님|"></span>

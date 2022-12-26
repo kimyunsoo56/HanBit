@@ -9,15 +9,16 @@
 <!--================Start layout Area =================-->
 		<div layout:fragment="content">
 			<div class="row g-4">
-	        	 <div class="col-lg12 offset-lg-4 col-md-8">
-					<h2><a style="color: #a7cb00" href="#" th:href="@{/myPageDetail?id=}+${session.mvo.id}">회원정보조회</a></h2><br>
+	        	 <div class="col-lg12 offset-lg-5 col-md-7">
+					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myPageDetail?id=}+${session.mvo.id}">회원정보조회</a></h2><br>
 					<th:block th:if=${session.mvo.memberType==1}>
-						<h2><a style="color: #a7cb00" href="#" th:href="@{/registerCareWorkerForm}">요양보호사등록</a></h2><br>
+						<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/registerCareWorkerForm}">요양보호사등록</a></h2><br>
 					</th:block>
-					<h2><a style="color: #a7cb00" href="#">작성글목록 조회</a></h2><br>
-					<h2><a style="color: #a7cb00" href="#">찜목록 조회</a></h2><br>
+					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myPagePostList?id}+${session.mvo.id}">작성 글 목록</a></h2><br>
+					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myPagePostComment?id}+${session.mvo.id}">작성 댓글 목록</a></h2><br>
+					<h2><a class="line" style="color: #a7cb00" href="#" th:href="@{/myLikedList?id}+${session.mvo.id}">찜목록 조회</a></h2><br>
 					<form action="" th:action="@{/deleteMemberForm}" id="deleteForm"></form>
-					<h2><a style="color: #a7cb00" href="#" id="deleteFormBtn">회원탈퇴</a></h2>
+					<h2><a class="line" style="color: #a7cb00" href="#" id="deleteFormBtn">회원탈퇴</a></h2>
 					<script type="text/javascript">
 		               $(document).ready(function() {
 		                  $("#deleteFormBtn").click(function() {

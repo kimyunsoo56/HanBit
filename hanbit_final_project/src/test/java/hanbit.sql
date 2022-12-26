@@ -129,6 +129,7 @@ CREATE TABLE hanbit_likes(
 	CONSTRAINT hanbit_likes_no_fk FOREIGN KEY(match_no) REFERENCES hanbit_match_board(match_no),
 	CONSTRAINT hanbit_likes_pk PRIMARY KEY(id,match_no)
 )
+
 DROP TABLE hanbit_likes;
 SELECT * FROM hanbit_likes;
 
@@ -148,14 +149,7 @@ DROP TABLE hanbit_message;
 DROP SEQUENCE hanbit_message_seq;
 SELECT * FROM hanbit_message;
 
-select me.checking,me.time_posted,me.send_id ,me.receive_id ,m.name
-from hanbit_member m, hanbit_message me
-where m.id=me.receive_id and send_id='spring'
 
-select me.checking,me.time_posted,me.send_id ,me.receive_id ,m.name
-from hanbit_member m, hanbit_message me
-where m.id=me.send_id
-commit
 
 
 

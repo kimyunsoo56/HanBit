@@ -12,10 +12,9 @@
 		<div class="col-lg10 offset-lg-2 col-md-8">
 			<h1 style="color: #a7cb00">회원 정보</h1>
 			<br>
-			<table class="table table-bordered"
-				style="border-width: 10px; text-align: center;">
-				<tr class="table-info">
-					<td>아이디</td>
+			<table class="table table-bordered" style="text-align: center;">
+				<tr>
+					<td style="width: 300px;">아이디</td>
 					<td th:text="${session.mvo.id}">아이디</td>
 				</tr>
 				<tr>
@@ -38,9 +37,14 @@
 					<td>연락처</td>
 					<td th:text="${session.mvo.tel}">연락처</td>
 				</tr>
+				</table>
+				<br>
 				<th:block th:if="${session.mvo.memberType==2}">
-					<tr class="table-info">
-						<td>자격증번호</td>
+				<h1 style="color: #a7cb00">요양보호사 정보</h1>
+				<br>
+				<table class="table table-bordered" style="text-align: center;">
+					<tr>
+						<td style="width: 300px;">자격증번호</td>
 						<td th:text="${session.mvo.licenseNo}">자격증번호</td>
 					</tr>
 					<tr>

@@ -1,5 +1,6 @@
 package org.kosta.myproject.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,12 @@ public interface FreeBoardMapper {
 
 	int getTotalPostCount();
 
-	List<FreeBoardVO> findFreeByCategory(String category);
+	List<Map<String, Object>> findFreeByCategory(HashMap<String, Object> paramMap);
+
+	int getTotalPostCountByCategory(String category);
+
+	void freeWrite(FreeBoardVO freeBoardVO);
+
+	List<Map<String, Object>> freeBoardList1(Criteria cri);
 
 }

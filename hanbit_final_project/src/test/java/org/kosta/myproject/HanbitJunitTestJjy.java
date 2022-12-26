@@ -1,9 +1,13 @@
 package org.kosta.myproject;
 
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.MemberMapper;
+import org.kosta.myproject.model.vo.CommentVO;
+import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,5 +47,21 @@ public class HanbitJunitTestJjy {
 		System.out.println("삭제됐나" + memberVO);
 		memberMapper.deleteMember(memberVO);
 		System.out.println("삭제됐다" + memberVO);
+	}
+	@Test
+	public void findFreePostList() {
+		String id="java3";
+		List<FreeBoardVO> myPageFreePostList= memberMapper.findFreePostList(id);
+		for(FreeBoardVO vo : myPageFreePostList)
+			System.out.println(vo);
+		logger.debug("list vo:{}"+ myPageFreePostList + id);
+	}
+	@Test
+	public void myPagePostComment() {
+		String id="spring";
+		List<CommentVO> myPageFreePostCommentList= memberMapper.findFreePostCommentList(id);
+		for(CommentVO vo : myPageFreePostCommentList)
+			System.out.println(vo);
+		logger.debug("list vo:{}"+ myPageFreePostCommentList + id);
 	}
 }

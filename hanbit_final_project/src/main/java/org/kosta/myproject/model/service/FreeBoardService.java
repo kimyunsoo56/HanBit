@@ -3,6 +3,7 @@ package org.kosta.myproject.model.service;
 import java.util.List;
 import java.util.Map;
 
+
 import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.ReportVO;
@@ -34,6 +35,12 @@ public interface FreeBoardService {
 
 	int getTotalPostCount();
 
-	List<FreeBoardVO> findFreeByCategory(String category);
+	List<Map<String, Object>> findFreeByCategory(String category, Criteria cri);
+
+	int getTotalPostCountByCategory(String category);
+
+	void freeWrite(FreeBoardVO freeBoardVO);
+
+	List<Map<String, Object>> freeBoardList1(Criteria cri);
 
 }

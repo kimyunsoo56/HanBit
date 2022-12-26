@@ -7,6 +7,12 @@
 		SELECT COUNT(*)
 		FROM   hanbit_free_board
 	</select>
+	<!-- 카테고리별 게시물 수 -->
+	<select id="getTotalPostCountByCategory" resultType="int">
+		SELECT COUNT(*)
+		FROM   hanbit_free_board
+		where category=#{value}
+	</select>
 	
 	<!-- has a 관계 표현 -->
 	<resultMap type="org.kosta.myproject.model.vo.FreeBoardVO" id="freeBoardList">
@@ -104,27 +110,38 @@
  	delete from hanbit_comment where comment_no=#{value}
 	</delete>
 	<!-- 카테고리별 조회 -->
-	<select id="findFreeByCategory" parameterType="org.kosta.myproject.model.vo.FreeBoardVO" resultMap="freeBoardList">
-		select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits
-		from hanbit_free_board hfb
-		inner join hanbit_member hm ON hfb.id=hm.id
-		where category=#{value}
-	<!-- SELECT * from
-		(select ROWNUM rm, free_no, title, nick,time_posted, hits, category from
-		(select hfb.free_no, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hfb.category
+	<select id="findFreeByCategory" parameterType="map" resultMap="freeBoardList">
+		SELECT * from
+		(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
+		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
 		from hanbit_free_board hfb
 		inner join hanbit_member hm on hfb.id=hm.id
-		order by hfb.free_no desc)) -->
-<!-- 		<![CDATA[
-		where rm between #{pageStart} and #{perPageNum}*#{page}
-		]]>  
-		<where>
+		order by hfb.free_no desc))
+		<![CDATA[
+		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page} and category=#{category}
+		]]>
+		</select>
+		<!-- <where>
 		<if test="category != ''">
 		category=#{category}
 		</if>
-		</where>-->
+		</where> -->
+		<!-- 	SELECT * from
+		(select ROWNUM rm, free_no, title, nick, time_posted, hits, category from
+		(select hfb.free_no, hfb.category, hfb.title, hm.nick, hfb.time_posted, hfb.hits, hm.id
+		from hanbit_free_board hfb
+		inner join hanbit_member hm on hfb.id=hm.id
+		order by hfb.free_no desc))
+		<![CDATA[
+		where rm between #{pageStart} and #{perPageNum}*#{page}
+		]]> -->
 	
-	</select>
+	<!-- 글쓰기 ( 관리자만 글 작성 가능 ) -->
+ 	<insert id="freeWrite" parameterType="org.kosta.myproject.model.vo.FreeBoardVO" >
+		
+		INSERT INTO hanbit_free_board(free_no, title, content, time_posted,category, image, id)
+		VALUES(hanbit_free_board_seq.nextval, #{title}, #{content}, sysdate, #{category}, #{image, jdbcType=VARCHAR}, #{memberVO.id})
+	</insert>
 </mapper>
 
 

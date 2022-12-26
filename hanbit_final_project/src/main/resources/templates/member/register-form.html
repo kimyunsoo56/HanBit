@@ -75,7 +75,7 @@
 	        				let checkId=$("#checkId").val().trim();
 	        				$.ajax({
 	        					type:"get",
-	        					url:"registerCheckId",
+	        					url:"registerMemberCheckId",
 	        					data:"id="+checkId,
 	        					success:function(result){
 	        						if(checkId.trim().length<4||checkId.trim().length>21){
@@ -115,7 +115,7 @@
 	        				let checkTel=$("#checkTel").val().trim();
 	        				$.ajax({
 	        					type:"get",
-	        					url:"registerCheckTel",
+	        					url:"registerMemberCheckTel",
 	        					data:"tel="+checkTel,
 	        					success:function(result){
 	        						if(checkTel.trim().length!=11){

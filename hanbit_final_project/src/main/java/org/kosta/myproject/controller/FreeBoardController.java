@@ -1,6 +1,10 @@
 package org.kosta.myproject.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +24,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,15 +66,54 @@ public class FreeBoardController {
 		return "freeBoard/freeWrite";
 	}
 	//글쓰기
+	/*
+	 * @PostMapping("write") public String write(MemberVO memberVO,String
+	 * title,String content,String category, HttpSession session) { String id =
+	 * memberVO.getId();
+	 * 
+	 * freeBoardService.registerFreeBoard(title, content,category, id); return
+	 * "redirect:freeBoardList"; }
+	 */
+	//글쓰기 이미지 추가
 	@PostMapping("write")
-	public String write(MemberVO memberVO,String title,String content,String category, HttpSession session) {
-		String id = memberVO.getId();
-		System.out.println(id);
-		System.out.println(category);
-		freeBoardService.registerFreeBoard(title, content,category, id);
-		return "redirect:freeBoardList";
-	}
-	
+	   public String write(FreeBoardVO freeBoardVO, HttpSession session, RedirectAttributes ra, @RequestParam("photo") MultipartFile file) {
+		   System.out.println(freeBoardVO+"=================");
+		   SimpleDateFormat nowTime = new SimpleDateFormat("yyyyMMddHHmmss");
+			Date now = new Date();
+	      if (session.getAttribute("mvo") == null)
+	         return "redirect:noticeBoard/noticeBoardList";
+	     
+	      MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+	      freeBoardVO.setMemberVO(mvo);
+	      ra.addAttribute("freeNo", freeBoardVO.getFreeNo());
+	      String fileName = null;
+	      if (file.isEmpty() == false) {
+	      fileName = freeBoardVO.getMemberVO().getId()+"_"+nowTime.format(now)+"_"+ file.getOriginalFilename();
+	      freeBoardVO.setImage(fileName);   
+	      System.out.println(freeBoardVO.getImage());
+	      }
+	      try(
+	    	      // 윈도우일 경우
+	    	      FileOutputStream fos = new FileOutputStream("C:\\kosta250\\git-final\\HanBit\\hanbit_final_project\\src\\main\\resources\\static\\images\\" + fileName);
+	    		  
+	    		  InputStream is = file.getInputStream();
+	    	    ){
+	    	      int readCount = 0;
+	    	      byte[] buffer = new byte[2048];
+	    	      while((readCount = is.read(buffer)) != -1){
+	    	      fos.write(buffer,0,readCount);
+	    	    }
+	    	    }catch(Exception ex){
+	    	      throw new RuntimeException("file Save Error");
+	    	    }
+	      freeBoardService.freeWrite(freeBoardVO);
+	      return "redirect:freeBoardList";
+	   }
+	@RequestMapping("freeWriteResult")
+	   public String freeWriteResult(Model model, Criteria cri) {
+	      model.addAttribute("FreeBoardList", freeBoardService.findAll(cri));
+	      return "freeBoard/freeBoardList";
+	   }
 	//글 상세보기
 	   @RequestMapping("freeDetail")
 	   public ModelAndView getFreeDetail(int freeNo, HttpSession session, RedirectAttributes ra) {  
@@ -155,10 +200,30 @@ public class FreeBoardController {
 	}
 	//카테고리별 조회
 	 @RequestMapping("findFreeByCategory")
-	   public String findFreeByCategory(Model model, String category) {
-	     model.addAttribute("FreeCategory", freeBoardService.findFreeByCategory(category)); 
-	     return "freeBoard/freeBoardList"; 
+	   public String findFreeByCategory(Model model, String category,Criteria cri) {
+		 int totalCnt =  freeBoardService.getTotalPostCountByCategory(category);
+		 Paging paging = new Paging();
+	     paging.setCri(cri);
+	     paging.setTotalCount(totalCnt);
+	     List<Map<String, Object>> FreeBoardList = freeBoardService.findFreeByCategory(category,cri);
+	   model.addAttribute("FreeBoardList", FreeBoardList);
+	   
+	     return "freeBoard/freeBoardList :: #freeTbody"; 
+	     /*
+	      * int totalCnt =  freeBoardService.getTotalPostCount();
+	      //System.out.println(totalCnt);
+	      Paging paging = new Paging();
+	      paging.setCri(cri);
+	      paging.setTotalCount(totalCnt);
+	      //System.out.println(cri);
+	      //System.out.println(paging);
+	      List<Map<String, Object>> FreeBoardList = freeBoardService.findAll(cri);
+	      //System.out.println(FreeBoardList);
+	      model.addAttribute("FreeBoardList", FreeBoardList);
+	      model.addAttribute("paging", paging);
+	      */
 	   }
+	
 }
 
 
