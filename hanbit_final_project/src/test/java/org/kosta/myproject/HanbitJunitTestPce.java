@@ -1,8 +1,11 @@
 package org.kosta.myproject;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kosta.myproject.model.mapper.MemberMapper;
+import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,6 +62,14 @@ public class HanbitJunitTestPce {
 	void updateMemberForm() {
 		MemberVO memberVO=new MemberVO("spring", "aa", "장지영", "오리", "나의 노래방 애창곡은?", "편의점", "01098516852", null, null, null, null);
 		memberMapper.updateMember(memberVO);
+	}
+	// 찜 목록 조회 테스트
+	@Test
+	void myPageLikeList() {
+		String id="java";
+		List<MatchBoardVO> list=memberMapper.myLikedList(id);
+		Assertions.assertEquals(1, list.size());
+		System.out.println(list);
 	}
 }
 
