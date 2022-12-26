@@ -85,6 +85,12 @@ SELECT * FROM hanbit_message_msk;
 insert into hanbit_message_msk values(hanbit_message_msk_seq.nextval,'번호를 알 수 있을까요?',sysdate,'spring')
 
 
+SELECT COUNT(*)
+		FROM   hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		where m.location='경기' and m.gender='남성' and m.work_type='자택근무'
+
+
 
 
 
