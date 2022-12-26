@@ -157,6 +157,11 @@ FROM hanbit_notice_board hnb
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 WHERE hnb.notice_no = 1 
 
+-- 조회수 증가
+update hanbit_notice_board
+set hits=hits+1
+where notice_no = 1;
+
 -- 알림 게시판 카테고리 별 조회
 SELECT hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits
 FROM hanbit_notice_board hnb
@@ -173,10 +178,12 @@ FROM hanbit_notice_board WHERE category = '공지사항'
 INNER JOIN hanbit_member hm ON hnb.id=hm.id
 ORDER BY hnb.notice_no DESC
 
-		SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
-		FROM hanbit_notice_board hnb
-		INNER JOIN  hanbit_member hm ON hnb.id=hm.id
-		WHERE hnb.category = #{value}
+	   SELECT * from
+      (select ROWNUM rm, notice_no, title, nick,time_posted, hits, category from
+      (select hnb.notice_no, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.category
+      from hanbit_notice_board hnb
+      inner join hanbit_member hm on hnb.id=hm.id
+      order by hnb.notice_no desc))
 
 
 SELECT  hnb.rnum,  hnb.notice_no, hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits
@@ -219,9 +226,24 @@ SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content,
 		INNER JOIN hanbit_member hm ON hnb.id=hm.id
 		WHERE hnb.notice_no = 65 
 
+-- 알림 게시판 댓글 테이블 컬럼 추가
+insert into hanbit_notice_comment(comment_no, content, time_posted, id, notice_no)
+values(hanbit_notice_comment_seq.nextval, '댓글', sysdate, 'admin', 1)
 
-select * from hanbit_member;
-select * from hanbit_notice_board;
+SELECT * FROM hanbit_notice_comment;
+		
+CREATE TABLE hanbit_comment(
+comment_no NUMBER PRIMARY KEY,
+content CLOB NOT NULL,
+time_posted DATE DEFAULT SYSDATE,
+id VARCHAR2(100) NOT NULL,
+free_no NUMBER NOT NULL,
+CONSTRAINT hanbit_free_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
+CONSTRAINT hanbit_free_comment_no_fk FOREIGN KEY(free_no) REFERENCES hanbit_free_board(free_no)
+)	
+
+SELECT * FROM hanbit_comment;
+
 
 
 
