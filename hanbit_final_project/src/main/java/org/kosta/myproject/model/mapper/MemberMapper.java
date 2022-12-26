@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
+//github.com/kimyunsoo56/HanBit.git
 import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 

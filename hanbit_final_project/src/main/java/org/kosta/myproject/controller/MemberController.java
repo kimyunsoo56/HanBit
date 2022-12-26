@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -312,6 +313,16 @@ public class MemberController {
       public int updateCheckTel(String tel) {
          int checkTel=memberService.checkTel(tel);
          return checkTel;
+      }
+      // 마이페이지 찜목록 조회
+      @RequestMapping("myLikedList")
+      public String myLikedList(Model model,HttpServletRequest request) {
+    	  HttpSession session=request.getSession(false);
+    	  MemberVO memberVO=(MemberVO) session.getAttribute("mvo");
+    	  String id=memberVO.getId();
+    	  List<MatchBoardVO> myLikedList=memberService.myLikedList(id);
+    	  model.addAttribute("myLikedList", myLikedList);
+    	  return "member/myLiked-list";
       }
       // 내가쓴글보기, 작성글조회
       @GetMapping("/myPagePostList")

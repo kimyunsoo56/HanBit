@@ -27,6 +27,7 @@
 select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location
 from hanbit_match_board b
 inner join hanbit_member m on b.id=m.id
+order by b.time_posted DESC
 
 </select>
 
