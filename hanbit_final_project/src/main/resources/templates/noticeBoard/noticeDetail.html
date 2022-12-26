@@ -35,8 +35,55 @@
 			</form>
 			</th:block>
 			</th:block>
+			
+	<!-------------- 댓글 ------------------>
+ <form th:action="@{/writenoticeComment}" method="post">
+		<div class="comment-box">
+		<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
+			<div class="comment-name">
+				작성자 : <input name="id" th:value="${session.mvo.id}"
+					class="form-control"  readonly
+					style="width: 100px; border: none;">
+			</div>
 
- 
+			<div class="comment-sbox">
+				<textarea class="comment-input" name="content" cols="80" rows="2"></textarea>
+			</div>
+			<div>
+				<button type="submit">댓글등록</button><br>
+			</div>
+		</div>
+	</form>
+	<div>
+	<table class="table table-bordered">
+   <thead>
+      <tr>
+         <th>아이디</th><th>내용</th><th>시간</th><th></th>
+      </tr>
+   </thead>
+   <tbody >
+      <tr th:each="co:${commentList}">
+         <td th:text="${co.id}"></td>
+         <td th:text="${co.content}"></td>
+         <td th:text="${co.timePosted}"></td>
+         <td>
+         	 <th:block th:if="${session.mvo!=null}">
+			 <th:block th:if="${session.mvo.id==co.id}">
+	        <!--  <button type="submit">수정</button> -->
+	         <form th:action="@{/commentDelete}" method="post">
+         	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
+         	 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
+			 <button >삭제</button>
+			 </form>
+         </td>
+	         </th:block>
+			</th:block>
+      </tr>
+
+   </tbody>
+</table>
+
+	</div>
 	
 
 </div>

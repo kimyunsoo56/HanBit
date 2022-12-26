@@ -14,14 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.kosta.myproject.model.service.Criteria;
 import org.kosta.myproject.model.service.NoticeBoardService;
 import org.kosta.myproject.model.service.Paging;
-import org.kosta.myproject.model.vo.CommentVO;
-import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.kosta.myproject.model.vo.NoticeCommentVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -180,24 +176,27 @@ public class NoticeBoardController {
 		noticeBoardService.noticeUpdate(noticeBoardVO);
 		return "redirect:noticeBoardList";
 	}
-	/*
-	 * // 댓글 작성
-	 * 
-	 * @PostMapping("writeComment") public String writeComment(NoticeCommentVO
-	 * commentVO,Model model, RedirectAttributes ra) {
-	 * System.out.println(commentVO); noticeBoardService.registerComment(commentVO);
-	 * //freeBoardService.findCommentList();
-	 * //model.addAttribute("commentList",freeBoardService.findCommentList());
-	 * ra.addAttribute("noticeNo", commentVO.getNoticeNo()); return
-	 * "redirect:noticeDetail?noticeNo="+commentVO.getNoticeNo(); }
-	 * 
-	 * //댓글목록
-	 * 
-	 * @RequestMapping("getComment") public List<NoticeCommentVO> getComment(int
-	 * noticeNo, Model model) { List<NoticeCommentVO> commentList =
-	 * noticeBoardService.findCommentList(noticeNo);
-	 * model.addAttribute("commentList", commentList);
-	 * //System.out.println(commentList); return commentList; }
-	 * 
-	 */
+
+	// 댓글 작성
+
+	@PostMapping("writenoticeComment")
+	public String writeComment(NoticeCommentVO commentVO, Model model) {
+		System.out.println(commentVO);
+		noticeBoardService.registerComment(commentVO);
+		noticeBoardService.registerComment(commentVO);
+		// model.addAttribute("commentList",freeBoardService.findCommentList());
+
+		return "redirect:noticeDetail?noticeNo=" + commentVO.getNoticeNo();
+	}
+
+	// 댓글목록
+
+	@RequestMapping("getnoticeComment")
+	public List<NoticeCommentVO> getComment(int noticeNo, Model model) {
+		List<NoticeCommentVO> commentList = noticeBoardService.findCommentList(noticeNo);
+		model.addAttribute("commentList", commentList);
+		// System.out.println(commentList); 
+		return commentList;
+	}
+
 }
