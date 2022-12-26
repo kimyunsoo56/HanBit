@@ -33,7 +33,7 @@ public interface MemberMapper {
 
 	int deleteMember(MemberVO memberVO);
 
-	List<String> myPostList(String id);
+	List<MatchBoardVO> myLikedList(String id);
 
 	List<FreeBoardVO> findFreePostList(String id);
 
