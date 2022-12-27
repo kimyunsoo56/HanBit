@@ -15,13 +15,10 @@ import org.kosta.myproject.model.vo.NoticeCommentVO;
 public interface NoticeBoardMapper {
 
 	// 총 게시물 수 조회 
-	int getTotalPostCount();
+	int totalPostListCnt();
 	
 	// 게시물 조회 (PagingBean 객체 매개변수로 설정)
 	List<Map<String, Object>> noticeBoardList1(Criteria cri);
-	
-	// 카테고리 별 조회 (페이징 적용)
-	// List<Map<String, Object>> findNoticeByCategory(Criteria cri);
 
 	// noticeBoardDetailView 게시물 상세보기
 	NoticeBoardVO noticeBoardDetailView(int noticeNo);
@@ -31,8 +28,6 @@ public interface NoticeBoardMapper {
 
 	// writeNoticeBoard 글쓰기
 	void noticeWrite(NoticeBoardVO noticeBoardVO);
-
-	int totalPostListCnt();
 
 	// 게시물 삭제
 	void noticeDelete(int noticeNo);
@@ -45,17 +40,13 @@ public interface NoticeBoardMapper {
 
 	// 댓글 목록 조회
 	List<NoticeCommentVO> findCommentList(int noticeNo);
+	
+	// 댓글 삭제
+	void commentDelete(int commentNo);
 
 	// 카테고리 별 조회 (페이징 적용)
 	List<Map<String, Object>> findNoticeByCategory(HashMap<String, Object> paramMap);
 
 	// 카테고리 별 조회 (페이징 적용)
 	int getTotalPostCountByCategory(String category);
-
-	// List<NoticeBoardVO> findNoticeByCategory(NoticeBoardVO noticeBoardVO);
-
-
-
-
-
 }

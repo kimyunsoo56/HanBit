@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.Criteria;
+import org.kosta.myproject.model.service.FreeBoardService;
 import org.kosta.myproject.model.service.NoticeBoardService;
 import org.kosta.myproject.model.service.Paging;
 import org.kosta.myproject.model.vo.MemberVO;
@@ -32,13 +33,6 @@ import lombok.RequiredArgsConstructor;
 public class NoticeBoardController {
 	private final NoticeBoardService noticeBoardService;
 
-	/*
-	 * @RequestMapping("noticeBoardList") public String noticeBoardList(String
-	 * pageNo, Model model) { NoticeBoardListVO noticeBoardList =
-	 * noticeBoardService.noticeBoardList(pageNo); model.addAttribute("nblvo",
-	 * noticeBoardList); return "noticeBoard/noticeBoardList";
-	 */
-
 	// 게시물 리스트 보기
 	@RequestMapping("noticeBoardList")
 	public String noticeBoardList(Model model, Criteria cri) {
@@ -57,18 +51,8 @@ public class NoticeBoardController {
 		model.addAttribute("paging", paging);
 		return "noticeBoard/noticeBoardList";
 	}
-
-	// 글 전체 조회 (카테고리별로 보기)
-
-	/*
-	 * @RequestMapping("findByCategory") public String findByCategory(Model model,
-	 * NoticeBoardVO noticeBoardVO, Criteria cri) {
-	 * log.debug("param:{}",noticeBoardVO);
-	 * model.addAttribute("nblvo",noticeBoardService.findNoticeByCategory(
-	 * noticeBoardVO)); return "noticeBoard/noticeBoardList :: #NoticeCategory"; }
-	 */
-
-	// 글 전체 조회 (카테고리별로 보기) - 페이징 적용
+	
+	// 글 전체 조회 (카테고리별로 보기) 
 	@RequestMapping("findNoticeByCategory")
 	public String findByCategory(Model model, Criteria cri, String category) {
 		int totalCnt = noticeBoardService.getTotalPostCountByCategory(category);
@@ -93,6 +77,7 @@ public class NoticeBoardController {
 		NoticeBoardVO vo = noticeBoardService.noticeBoardDetailView(noticeNo);
 		// System.out.println(vo);
 		model.addAttribute("detail", vo);
+		model.addAttribute("commentList", noticeBoardService.findCommentList(noticeNo));
 		return "noticeBoard/noticeDetail";
 	}
 
@@ -181,11 +166,8 @@ public class NoticeBoardController {
 
 	@PostMapping("writenoticeComment")
 	public String writeComment(NoticeCommentVO commentVO, Model model) {
-		System.out.println(commentVO);
-		noticeBoardService.registerComment(commentVO);
 		noticeBoardService.registerComment(commentVO);
 		// model.addAttribute("commentList",freeBoardService.findCommentList());
-
 		return "redirect:noticeDetail?noticeNo=" + commentVO.getNoticeNo();
 	}
 
@@ -197,6 +179,13 @@ public class NoticeBoardController {
 		model.addAttribute("commentList", commentList);
 		// System.out.println(commentList); 
 		return commentList;
+	}
+	
+	//댓글삭제
+	@PostMapping("commentnoticeDelete")
+	public String commentDelete(int commentNo,int noticeNo) {
+		noticeBoardService.commentDelete(commentNo);
+		return "redirect:noticeDetail?noticeNo="+ noticeNo;
 	}
 
 }

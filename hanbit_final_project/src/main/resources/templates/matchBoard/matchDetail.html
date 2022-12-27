@@ -8,6 +8,7 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
+<<<<<<< HEAD
 	<br> <br> 아이디 :
 	<h4 th:text="${matchDetail.memberVO.id}"></h4>
 	<br> <br> 제목 :
@@ -25,6 +26,10 @@
 	<h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4>
 	요양보호사입니다!
 	<h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
+
+
+
+
 
 
 
@@ -48,44 +53,19 @@
             <button>삭제</button>
          </form>
 
-			<form id="matchDetailUpdateForm"
-				th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}">
-				<input type="hidden" name="matchNo" th:value="${matchNo}">
-				<button type="submit">수정</button>
-			</form>
-		</th:block>
-	</th:block>
 
-	<!--  수정 삭제부분 끝  -->
+         <form id="matchDetailUpdateForm"
+            th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}">
+            <input type="hidden" name="matchNo" th:value="${matchNo}">
+            <button type="submit">수정</button>
+         </form>
+      </th:block>
+   </th:block>
 
-	<!-- <a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp; -->
-	<a
-		th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} ">쪽지보내기</a>
-	<br> <br> <a th:href="@{/MatchBoardList}">목록으로</a> &nbsp;
-	&nbsp; &nbsp;
 
-<!-- 기존찜버튼 -->
-	<!-- <form th:action="@{/showLike}">
-		<input name="id" th:value="${session.mvo.id}" type="hidden"> <input
-			type="hidden" name="matchNo" th:value="${matchNo}">
-		<button id="likeAjax">찜</button>
-		&nbsp; <img id="imageBody" th:src="@{/images/}+${likePic}" width="30" height="30">
-
-	</form> -->
-	<form>
-		<img id="likeAjaxImg" th:src="@{/images/}+${likePic}" width="30" height="30">
-
-	</form>
-
-	<script type="text/javascript" >
-		$(document).ready(function() {
-			$("#deleteConfirm").submit(function() {
-				return confirm("해당 게시물을 정말 삭제하시겠습니까?????");
-			});//submit
-		}); //ready
-	</script>
 
    <!--  수정 삭제부분 끝  -->
+
 
 	<script type="text/javascript" th:inline="javascript">
 		$(function(){
@@ -116,6 +96,41 @@
 		});//ready
 	</script>
 
+
+
+   <!-- <a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp; -->
+   <a
+      th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} ">쪽지보내기</a>
+   <br> <br> <a th:href="@{/MatchBoardList}">목록으로</a> &nbsp;
+   &nbsp; &nbsp;
+
+<!-- 기존찜버튼 -->
+   <form th:action="@{/showLike}">
+      <input name="id" th:value="${session.mvo.id}" type="hidden"> <input
+         type="hidden" name="matchNo" th:value="${matchNo}">
+      <button id="likeAjax">찜</button>
+      &nbsp; <img id="imageBody" th:src="@{/images/}+${likePic}" width="30" height="30">
+
+   </form>
+   <!-- <form>
+      <input name="id" th:value="${session.mvo.id}" type="hidden"> 
+      <input type="hidden" name="matchNo" th:value="${matchNo}">
+      <button id="likeAjaxBtn">찜</button>  &nbsp; 
+      <img id="likeAjaxImg" th:src="@{/images/}+${likePic}" width="30" height="30">
+
+   </form> -->
+
+   <script type="text/javascript" >
+      $(document).ready(function() {
+         $("#deleteConfirm").submit(function() {
+            return confirm("해당 게시물을 정말 삭제하시겠습니까?????");
+         });//submit
+      }); //ready
+   </script>
+
+
+
+  
 </div>
 
 <!--================End layout Area =================-->

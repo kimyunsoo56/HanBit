@@ -11,16 +11,16 @@
 
 	<br> <br>
 	<div class="row">
-		<br> <select id="category">
+		<br> <select id="category"  class="custom-select-sm">
 			<option th:value="공지사항">공지사항</option>
 			<option th:value="건강정보">건강정보</option>
 			<option th:value="알림정보">알림정보</option>
-		</select> <br>
+		</select> <br> <br> <br>
 		<button type="button" id="findNoticeByCategory" class="btn btn-outline-dark">
 		검색
 		</button>
 		<br> <br>
-		<table class="table table-bordered">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>NO</th>
@@ -47,7 +47,7 @@
 		<th:block th:if="${session.mvo!=null}">
 			<th:block th:if="${session.mvo.memberType == 3}">
 				<form th:action="@{writeNoticeForm}">
-					<button type = "submit"  class="btn btn-outline-dark">글쓰기</button>
+					<button type = "submit"  class="btn btn-outline-dark">글쓰기</button>&nbsp;&nbsp;&nbsp;
 				</form>
 			</th:block>
 		</th:block>
@@ -86,6 +86,7 @@
 					$.ajax({
 						type : "get",
 						url : "findNoticeByCategory",
+
 						//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
 						data : "category="+category,
 						success : function(list) {

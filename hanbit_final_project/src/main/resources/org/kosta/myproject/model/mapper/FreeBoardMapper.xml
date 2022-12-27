@@ -53,7 +53,7 @@
 		
 	<!--  게시물 상세보기 -->
    <select id="getFreeDetail" resultType="org.kosta.myproject.model.vo.FreeBoardVO" resultMap="freeBoardList">
-   		select hfb.free_no, hfb.category, hfb.title, hfb.content, hm.nick, hfb.time_posted, hfb.hits
+   		select hfb.free_no, hfb.category, hfb.title, hfb.content, hm.nick, hfb.time_posted, hfb.hits, hfb.image
 		from hanbit_free_board hfb
 		inner join hanbit_member hm ON hfb.id=hm.id
 		where hfb.free_no=#{value}

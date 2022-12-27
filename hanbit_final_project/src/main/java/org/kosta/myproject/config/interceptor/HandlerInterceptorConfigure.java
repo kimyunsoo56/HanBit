@@ -22,7 +22,7 @@ public class HandlerInterceptorConfigure implements WebMvcConfigurer{
 		.addPathPatterns("/**")
 		.excludePathPatterns("/","/home","/scripts/**","/css/**","/fonts/**","/images/**",
 		"/img/**","/js/**","/Occupy-doc/**","/scss/**","/vendors/**","/login*","/registerMember*",
-		"/findId*","/findPassword*","/noticeBoardList","/findByCatefory","/noticeDetail",
-		"/freeBoardList","/findFreeByCategory");
+		"/findId*","/findPassword*","/freeBoardList*","/findFreeByCategory","/findFreeByKeyword","/Paging","Criteria"
+		,"/getComment","/noticeBoardList*","/findNoticeByCategory");
 	}
 }
