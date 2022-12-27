@@ -46,7 +46,7 @@ public interface MatchBoardService  {
 
 	int getTotalPostCountByCategory(MatchBoardVO matchBoardVO);
 
-	Object findMatchListBylgw(MatchBoardVO matchBoardVO);
+	List<MatchBoardVO>findMatchListBylgw(MatchBoardVO matchBoardVO);
 
 
 

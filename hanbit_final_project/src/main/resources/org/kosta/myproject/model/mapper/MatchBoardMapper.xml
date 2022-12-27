@@ -45,27 +45,24 @@
 
 	</select>
 <!--  기존 카테고리별 조회 에이잭스 메서드 -->
-	<select id="findMatchListBylgw"
-		parameterType="org.kosta.myproject.model.vo.MatchBoardVO"
-		resultMap="matchResultMap">
-		select
-		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
-		from hanbit_match_board b
-		inner join hanbit_member m on b.id=m.id
-		<where>
-			<if test="memberVO!=null and memberVO.location!=''">
-				m.location=#{memberVO.location}
-			</if>
-			<if test="memberVO!=null and memberVO.gender!=''">
-				and m.gender=#{memberVO.gender}
-			</if>
-			<if test="memberVO!=null and memberVO.workType!=''">
-				and m.work_type=#{memberVO.workType}
-			</if>
-		</where>
+	<select id="findMatchListBylgw" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultMap="matchResultMap">
+select b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
+from hanbit_match_board b
+inner join hanbit_member m on b.id=m.id
+<where>
+<if test="memberVO!=null and memberVO.location!=''">
+m.location=#{memberVO.location}
+</if>
+<if test="memberVO!=null and memberVO.gender!=''">
+and m.gender=#{memberVO.gender}
+</if>
+<if test="memberVO!=null and memberVO.workType!=''">
+and m.work_type=#{memberVO.workType}
+</if>
+</where>
 
 
-	</select>
+</select>
 	<!-- <select id="findMatchListBylgw"
 		parameterType="map"
 		resultMap="matchResultMap">

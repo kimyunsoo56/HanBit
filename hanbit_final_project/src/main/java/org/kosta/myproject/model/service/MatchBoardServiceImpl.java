@@ -121,7 +121,7 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 
 
 	@Override
-	public Object findMatchListBylgw(MatchBoardVO matchBoardVO) {
+	public List<MatchBoardVO> findMatchListBylgw(MatchBoardVO matchBoardVO) {
 		
 		return matchBoardMapper.findMatchListBylgw(matchBoardVO);
 	}

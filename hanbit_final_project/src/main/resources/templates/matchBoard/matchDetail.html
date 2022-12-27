@@ -65,20 +65,17 @@
 	&nbsp; &nbsp;
 
 <!-- 기존찜버튼 -->
-	<form th:action="@{/showLike}">
+	<!-- <form th:action="@{/showLike}">
 		<input name="id" th:value="${session.mvo.id}" type="hidden"> <input
 			type="hidden" name="matchNo" th:value="${matchNo}">
 		<button id="likeAjax">찜</button>
 		&nbsp; <img id="imageBody" th:src="@{/images/}+${likePic}" width="30" height="30">
 
-	</form>
-	<!-- <form>
-		<input name="id" th:value="${session.mvo.id}" type="hidden"> 
-		<input type="hidden" name="matchNo" th:value="${matchNo}">
-		<button id="likeAjaxBtn">찜</button>  &nbsp; 
+	</form> -->
+	<form>
 		<img id="likeAjaxImg" th:src="@{/images/}+${likePic}" width="30" height="30">
 
-	</form> -->
+	</form>
 
 	<script type="text/javascript" >
 		$(document).ready(function() {
@@ -90,7 +87,7 @@
 
    <!--  수정 삭제부분 끝  -->
 
-	<!-- <script type="text/javascript" th:inline="javascript">
+	<script type="text/javascript" th:inline="javascript">
 		$(function(){
 			$("#likeAjaxImg").click(function() {				
 				let id= /*[[${session.mvo.id}]]*/ "회원아이디";
@@ -102,19 +99,22 @@
 					//dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
 					data:"id="+id+"&matchNo="+matchNo,
 					success:function(result){		
-						if(result==0){
+						//alert("여기까지 옵니까?????!"+ result);
+						if(result=="unlike"){
+							$("#likeAjaxImg").attr("src","/images/nonolike.png")
 							
 						}else{
+							$("#likeAjaxImg").attr("src","/images/likelike.png")
 							
 							
 						}
-						alert("넘김확인!")
+						
 						//$("#imageBody").replaceWith(list);//replaceWith
 					}
 				});//ajax
 			});//click
 		});//ready
-	</script> -->
+	</script>
 
 </div>
 

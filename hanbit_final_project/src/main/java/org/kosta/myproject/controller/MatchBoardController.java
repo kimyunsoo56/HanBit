@@ -35,7 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MatchBoardController {
 
 	private final MatchBoardService matchBoardService;
-//기존 MatchBoardList
+
+	
+	//기존 MatchBoardList
 	/*
 	 * @RequestMapping("MatchBoardList")
 	 * 
@@ -59,46 +61,9 @@ public class MatchBoardController {
 		return "matchBoard/matchBoard";
 	}
 
-	/*
-	 * @RequestMapping("showLike")
-	 * 
-	 * @ResponseBody public int showLike(Model model, HttpSession session, String
-	 * id, String matchNo) { System.out.println("확인:" + matchNo);
-	 * System.out.println(id);
-	 * 
-	 * @SuppressWarnings("unchecked") ArrayList<String> noListLike =
-	 * (ArrayList<String>) session.getAttribute("noListLike");
-	 * 
-	 * LikesVO likesVO = new LikesVO(); likesVO.setId(id);
-	 * likesVO.setMatchNo(Integer.parseInt(matchNo));
-	 * 
-	 * int result = matchBoardService.checkLikes(likesVO);
-	 * 
-	 * if (result == 0) { model.addAttribute("likePic", "nonolike.png");// 동적으로 변화될
-	 * 수 있는 이미지 정보
-	 * 
-	 * } else {
-	 * 
-	 * model.addAttribute("likePic", "likelike.png");// 동적으로 변화될 수 있는 이미지 정보 }
-	 * 
-	 * 
-	 * if (noListLike.contains(matchNo) == false && result!=0) {
-	 * noListLike.add(matchNo); matchBoardService.addLikes(likesVO);
-	 * model.addAttribute("likePic", "likelike.png");// 동적으로 변화될 수 있는 이미지 정보
-	 * 
-	 * } else { noListLike.remove(matchNo); matchBoardService.removeLikes(likesVO);
-	 * model.addAttribute("likePic", "nonolike.png");// 동적으로 변화될 수 있는 이미지 정보
-	 * 
-	 * }
-	 * 
-	 * session.setAttribute("noListLike", noListLike);
-	 * 
-	 * return result ; }
-	 */
-
-//기존 showLike
-	// 찜관련
+	// ------------------------찜 ajax------------------------------------------
 	@RequestMapping("showLike")
+	@ResponseBody
 	public String showLike(Model model, HttpSession session, String id, String matchNo) {
 		System.out.println("확인:" + matchNo);
 		System.out.println(id);
@@ -110,22 +75,50 @@ public class MatchBoardController {
 		likesVO.setId(id);
 		likesVO.setMatchNo(Integer.parseInt(matchNo));
 
-		if (noListLike.contains(matchNo) == false) {
+		int checkLikeResult = matchBoardService.checkLikes(likesVO);
+        String likeFlag=null;
+		/*
+		 * if (result == 0) { model.addAttribute("likePic", "nonolike.png"); } else {
+		 * model.addAttribute("likePic", "likelike.png"); }
+		 */
+//noListLike.contains(matchNo) == false &&
+		if ( checkLikeResult== 0) {
 			noListLike.add(matchNo);
 			matchBoardService.addLikes(likesVO);
+			likeFlag="like";
 		} else {
 			noListLike.remove(matchNo);
 			matchBoardService.removeLikes(likesVO);
-
+			likeFlag="unlike";
 		}
-		for (int i = 0; i < noListLike.size(); i++) {
-			System.out.println("후: " + noListLike.get(i));
-		}
-
 		session.setAttribute("noListLike", noListLike);
-
-		return "redirect:matchDetail?matchNo=" + matchNo;
+		return likeFlag;
 	}
+
+//기존 showLike
+	// 찜관련
+	/*
+	 * @RequestMapping("showLike") public String showLike(Model model, HttpSession
+	 * session, String id, String matchNo) { System.out.println("확인:" + matchNo);
+	 * System.out.println(id);
+	 * 
+	 * @SuppressWarnings("unchecked") ArrayList<String> noListLike =
+	 * (ArrayList<String>) session.getAttribute("noListLike");
+	 * 
+	 * LikesVO likesVO = new LikesVO(); likesVO.setId(id);
+	 * likesVO.setMatchNo(Integer.parseInt(matchNo));
+	 * 
+	 * if (noListLike.contains(matchNo) == false) { noListLike.add(matchNo);
+	 * matchBoardService.addLikes(likesVO); } else { noListLike.remove(matchNo);
+	 * matchBoardService.removeLikes(likesVO);
+	 * 
+	 * } for (int i = 0; i < noListLike.size(); i++) { System.out.println("후: " +
+	 * noListLike.get(i)); }
+	 * 
+	 * session.setAttribute("noListLike", noListLike);
+	 * 
+	 * return "redirect:matchDetail?matchNo=" + matchNo; }
+	 */
 
 	/*
 	 * @RequestMapping("findMatchListBylgw") public String
@@ -135,7 +128,7 @@ public class MatchBoardController {
 	 * matchBoardVO)); return "matchBoard/matchBoard :: #matchTbody"; }
 	 */
 
-//글상세보기
+	// ------------------------글 상세 조회------------------------------------------
 	@RequestMapping("matchDetail")
 	public String showMatchDetail(Model model, int matchNo, HttpSession session) {
 		String message = "";
@@ -169,20 +162,20 @@ public class MatchBoardController {
 		return "matchBoard/matchDetail";
 	}
 
-// 글쓰기 폼으로 이동
+	// ------------------------글쓰기 폼으로 이동------------------------------------------
 	@RequestMapping("WriteMatchBoardForm")
 	public String writeMatchBoard(Model model) {
 
 		return "matchBoard/matchWrite";
 	}
-// 기존 ! 카테고리별로 조회
-	
-	  @RequestMapping("findMatchListBylgw") public String
-	  findMatchListBylgw(MatchBoardVO matchBoardVO, Model model) {
-	  log.debug("param:{}", matchBoardVO); 
-	  model.addAttribute("matchList", matchBoardService.findMatchListBylgw(matchBoardVO)); 
-	  return "matchBoard/matchBoard :: #matchTbody"; }
-	 
+
+	// ------------------------카테고리별 조회------------------------------------------
+	@RequestMapping("findMatchListBylgw")
+	public String findMatchListBylgw(MatchBoardVO matchBoardVO, Model model) {
+		log.debug("param:{}", matchBoardVO);
+		model.addAttribute("matchList", matchBoardService.findMatchListBylgw(matchBoardVO));
+		return "matchBoard/matchBoard :: #matchTbody";
+	}
 
 	/*
 	 * 기존 2 카테골별 에잭스
@@ -234,7 +227,7 @@ public class MatchBoardController {
 	 * return "redirect:MatchBoardList"; }
 	 */
 
-	// 매칭글쓰기
+	// ------------------------매칭 글쓰기------------------------------------------
 	@PostMapping("registerMatch")
 	public String registerMatch(MatchBoardVO matchBoardVO, Model model, HttpServletRequest request,
 			@RequestParam("photo") MultipartFile file) {
@@ -275,14 +268,14 @@ public class MatchBoardController {
 		return "redirect:MatchBoardList";
 	}
 
-	// 매칭글 삭제
+	// ------------------------매칭 글 삭제------------------------------------------
 	@PostMapping("matchDelete")
 	public String matchDelete(int matchNo) {
 		matchBoardService.matchDelete(matchNo);
 		return "redirect:MatchBoardList";
 	}
 
-	// 매칭글 수정폼으로 이동
+	// ------------------------매칭 글 수정폼으로 이동------------------------------------------
 	@RequestMapping("matchDetailUpdateForm")
 	public String matchDetailUpdateForm(int matchNo, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
@@ -295,7 +288,7 @@ public class MatchBoardController {
 		return "matchBoard/matchDetailUpdateForm";
 	}
 
-	// 매칭 글 수정
+	// ------------------------매칭 글 수정------------------------------------------
 	@PostMapping("updateMatch")
 	public String updateMatch(MatchBoardVO matchBoardVO) {
 		matchBoardService.updateMatch(matchBoardVO);
@@ -303,7 +296,7 @@ public class MatchBoardController {
 		return "redirect:MatchBoardList";
 	}
 
-	// 매칭글에서 쪽지 쓸 때 넘어가는 쪽지 폼.
+	// ------------------------매칭게시판에서 쪽지 보낼시 글쓰는 폼으로 이동------------------------------------------
 	@RequestMapping("SendMessage")
 	public String sendMessage(Model model, String yoyangsaName, String matchBoardId, int matchNo) {
 		model.addAttribute("yoyangsaName", yoyangsaName);
@@ -314,7 +307,7 @@ public class MatchBoardController {
 		return "matchBoard/messageForm";
 	}
 
-	// 매칭글에서 쪽지보내기
+	// ------------------------매칭 게시판에서 쪽지 보내기-----------------------------------------
 	@RequestMapping("RealSendMessage")
 	public String realSendMessage(Model model, MessageVO messageVO, int matchNo) {
 		System.out.println(messageVO);
@@ -324,7 +317,7 @@ public class MatchBoardController {
 		return "redirect:matchDetail?matchNo=" + matchNo;
 	}
 
-	// 쪽지함에서 답장할 때 넘어가는 쪽지폼.
+	// ------------------------쪽지함에서 답장 할 때 글쓰는 폼으로 이동------------------------------------------
 	@RequestMapping("sendMessage2")
 	public String sendMessage2(Model model, HttpServletRequest request, String receiveId) {
 		/*
@@ -336,7 +329,7 @@ public class MatchBoardController {
 		return "matchBoard/messageForm1";
 	}
 
-	// 쪽지함에서 답장하기
+	// ------------------------쪽지함에서 답장하기------------------------------------------
 	@RequestMapping("RealSendMessage1")
 	public String realSendMessage1(Model model, MessageVO messageVO) {
 		System.out.println(messageVO);
@@ -345,7 +338,7 @@ public class MatchBoardController {
 		return "redirect:myMessage";
 	}
 
-	// 쪽지함가기 (받은편지함)
+	// ------------------------받은 편지함 으로 가기------------------------------------------
 	@RequestMapping("myMessage")
 	public String myMessage(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -356,7 +349,7 @@ public class MatchBoardController {
 		return "matchBoard/myMessage";
 	}
 
-	// 보낸쪽지함
+	// ------------------------보낸 편지함으로 가기------------------------------------------
 	@RequestMapping("myMessage2")
 	public String myMessage2(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -367,7 +360,7 @@ public class MatchBoardController {
 		return "matchBoard/myMessage1";
 	}
 
-//메세지 상세보기
+	// ------------------------쪽지 상세 보기------------------------------------------
 	@RequestMapping("messageDetail")
 	public String myMessageDetail(Model model, HttpSession session, String receiveId, String content, int messageNo) {
 		@SuppressWarnings("unchecked")
