@@ -80,7 +80,7 @@
       
 
 
- <th:block th:if="${session.mvo.memberType == 3}">
+ <th:block th:if="${session!=null && session.mvo!=null && session.mvo.memberType==3}">
  <form th:action="@{/freeReportList}">
          <button>
            신고리스트 보기
