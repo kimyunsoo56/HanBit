@@ -14,7 +14,7 @@ public interface MemberMapper {
 
 	MemberVO login(MemberVO memberVO);
 
-	public MemberVO myPageDetail(String id);
+	MemberVO myPageDetail(String id);
 
 	MemberVO findMemberById(String id);
 

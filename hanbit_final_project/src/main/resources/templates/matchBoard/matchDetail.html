@@ -8,26 +8,6 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-<<<<<<< HEAD
-   <h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
-   <br> <br> 아이디 :
-   <h4 th:text="${matchDetail.memberVO.id}"></h4>
-   <br> <br> 제목 :
-   <h4 th:text="${matchDetail.title}"></h4>
-   <br> <br> 작성시간 :
-   <h4 th:text="${matchDetail.timePosted}">작성시간</h4>
-   <br> <br> 닉네임 :
-   <h4 th:text="${matchDetail.memberVO.nick}">닉네임</h4>
-   <br> <br> 조회수 :
-   <h4 th:text="${matchDetail.hits}">조회수</h4>
-   <br> <br> 사진 :
-   <h4 th:text="${matchDetail.image}">사진나오는부분!</h4>
-   <img th:src="@{/images/} + ${matchDetail.image}"><br> <br>
-   <br> 이름과 소개글:
-   <h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4>
-   요양보호사입니다!
-   <h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
-=======
    <br> <br> 아이디 :
    <h4 th:text="${matchDetail.memberVO.id}"></h4>
    <br> <br> 제목 :
@@ -90,43 +70,6 @@
          type="hidden" name="matchNo" th:value="${matchNo}">
       <button id="likeAjax">찜</button>
       &nbsp; <img id="imageBody" th:src="@{/images/}+${likePic}" width="30" height="30">
-	<h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
-	<br> <br> 아이디 :
-	<h4 th:text="${matchDetail.memberVO.id}"></h4>
-	<br> <br> 제목 :
-	<h4 th:text="${matchDetail.title}"></h4>
-	<br> <br> 작성시간 :
-	<h4 th:text="${matchDetail.timePosted}">작성시간</h4>
-	<br> <br> 닉네임 :
-	<h4 th:text="${matchDetail.memberVO.nick}">닉네임</h4>
-	<br> <br> 조회수 :
-	<h4 th:text="${matchDetail.hits}">조회수</h4>
-	<br> <br> 사진 :
-	<h4 th:text="${matchDetail.image}">사진나오는부분!</h4>
-	<img th:src="@{/images/} + ${matchDetail.image}"><br> <br>
-	<br> 이름과 소개글:
-	<h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4>
-	요양보호사입니다!
-	<h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
-	<h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
-	<br> <br> 아이디 :
-	<h4 th:text="${matchDetail.memberVO.id}"></h4>
-	<br> <br> 제목 :
-	<h4 th:text="${matchDetail.title}"></h4>
-	<br> <br> 작성시간 :
-	<h4 th:text="${matchDetail.timePosted}">작성시간</h4>
-	<br> <br> 닉네임 :
-	<h4 th:text="${matchDetail.memberVO.nick}">닉네임</h4>
-	<br> <br> 조회수 :
-	<h4 th:text="${matchDetail.hits}">조회수</h4>
-	<br> <br> 사진 :
-	<h4 th:text="${matchDetail.image}">사진나오는부분!</h4>
-	<img th:src="@{/images/} + ${matchDetail.image}"><br> <br>
-	<br> 이름과 소개글:
-	<h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4>
-	요양보호사입니다!
-	<h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 
    </form>
    <!-- <form>

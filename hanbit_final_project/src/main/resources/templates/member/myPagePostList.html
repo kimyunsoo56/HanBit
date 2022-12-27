@@ -23,8 +23,7 @@
 	<tbody>
 		<tr th:each="freeBoard:${myPageFreePostList}">
 			<td width="10%" th:text="${freeBoard.freeNo}"></td>
-			<td width="60%" ><a class="line" style="color: #676766;" th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}"
-				th:text="${freeBoard.title}"></a></td>
+			<td width="60%" ><a class="line" style="color: #676766;" th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}" th:text="${freeBoard.title}"></a></td>
 			<td th:text="${freeBoard.timePosted}"></td>
 			<td th:text="${freeBoard.hits}"></td>
 		</tr>
@@ -46,8 +45,7 @@
 		</thead>
 		<tr th:each="matchBoard:${myPageMatchPostList}">
 				<td width="10%" th:text="${matchBoard.matchNo}"></td>
-				<td width="60%"><a class="line" style="color: #676766;" th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}"
-					th:text="${matchBoard.title}"></a></td>
+				<td width="60%"><a class="line" style="color: #676766;" th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}" th:text="${matchBoard.title}"></a></td>
 				<td th:text="${matchBoard.timePosted}"></td>
 				<td th:text="${matchBoard.hits}"></td>
 			</tr>
