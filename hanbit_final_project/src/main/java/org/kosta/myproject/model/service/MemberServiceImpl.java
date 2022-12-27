@@ -3,7 +3,6 @@ package org.kosta.myproject.model.service;
 import java.util.List;
 
 import org.kosta.myproject.model.mapper.MemberMapper;
-import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 //github.com/kimyunsoo56/HanBit.git
 import org.kosta.myproject.model.vo.MatchBoardVO;
@@ -84,11 +83,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MatchBoardVO> findMatchPostList(String id) {
 		return memberMapper.findMatchPostList(id);
-	}
-
-	@Override
-	public List<CommentVO> findFreePostCommentList(String id) {
-		return memberMapper.findFreePostCommentList(id);
 	}
 
 }

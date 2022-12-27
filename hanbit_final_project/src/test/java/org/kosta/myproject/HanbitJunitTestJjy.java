@@ -56,12 +56,4 @@ public class HanbitJunitTestJjy {
 			System.out.println(vo);
 		logger.debug("list vo:{}"+ myPageFreePostList + id);
 	}
-	@Test
-	public void myPagePostComment() {
-		String id="spring";
-		List<CommentVO> myPageFreePostCommentList= memberMapper.findFreePostCommentList(id);
-		for(CommentVO vo : myPageFreePostCommentList)
-			System.out.println(vo);
-		logger.debug("list vo:{}"+ myPageFreePostCommentList + id);
-	}
 }

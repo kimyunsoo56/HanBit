@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.myproject.model.service.MemberService;
-import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 import org.kosta.myproject.model.vo.MatchBoardVO;
 import org.kosta.myproject.model.vo.MemberVO;
@@ -336,14 +335,4 @@ public class MemberController {
 		model.addAttribute("myPageMatchPostList", myPageMatchPostList);
          return "member/myPagePostList";
     }
-      // 내가 쓴 댓글 보기 
-      @GetMapping("/myPagePostComment")
-      public String myPagePostComment(HttpServletRequest request, Model model) {
-    	HttpSession session=request.getSession(false);
-      	MemberVO memberVO = (MemberVO) session.getAttribute("mvo");
-      	String id=memberVO.getId();
-  		List<CommentVO> myPageFreePostCommentList= memberService.findFreePostCommentList(id);
-  		model.addAttribute("myPageFreePostCommentList", myPageFreePostCommentList);
-    	  return "member/myPagePostComment";
-      }
 }

@@ -58,12 +58,6 @@ SELECT mb.match_no, mb.title, mb.hits, mb.time_posted
 FROM hanbit_member m
 INNER JOIN hanbit_match_board mb ON m.id=mb.id WHERE m.id=#{value}
 </select>
-<select id="findFreePostCommentList" parameterType="string" resultType="org.kosta.myproject.model.vo.CommentVO">
-SELECT fbc.id, fbc.content, fbc.time_posted, fbc.comment_no, fb.free_no
-FROM hanbit_member m
-INNER JOIN hanbit_comment fbc ON m.id=fbc.id 
-INNER JOIN hanbit_free_board fb ON fb.id=fbc.id WHERE m.id=#{value}
-</select>
 <select id="myLikedList" parameterType="string" resultType="org.kosta.myproject.model.vo.MatchBoardVO">
 	SELECT b.match_no,b.title,b.content,b.time_posted,b.hits,m.id
 	FROM hanbit_likes l

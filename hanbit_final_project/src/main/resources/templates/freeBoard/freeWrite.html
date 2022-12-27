@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/notice_layout}">
+	layout:decorate="~{layouts/free_layout}">
 <!--/* 위 선언은 타임리프 레이아웃을 사용하기 위한 설정   */-->
 <head>
 <title>한빛</title>
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<h4>※ 알림 글쓰기※</h4>
 	  <form th:action="@{/write}" method="post" id="write_form" enctype="multipart/form-data">
 	<br>
-	<select name = "category">
+	<select name = "category" required="required">
 		<option value="자유글">자유글</option>
 		<option value="정보글">정보글</option>
 		<option value="실종신고">실종신고</option>
 	</select> <br> <br><br>
-	제목 &nbsp; &nbsp;
-     <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
+	<span style="font-size: 20px;">제목 : </span> 
+     <input style="border:none; width:500px; height: 40px;" type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
      <br>
-	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" placeholder="본문내용을 입력하세요"></textarea>
-		<br><br>
-	 <div class="form-group row">
-<!--     <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>  -->   
-          <div class="col-sm-10">
-            <br><br>
-     
-         </div>
-      </div>
-      <br><br>
-      <br><br>
-  	<div>
-    file : <input type="file" name="photo" accept="image/*">
+     <div>
+    <span style="font-size: 20px;">file : </span>
+    <input type="file" name="photo" accept="image/*">
   	</div>
-  	<input type="submit">
-  		<button type = "submit"  class="btn btn-outline-dark">
-		등록
-		</button> 
+  	<br>
+	 <pre><textarea cols="90" rows="15" name="content" class="hanbitText" required="required"  placeholder="본문내용을 입력하세요"></textarea></pre>
+		<br>
+      <div align="center">
+  		<button type = "submit" class="btn btn-outline-success btn-lg">등록</button>
+		</div> 
 	</form>
 
 	 <!-- jQuery Ajax -->

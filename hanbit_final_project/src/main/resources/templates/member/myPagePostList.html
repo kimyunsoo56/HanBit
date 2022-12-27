@@ -10,12 +10,12 @@
 <!--================자유게시판 글 목록 =================-->
 <div layout:fragment="content">
 <div align="center">
-<h2 style="color: #a7cb00; padding-left: 90px;" align="left">자유게시판</h2>
-<table class="table" style="width: 1100px; word-break:break-all; text-align: center;">
+<h2 style="color: #a7cb00; padding-left: 145px;" align="left">자유게시판</h2>
+<table class="table" style="width: 1000px; word-break:break-all; text-align: center;">
 	<thead>
 		<tr>
 			<th>글번호</th>
-			<th>제목</th>
+			<th style="text-align: left;">제목</th>
 			<th>작성일</th>
 			<th>조회수</th>
 		</tr>
@@ -23,7 +23,7 @@
 	<tbody>
 		<tr th:each="freeBoard:${myPageFreePostList}">
 			<td width="10%" th:text="${freeBoard.freeNo}"></td>
-			<td width="60%" ><a class="line" style="color: #676766;" th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}" th:text="${freeBoard.title}"></a></td>
+			<td style="text-align: left;" width="50%"><a class="line" style="color: #676766;" th:href="@{/freeDetail?freeNo=} + ${freeBoard.freeNo}" th:text="${freeBoard.title}"></a></td>
 			<td th:text="${freeBoard.timePosted}"></td>
 			<td th:text="${freeBoard.hits}"></td>
 		</tr>
@@ -33,19 +33,19 @@
 <!--================매칭게시판 글 목록 =================-->
 <th:block th:if="${session.mvo.memberType==2}">
 <br>
-<h2 style="color: #a7cb00; padding-left: 90px;" align="left">매칭게시판</h2>
-<table class="table" style="width: 1100px; word-break:break-all; text-align: center;">
+<h2 style="color: #a7cb00; padding-left: 145px;" align="left">매칭게시판</h2>
+<table class="table" style="width: 1000px; word-break:break-all; text-align: center;">
 <thead>
 			<tr>
 				<th>글번호</th>
-				<th>제목</th>
+				<th style="text-align: left;">제목</th>
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
 		</thead>
 		<tr th:each="matchBoard:${myPageMatchPostList}">
 				<td width="10%" th:text="${matchBoard.matchNo}"></td>
-				<td width="60%"><a class="line" style="color: #676766;" th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}" th:text="${matchBoard.title}"></a></td>
+				<td style="text-align: left;" width="50%"><a class="line" style="color: #676766;" th:href="@{/matchDetail?matchNo=} + ${matchBoard.matchNo}" th:text="${matchBoard.title}"></a></td>
 				<td th:text="${matchBoard.timePosted}"></td>
 				<td th:text="${matchBoard.hits}"></td>
 			</tr>

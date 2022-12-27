@@ -3,7 +3,6 @@ package org.kosta.myproject.model.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.FreeBoardVO;
 //github.com/kimyunsoo56/HanBit.git
 import org.kosta.myproject.model.vo.MatchBoardVO;
@@ -39,7 +38,5 @@ public interface MemberMapper {
 	List<FreeBoardVO> findFreePostList(String id);
 
 	List<MatchBoardVO> findMatchPostList(String id);
-
-	List<CommentVO> findFreePostCommentList(String id);
 
 }
