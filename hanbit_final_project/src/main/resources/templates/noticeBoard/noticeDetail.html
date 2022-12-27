@@ -10,7 +10,6 @@
 <div layout:fragment="content">
 	<br>
 	<br>
-
 <h4 th:text="${detail.title}"></h4>&nbsp;
 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
 <p th:text="${detail.category}"></p>
@@ -18,8 +17,7 @@
 <p th:text="${detail.timePosted}"></p>
 <p th:text="${detail.hits}"></p><br>
 <p th:text="${detail.content}"></p><br>
-<p th:text="${detail.image}"></p><br>
-<img th:src = "@{/images/} + ${detail.image}" class="img-fluid" src="img_chania.jpg" alt="Chania"><br>
+<img th:src = "@{/images/} + ${detail.image}" class="img-fluid"><br>
 <br> 자세한 내용은 아래 링크에서 확인하세요 <br>
 <a th:href="${detail.link}">홈페이지 바로가기</a>
 
@@ -45,7 +43,6 @@
 					class="form-control"  readonly
 					style="width: 100px; border: none;">
 			</div>
-
 			<div class="comment-sbox">
 				<textarea class="comment-input" name="content" cols="80" rows="2"></textarea>
 			</div>
@@ -54,11 +51,11 @@
 			</div>
 		</div>
 	</form>
-	<div>
-	<table class="table table-bordered">
+	<div >
+	<table class="table table-borderless">
    <thead>
       <tr>
-         <th>아이디</th><th>내용</th><th>시간</th><th></th>
+         <th>아이디</th><th>내용</th><th>시간</th>
       </tr>
    </thead>
    <tbody >
@@ -69,8 +66,8 @@
          <td>
          	 <th:block th:if="${session.mvo!=null}">
 			 <th:block th:if="${session.mvo.id==co.id}">
-	        <!--  <button type="submit">수정</button> -->
-	         <form th:action="@{/commentDelete}" method="post">
+			 <!--  댓글 삭제 -->
+	         <form th:action="@{/commentnoticeDelete}" method="post">
          	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
          	 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
 			 <button >삭제</button>
@@ -79,12 +76,8 @@
 	         </th:block>
 			</th:block>
       </tr>
-
    </tbody>
 </table>
-
 	</div>
-	
-
 </div>
 <!--================End layout Area =================-->

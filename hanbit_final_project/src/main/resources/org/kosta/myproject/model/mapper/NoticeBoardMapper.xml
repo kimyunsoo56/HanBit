@@ -10,14 +10,6 @@
       <result property="memberVO.nick" column="nick" />
    </resultMap>
 
-   <!-- 게시물 리스트 조회 
-    <select id="noticeBoardList1" parameterType="org.kosta.myproject.model.service.PagingBean" 
-      resultMap="noticeboardRM"> SELECT hnb.rnum, hnb.notice_no, hnb.title, hm.nick, 
-      hnb.time_posted, hnb.hits, hnb.category FROM ( SELECT ROW_NUMBER() OVER (ORDER 
-      BY notice_no DESC) AS rnum, notice_no, title, SYSDATE AS time_posted, hits, 
-      category, id FROM hanbit_notice_board ) hnb INNER JOIN hanbit_member hm ON 
-      hnb.id=hm.id ORDER BY hnb.notice_no DESC </select>  -->
-
    <!--게시물 리스트 조회 (페이징 처리) -->
 
    <select id="noticeBoardList1"
@@ -119,13 +111,18 @@
    <!-- 댓글 작성 -->
    <insert id="registerComment" parameterType="org.kosta.myproject.model.vo.NoticeCommentVO">
       insert into hanbit_notice_comment(comment_no,content,time_posted,id,notice_no)
-      values(hanbit_notice_comment_seq.nextval,#{content}, sysdate, #{id},#{noticeNo})
+      values(hanbit_notice_comment_seq.nextval, #{content}, sysdate, #{id}, #{noticeNo})
    </insert> 
    
    <!-- 댓글 목록조회 -->
    <select id="findCommentList" resultType="org.kosta.myproject.model.vo.NoticeCommentVO">
-      select content,time_posted,id,comment_no from anbit_notice_commen where notice_no=#{value}
+      select content, time_posted, id, comment_no from hanbit_notice_comment where notice_no=#{value}
    </select> 
+
+	<!-- 댓글 삭제 -->
+	<delete id="commentDelete">
+ 	delete from hanbit_notice_comment where comment_no=#{value}
+	</delete>
 
 </mapper>
 
