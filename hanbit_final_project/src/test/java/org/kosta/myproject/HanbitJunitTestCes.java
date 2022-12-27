@@ -44,19 +44,4 @@ public class HanbitJunitTestCes {
 		// System.out.println(vo.getTitle());
 	}
 
-	
-	
-	@Test
-	public void WriteNoticeBoardForm() {
-		for (int i = 0; i < 40; i++) {
-
-			NoticeBoardVO vo = new NoticeBoardVO();
-			System.out.println(vo);
-			vo.setTitle("안녕하세요!" + i);
-			vo.setContent("오늘은 날씨가 참 좋습니다!" + i);
-			noticeBoardMapper.noticeWrite(vo);
-
-			System.out.println(noticeBoardMapper.getTotalPostCount());
-		}
-	}
 }
