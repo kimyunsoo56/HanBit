@@ -44,18 +44,18 @@ public class MatchBoardController {
 	 * 
 	 * return "matchBoard/matchBoard"; }
 	 */
-	
-	//글목록 조회
+
+	// ------------------------글목록 조회------------------------------------------
 	@RequestMapping("MatchBoardList")
-	public String MatchBoardList(Model model,Criteria cri) {
-		int totalCnt =  matchBoardService.getTotalPostCount();
+	public String MatchBoardList(Model model, Criteria cri) {
+		int totalCnt = matchBoardService.getTotalPostCount();
 		Paging paging = new Paging();
-	      paging.setCri(cri);
-	      paging.setTotalCount(totalCnt);
-	      List<Map<String, Object>> matchBoardList = matchBoardService.findAll(cri);
+		paging.setCri(cri);
+		paging.setTotalCount(totalCnt);
+		List<Map<String, Object>> matchBoardList = matchBoardService.findAll(cri);
 		model.addAttribute("matchList", matchBoardList);
-		  model.addAttribute("paging", paging);
-		
+		model.addAttribute("paging", paging);
+
 		return "matchBoard/matchBoard";
 	}
 
@@ -97,28 +97,35 @@ public class MatchBoardController {
 	 */
 
 //기존 showLike
-	//찜관련
-	  @RequestMapping("showLike") public String showLike(Model model, HttpSession
-	  session, String id, String matchNo) { System.out.println("확인:" + matchNo);
-	  System.out.println(id);
-	  
-	  @SuppressWarnings("unchecked") ArrayList<String> noListLike =
-	  (ArrayList<String>) session.getAttribute("noListLike");
-	  
-	  LikesVO likesVO = new LikesVO(); likesVO.setId(id);
-	  likesVO.setMatchNo(Integer.parseInt(matchNo));
-	  
-	  if (noListLike.contains(matchNo) == false) { noListLike.add(matchNo);
-	  matchBoardService.addLikes(likesVO); } else { noListLike.remove(matchNo);
-	  matchBoardService.removeLikes(likesVO);
-	  
-	  } for (int i = 0; i < noListLike.size(); i++) { System.out.println("후: " +
-	  noListLike.get(i)); }
-	  
-	  session.setAttribute("noListLike", noListLike);
-	  
-	  return "redirect:matchDetail?matchNo=" + matchNo; }
-	 
+	// 찜관련
+	@RequestMapping("showLike")
+	public String showLike(Model model, HttpSession session, String id, String matchNo) {
+		System.out.println("확인:" + matchNo);
+		System.out.println(id);
+
+		@SuppressWarnings("unchecked")
+		ArrayList<String> noListLike = (ArrayList<String>) session.getAttribute("noListLike");
+
+		LikesVO likesVO = new LikesVO();
+		likesVO.setId(id);
+		likesVO.setMatchNo(Integer.parseInt(matchNo));
+
+		if (noListLike.contains(matchNo) == false) {
+			noListLike.add(matchNo);
+			matchBoardService.addLikes(likesVO);
+		} else {
+			noListLike.remove(matchNo);
+			matchBoardService.removeLikes(likesVO);
+
+		}
+		for (int i = 0; i < noListLike.size(); i++) {
+			System.out.println("후: " + noListLike.get(i));
+		}
+
+		session.setAttribute("noListLike", noListLike);
+
+		return "redirect:matchDetail?matchNo=" + matchNo;
+	}
 
 	/*
 	 * @RequestMapping("findMatchListBylgw") public String
@@ -127,8 +134,7 @@ public class MatchBoardController {
 	 * model.addAttribute("matchList",matchBoardService.findMatchListBylgw(
 	 * matchBoardVO)); return "matchBoard/matchBoard :: #matchTbody"; }
 	 */
-	  
-	  
+
 //글상세보기
 	@RequestMapping("matchDetail")
 	public String showMatchDetail(Model model, int matchNo, HttpSession session) {
@@ -162,6 +168,7 @@ public class MatchBoardController {
 
 		return "matchBoard/matchDetail";
 	}
+
 // 글쓰기 폼으로 이동
 	@RequestMapping("WriteMatchBoardForm")
 	public String writeMatchBoard(Model model) {
@@ -169,54 +176,48 @@ public class MatchBoardController {
 		return "matchBoard/matchWrite";
 	}
 // 기존 ! 카테고리별로 조회
+	
+	  @RequestMapping("findMatchListBylgw") public String
+	  findMatchListBylgw(MatchBoardVO matchBoardVO, Model model) {
+	  log.debug("param:{}", matchBoardVO); 
+	  model.addAttribute("matchList", matchBoardService.findMatchListBylgw(matchBoardVO)); 
+	  return "matchBoard/matchBoard :: #matchTbody"; }
+	 
+
+	/*
+	 * 기존 2 카테골별 에잭스
+	 * 
+	 * @RequestMapping("findMatchListBylgw") public String
+	 * findMatchListBylgw(MatchBoardVO matchBoardVO, Model model, Criteria cri) {
+	 * log.debug("param:{}", matchBoardVO); int totalCnt =
+	 * matchBoardService.getTotalPostCountByCategory(matchBoardVO);
+	 * System.out.println("카테고리별 총게시물수!!!!" +totalCnt); Paging paging = new
+	 * Paging(); paging.setCri(cri); paging.setTotalCount(totalCnt);
+	 * List<Map<MatchBoardVO, Object>>
+	 * matchBoardList=matchBoardService.findMatchListBylgw(matchBoardVO,cri);
+	 * model.addAttribute("matchList", matchBoardList);
+	 * System.out.println(matchBoardService.findMatchListBylgw(matchBoardVO,cri));
+	 * return "matchBoard/matchBoard :: #matchTbody"; }
+	 */
+
 	/*
 	 * @RequestMapping("findMatchListBylgw") public String
-	 * findMatchListBylgw(MatchBoardVO matchBoardVO, Model model) {
-	 * log.debug("param:{}", matchBoardVO); model.addAttribute("matchList",
-	 * matchBoardService.findMatchListBylgw(matchBoardVO)); return
-	 * "matchBoard/matchBoard :: #matchTbody"; }
+	 * findMatchListBylgw(MatchBoardVO matchBoardVO, Model model, Criteria cri) {
+	 * log.debug("param:{}", matchBoardVO); int totalCnt =
+	 * matchBoardService.getTotalPostCountByCategory(matchBoardVO);
+	 * System.out.println("카테고리별 총게시물수!!!!" +totalCnt); Paging paging = new
+	 * Paging(); paging.setCri(cri); paging.setTotalCount(totalCnt);
+	 * List<Map<MatchBoardVO, Object>>
+	 * matchBoardList=matchBoardService.findMatchListBylgw(matchBoardVO,cri);
+	 * model.addAttribute("matchList", matchBoardList);
+	 * 
+	 * System.out.println(matchBoardVO.getMemberVO().getLocation());
+	 * System.out.println(matchBoardVO.getMemberVO().getGender());
+	 * 
+	 * 
+	 * System.out.println(matchBoardService.findMatchListBylgw(matchBoardVO,cri));
+	 * return "matchBoard/matchBoard :: #matchTbody"; }
 	 */
-	
-	@RequestMapping("findMatchListBylgw")
-	public String findMatchListBylgw(MatchBoardVO matchBoardVO, Model model, Criteria cri) {
-		log.debug("param:{}", matchBoardVO);
-		int totalCnt =  matchBoardService.getTotalPostCountByCategory(matchBoardVO);
-		System.out.println("카테고리별 총게시물수!!!!" +totalCnt);
-		Paging paging = new Paging();
-	     paging.setCri(cri);
-	     paging.setTotalCount(totalCnt);
-		model.addAttribute("matchList", matchBoardService.findMatchListBylgw(matchBoardVO,cri));
-		return "matchBoard/matchBoard :: #matchTbody";
-	}
-
-	// 쪽지 쓰는 곳으로 넘어가기.
-	@RequestMapping("SendMessage")
-	public String sendMessage(Model model, String yoyangsaName, String matchBoardId, int matchNo) {
-		model.addAttribute("yoyangsaName", yoyangsaName);
-		model.addAttribute("matchBoardId", matchBoardId);
-		model.addAttribute(matchNo);
-		/* model.addAttribute("matchBoardId",matchBoardId); */
-
-		return "matchBoard/messageForm";
-	}
-
-	// 매칭게시판에서 쪽지보내기
-	@RequestMapping("RealSendMessage1")
-	public String realSendMessage1(Model model, MessageVO messageVO) {
-		System.out.println(messageVO);
-		int result = matchBoardService.realSendMessage(messageVO);
-
-		return "redirect:myMessage";
-	}
-
-	@RequestMapping("RealSendMessage")
-	public String realSendMessage(Model model, MessageVO messageVO, int matchNo) {
-		System.out.println(messageVO);
-		int result = matchBoardService.realSendMessage(messageVO);
-
-		System.out.println("^^^^^^^^^^^^" + matchNo);
-		return "redirect:matchDetail?matchNo=" + matchNo;
-	}
 
 	/*
 	 * // 글쓰기
@@ -233,7 +234,7 @@ public class MatchBoardController {
 	 * return "redirect:MatchBoardList"; }
 	 */
 
-	// 글쓰기
+	// 매칭글쓰기
 	@PostMapping("registerMatch")
 	public String registerMatch(MatchBoardVO matchBoardVO, Model model, HttpServletRequest request,
 			@RequestParam("photo") MultipartFile file) {
@@ -274,6 +275,76 @@ public class MatchBoardController {
 		return "redirect:MatchBoardList";
 	}
 
+	// 매칭글 삭제
+	@PostMapping("matchDelete")
+	public String matchDelete(int matchNo) {
+		matchBoardService.matchDelete(matchNo);
+		return "redirect:MatchBoardList";
+	}
+
+	// 매칭글 수정폼으로 이동
+	@RequestMapping("matchDetailUpdateForm")
+	public String matchDetailUpdateForm(int matchNo, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		// 세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
+		if (session.getAttribute("mvo") == null)
+			return "redirect:home";
+		// freeDetail에 freeNo로 포스팅 정보를 전송해준다.
+		model.addAttribute("mvo", session);
+		model.addAttribute("matchDetail", matchBoardService.matchDetail(matchNo));
+		return "matchBoard/matchDetailUpdateForm";
+	}
+
+	// 매칭 글 수정
+	@PostMapping("updateMatch")
+	public String updateMatch(MatchBoardVO matchBoardVO) {
+		matchBoardService.updateMatch(matchBoardVO);
+		System.out.println(matchBoardVO);
+		return "redirect:MatchBoardList";
+	}
+
+	// 매칭글에서 쪽지 쓸 때 넘어가는 쪽지 폼.
+	@RequestMapping("SendMessage")
+	public String sendMessage(Model model, String yoyangsaName, String matchBoardId, int matchNo) {
+		model.addAttribute("yoyangsaName", yoyangsaName);
+		model.addAttribute("matchBoardId", matchBoardId);
+		model.addAttribute(matchNo);
+		/* model.addAttribute("matchBoardId",matchBoardId); */
+
+		return "matchBoard/messageForm";
+	}
+
+	// 매칭글에서 쪽지보내기
+	@RequestMapping("RealSendMessage")
+	public String realSendMessage(Model model, MessageVO messageVO, int matchNo) {
+		System.out.println(messageVO);
+		int result = matchBoardService.realSendMessage(messageVO);
+
+		System.out.println("^^^^^^^^^^^^" + matchNo);
+		return "redirect:matchDetail?matchNo=" + matchNo;
+	}
+
+	// 쪽지함에서 답장할 때 넘어가는 쪽지폼.
+	@RequestMapping("sendMessage2")
+	public String sendMessage2(Model model, HttpServletRequest request, String receiveId) {
+		/*
+		 * HttpSession session = request.getSession(false); MemberVO memberVO =
+		 * (MemberVO) session.getAttribute("mvo"); String id=memberVO.getId();
+		 * model.addAttribute("messageList", matchBoardService.messageList1(id));
+		 */
+		model.addAttribute("receiveId", receiveId);
+		return "matchBoard/messageForm1";
+	}
+
+	// 쪽지함에서 답장하기
+	@RequestMapping("RealSendMessage1")
+	public String realSendMessage1(Model model, MessageVO messageVO) {
+		System.out.println(messageVO);
+		int result = matchBoardService.realSendMessage(messageVO);
+
+		return "redirect:myMessage";
+	}
+
 	// 쪽지함가기 (받은편지함)
 	@RequestMapping("myMessage")
 	public String myMessage(Model model, HttpServletRequest request) {
@@ -296,6 +367,7 @@ public class MatchBoardController {
 		return "matchBoard/myMessage1";
 	}
 
+//메세지 상세보기
 	@RequestMapping("messageDetail")
 	public String myMessageDetail(Model model, HttpSession session, String receiveId, String content, int messageNo) {
 		@SuppressWarnings("unchecked")
@@ -308,46 +380,6 @@ public class MatchBoardController {
 		model.addAttribute("content", content);
 
 		return "matchBoard/myMessageDetail";
-	}
-
-	@RequestMapping("sendMessage2")
-	public String sendMessage2(Model model, HttpServletRequest request, String receiveId) {
-		/*
-		 * HttpSession session = request.getSession(false); MemberVO memberVO =
-		 * (MemberVO) session.getAttribute("mvo"); String id=memberVO.getId();
-		 * model.addAttribute("messageList", matchBoardService.messageList1(id));
-		 */
-		model.addAttribute("receiveId", receiveId);
-		return "matchBoard/messageForm1";
-	}
-
-	// 글 삭제
-	@PostMapping("matchDelete")
-	public String matchDelete(int matchNo) {
-		matchBoardService.matchDelete(matchNo);
-		return "redirect:MatchBoardList";
-	}
-
-	// 글 수정폼으로 이동
-
-	@RequestMapping("matchDetailUpdateForm")
-	public String matchDetailUpdateForm(int matchNo, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		// 세션 만료 시 홈으로 - AOP 대상(cross-cutting concern)
-		if (session.getAttribute("mvo") == null)
-			return "redirect:home";
-		// freeDetail에 freeNo로 포스팅 정보를 전송해준다.
-		model.addAttribute("mvo", session);
-		model.addAttribute("matchDetail", matchBoardService.matchDetail(matchNo));
-		return "matchBoard/matchDetailUpdateForm";
-	}
-
-	// 매칭 글 수정
-	@PostMapping("updateMatch")
-	public String updateMatch(MatchBoardVO matchBoardVO) {
-		matchBoardService.updateMatch(matchBoardVO);
-		System.out.println(matchBoardVO);
-		return "redirect:MatchBoardList";
 	}
 
 }

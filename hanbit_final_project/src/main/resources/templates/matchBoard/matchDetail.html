@@ -8,27 +8,6 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-<<<<<<< HEAD
-   <h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
-   <br> <br> 아이디 :
-   <h4 th:text="${matchDetail.memberVO.id}"></h4>
-   <br> <br> 제목 :
-   <h4 th:text="${matchDetail.title}"></h4>
-   <br> <br> 작성시간 :
-   <h4 th:text="${matchDetail.timePosted}">작성시간</h4>
-   <br> <br> 닉네임 :
-   <h4 th:text="${matchDetail.memberVO.nick}">닉네임</h4>
-   <br> <br> 조회수 :
-   <h4 th:text="${matchDetail.hits}">조회수</h4>
-   <br> <br> 사진 :
-   <h4 th:text="${matchDetail.image}">사진나오는부분!</h4>
-   <img th:src="@{/images/} + ${matchDetail.image}"><br> <br>
-   <br> 이름과 소개글:
-   <h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4>
-   요양보호사입니다!
-   <h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
-=======
-	<h4>※ 요양보호사 상세보기 페이지입니다! ※</h4>
 	<br> <br> 아이디 :
 	<h4 th:text="${matchDetail.memberVO.id}"></h4>
 	<br> <br> 제목 :
@@ -46,9 +25,9 @@
 	<h4 th:text="${matchDetail.memberVO.name}">이름과 소개글이 함께 나오는 부분</h4>
 	요양보호사입니다!
 	<h4 th:text="${matchDetail.content}">이름과 소개글이 함께 나오는 부분</h4>
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 
-<<<<<<< HEAD
+
+
    <br> <br> 성별 :
    <h4 th:text="${matchDetail.memberVO.gender}">성별 나오는 부분</h4>
    <br> 근무이력:
@@ -60,6 +39,7 @@
    <br> 연락처 :
    <h4 th:text="${matchDetail.memberVO.tel}">연락처 나오는 부분</h4>
    <br> <br>
+   
    <!-- 수정 삭제부분 시작  -->
    <th:block th:if="${session.mvo!=null}">
       <th:block th:if="${session.mvo.nick==matchDetail.memberVO.nick}">
@@ -67,36 +47,7 @@
             id="deleteConfirm">
             <button>삭제</button>
          </form>
-=======
-	<br> <br> 성별 :
-	<h4 th:text="${matchDetail.memberVO.gender}">성별 나오는 부분</h4>
-	<br> 근무이력:
-	<h4 th:text="${matchDetail.memberVO.workHistory}">근무이력 나오는 부분</h4>
-	<br> 지역 :
-	<h4 th:text="${matchDetail.memberVO.location}">지역 나오는 부분</h4>
-	<br> 근무형태:
-	<h4 th:text="${matchDetail.memberVO.workType}">근무 형태 나오는 부분</h4>
-	<br> 연락처 :
-	<h4 th:text="${matchDetail.memberVO.tel}">연락처 나오는 부분</h4>
-	<br> <br>
-	<!-- 수정 삭제부분 시작  -->
-	<th:block th:if="${session.mvo!=null}">
-		<th:block th:if="${session.mvo.nick==matchDetail.memberVO.nick}">
-			<form th:action="@{/matchDelete?matchNo=}+${matchNo}" method="post"
-				id="deleteConfirm">
-				<button>삭제</button>
-			</form>
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 
-<<<<<<< HEAD
-         <form id="matchDetailUpdateForm"
-            th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}">
-            <input type="hidden" name="matchNo" th:value="${matchNo}">
-            <button type="submit">수정</button>
-         </form>
-      </th:block>
-   </th:block>
-=======
 			<form id="matchDetailUpdateForm"
 				th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}">
 				<input type="hidden" name="matchNo" th:value="${matchNo}">
@@ -113,7 +64,7 @@
 	<br> <br> <a th:href="@{/MatchBoardList}">목록으로</a> &nbsp;
 	&nbsp; &nbsp;
 
-기존찜버튼
+<!-- 기존찜버튼 -->
 	<form th:action="@{/showLike}">
 		<input name="id" th:value="${session.mvo.id}" type="hidden"> <input
 			type="hidden" name="matchNo" th:value="${matchNo}">
@@ -136,11 +87,9 @@
 			});//submit
 		}); //ready
 	</script>
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 
-<<<<<<< HEAD
    <!--  수정 삭제부분 끝  -->
-=======
+
 	<!-- <script type="text/javascript" th:inline="javascript">
 		$(function(){
 			$("#likeAjaxImg").click(function() {				
@@ -166,71 +115,7 @@
 			});//click
 		});//ready
 	</script> -->
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 
-<<<<<<< HEAD
-   <!-- <a th:href="@{/SendMessage?yoyangsaName=} + ${matchDetail.memberVO.name}">쪽지보내기</a>  &nbsp; &nbsp; &nbsp; -->
-   <a
-      th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} ">쪽지보내기</a>
-   <br> <br> <a th:href="@{/MatchBoardList}">목록으로</a> &nbsp;
-   &nbsp; &nbsp;
-=======
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
-
-<<<<<<< HEAD
-기존찜버튼
-   <form th:action="@{/showLike}">
-      <input name="id" th:value="${session.mvo.id}" type="hidden"> <input
-         type="hidden" name="matchNo" th:value="${matchNo}">
-      <button id="likeAjax">찜</button>
-      &nbsp; <img id="imageBody" th:src="@{/images/}+${likePic}" width="30" height="30">
-
-   </form>
-   <!-- <form>
-      <input name="id" th:value="${session.mvo.id}" type="hidden"> 
-      <input type="hidden" name="matchNo" th:value="${matchNo}">
-      <button id="likeAjaxBtn">찜</button>  &nbsp; 
-      <img id="likeAjaxImg" th:src="@{/images/}+${likePic}" width="30" height="30">
-
-   </form> -->
-
-   <script type="text/javascript" >
-      $(document).ready(function() {
-         $("#deleteConfirm").submit(function() {
-            return confirm("해당 게시물을 정말 삭제하시겠습니까?????");
-         });//submit
-      }); //ready
-   </script>
-
-   <!-- <script type="text/javascript" th:inline="javascript">
-      $(function(){
-         $("#likeAjaxImg").click(function() {            
-            let id= /*[[${session.mvo.id}]]*/ "회원아이디";
-            let matchNo = /*[[${matchNo}]]*/ "매칭글번호";
-            
-            $.ajax({
-               type:"get",
-               url:"showLike",
-               //dataType:"json", // 문자열 응답이나 thymeleaf ajax 응답시에는 html요소로 응답받기 때문에  dataType=json을 명시하지 않는다
-               data:"id="+id+"&matchNo="+matchNo,
-               success:function(result){      
-                  if(result==0){
-                     
-                  }else{
-                     
-                     
-                  }
-                  alert("넘김확인!")
-                  //$("#imageBody").replaceWith(list);//replaceWith
-               }
-            });//ajax
-         });//click
-      });//ready
-   </script> -->
-
-
-=======
->>>>>>> branch 'main' of https://github.com/kimyunsoo56/HanBit.git
 </div>
 
 <!--================End layout Area =================-->

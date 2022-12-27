@@ -92,10 +92,25 @@ SELECT COUNT(*)
 
 
 
+select
+		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id;
 
 
 
-
-
+select * from
+		(select ROWNUM rm,match_no,title,content,time_posted,hits,image,id,name,location,gender,work_type from 
+		(select
+		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
+		from hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id))
+		
+		where rm between 1 and 3
+	
+		SELECT COUNT(*)
+		FROM   hanbit_match_board b
+		inner join hanbit_member m on b.id=m.id
+		where m.location='경기' and m.gender='남성' and m.work_type='자택근무'
 
 

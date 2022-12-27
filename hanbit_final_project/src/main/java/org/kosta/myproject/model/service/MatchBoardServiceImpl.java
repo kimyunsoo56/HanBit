@@ -1,5 +1,6 @@
 package org.kosta.myproject.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +30,12 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 		return matchBoardMapper.matchDetail(matchNo);
 	}
 
-	@Override
-	public List<MatchBoardVO> findMatchListBylgw(MatchBoardVO matchBoardVO) {
-		
-		return matchBoardMapper.findMatchListBylgw(matchBoardVO);
-	}
+	/*
+	 * @Override public List<MatchBoardVO> findMatchListBylgw(MatchBoardVO
+	 * matchBoardVO) {
+	 * 
+	 * return matchBoardMapper.findMatchListBylgw(matchBoardVO); }
+	 */
 
 	@Override
 	public int realSendMessage(MessageVO messageVO) {
@@ -111,10 +113,20 @@ public class MatchBoardServiceImpl implements MatchBoardService {
 
 	@Override
 	public int getTotalPostCountByCategory(MatchBoardVO matchBoardVO) {
-		
+		System.out.println(matchBoardVO);
 		int count = matchBoardMapper.getTotalPostCountByCategory(matchBoardVO);
 		return count;
 	}
+
+
+
+	@Override
+	public Object findMatchListBylgw(MatchBoardVO matchBoardVO) {
+		
+		return matchBoardMapper.findMatchListBylgw(matchBoardVO);
+	}
+
+	
 	
 	
 	

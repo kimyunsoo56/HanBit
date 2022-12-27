@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="org.kosta.myproject.model.mapper.MatchBoardMapper">
+<mapper namespace="org.kosta.myproject.model.mapper.MatchBoardMapper">
+
 	<resultMap type="org.kosta.myproject.model.vo.MatchBoardVO"
 		id="matchResultMap">
 		<result column="id" property="memberVO.id" />
@@ -45,7 +45,7 @@
 
 	</select>
 <!--  기존 카테고리별 조회 에이잭스 메서드 -->
-	<!-- <select id="findMatchListBylgw"
+	<select id="findMatchListBylgw"
 		parameterType="org.kosta.myproject.model.vo.MatchBoardVO"
 		resultMap="matchResultMap">
 		select
@@ -65,9 +65,9 @@
 		</where>
 
 
-	</select> -->
-	<select id="findMatchListBylgw"
-		parameterType="org.kosta.myproject.model.vo.MatchBoardVO"
+	</select>
+	<!-- <select id="findMatchListBylgw"
+		parameterType="map"
 		resultMap="matchResultMap">
 		
 		select * from
@@ -76,20 +76,23 @@
 		b.match_no,b.title,b.content,b.time_posted,b.hits,b.image,m.id,m.name,m.location,m.gender,m.work_type
 		from hanbit_match_board b
 		inner join hanbit_member m on b.id=m.id))
-		<where>
-			<if test="memberVO!=null and memberVO.location!=''">
-				m.location=#{memberVO.location}
+		
+	
+		where rm between #{cri.pageStart} and #{cri.perPageNum}*#{cri.page}
+			<if test="matchBoardVO.memberVO!=null and matchBoardVO.memberVO.location!=''">
+				and location=#{matchBoardVO.memberVO.location}
 			</if>
-			<if test="memberVO!=null and memberVO.gender!=''">
-				and m.gender=#{memberVO.gender}
+			<if test="matchBoardVO.memberVO!=null and matchBoardVO.memberVO.gender!=''">
+				and gender=#{matchBoardVO.memberVO.gender}
 			</if>
-			<if test="memberVO!=null and memberVO.workType!=''">
-				and m.work_type=#{memberVO.workType}
+			<if test="matchBoardVO.memberVO!=null and matchBoardVO.memberVO.workType!=''">
+				and work_type=#{matchBoardVO.memberVO.workType}
 			</if>
-		</where>
+	
 
 
-	</select>
+
+	</select> -->
 
 	<insert id="realSendMessage"
 		parameterType="org.kosta.myproject.model.vo.MessageVO">
@@ -117,6 +120,7 @@
 		select message_no,checking,time_posted,send_id,receive_id,content
 		from hanbit_message
 		where #{value}=receive_id
+		order by time_posted desc
 
 	</select>
 
@@ -125,6 +129,7 @@
 		select checking,time_posted,send_id,receive_id,content
 		from hanbit_message
 		where #{value}=send_id
+		order by time_posted desc
 
 	</select>
 
@@ -202,14 +207,24 @@
 	</select>
 	
 	
-	<!-- 카테고리별 게시물 수 -->
-	<select id="getTotalPostCountByCategory" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultType="int" resultMap="matchResultMap">
+ 	<!-- 카테고리별 게시물 수 -->
+	<!-- <select id="getTotalPostCountByCategory" parameterType="org.kosta.myproject.model.vo.MatchBoardVO" resultType="int" >
 		SELECT COUNT(*)
 		FROM   hanbit_match_board b
 		inner join hanbit_member m on b.id=m.id
-		where m.location=#{memberVO.location} and m.gender=#{memberVO.gender} and m.work_type=#{memberVO.workType}
-		
-	</select>
+		 
+		<where>
+		<if test="memberVO!=null and memberVO.location!=''">
+				m.location=#{memberVO.location}
+			</if>
+			<if test="memberVO!=null and memberVO.gender!=''">
+				and m.gender=#{memberVO.gender}
+			</if>
+			<if test="memberVO!=null and memberVO.workType!=''">
+				and m.work_type=#{memberVO.workType}
+			</if>
+			</where>
+	</select>  -->
 
 
 

@@ -1,5 +1,6 @@
 package org.kosta.myproject.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public interface MatchBoardMapper {
 
 	MatchBoardVO matchDetail(int matchNo);
 
-	List<MatchBoardVO> findMatchListBylgw(MatchBoardVO matchBoardVO);
+	//List<MatchBoardVO> findMatchListBylgw(MatchBoardVO matchBoardVO);
 	
 	int realSendMessage(MessageVO messageVO);
 
@@ -44,6 +45,14 @@ public interface MatchBoardMapper {
 	List<Map<String, Object>> findAll(Criteria cri);
 
 	int getTotalPostCountByCategory(MatchBoardVO matchBoardVO);
+
+	Object findMatchListBylgw(MatchBoardVO matchBoardVO);
+
+	
+
+	
+
+
 
 
 

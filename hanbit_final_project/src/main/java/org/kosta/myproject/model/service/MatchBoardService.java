@@ -16,7 +16,7 @@ public interface MatchBoardService  {
 
 	MatchBoardVO matchDetail(int matchNo);
 
-	List<MatchBoardVO>findMatchListBylgw(MatchBoardVO matchBoardVO);
+	//List<MatchBoardVO>findMatchListBylgw(MatchBoardVO matchBoardVO);
 
 	int realSendMessage(MessageVO messageVO);
 
@@ -45,6 +45,11 @@ public interface MatchBoardService  {
 	List<Map<String, Object>> findAll(Criteria cri);
 
 	int getTotalPostCountByCategory(MatchBoardVO matchBoardVO);
+
+	Object findMatchListBylgw(MatchBoardVO matchBoardVO);
+
+
+
 
 
 
