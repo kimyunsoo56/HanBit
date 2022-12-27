@@ -102,3 +102,8 @@ SELECT COUNT(*)
 		order by hfb.free_no desc))
 		where rm between 1 and 5*1 and title like '%사진%';
 	
+-- 자유 게시판 게시물 리스트 출력
+SELECT hnb.category, hnb.title, hm.nick, hnb.time_posted, hnb.hits, hnb.content, hnb.image, hnb.link
+FROM hanbit_notice_board hnb
+INNER JOIN hanbit_member hm ON hnb.id=hm.id
+WHERE hnb.notice_no = 65 

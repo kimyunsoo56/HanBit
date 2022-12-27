@@ -10,8 +10,21 @@
  <!--================Start layout Area =================-->
 <div layout:fragment="content">
 
-<p th:text="${reportList}"></p>번 글에서 신고가 접수되었습니다.
-
-
+<!-- <p th:text="${reportList}"></p>번 글에서 신고가 접수되었습니다. -->
+<table class="table table-bordered">
+<tbody >
+      <tr th:each="r:${reportList}">
+           <td class="reportNo" th:text="${r}"></td>
+           <td>번 글에서 신고가 접수되었습니다.</td>
+       </tr>
+</tbody>
+</table>   
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".reportNo").click(function() {
+			location.href="/freeDetail?freeNo="+$(this).text();
+		})
+	})
+</script>
 </div>
  <!--================End layout Area =================-->

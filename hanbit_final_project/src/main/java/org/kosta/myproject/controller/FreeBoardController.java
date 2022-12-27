@@ -65,15 +65,7 @@ public class FreeBoardController {
 		 
 		return "freeBoard/freeWrite";
 	}
-	//글쓰기
-	/*
-	 * @PostMapping("write") public String write(MemberVO memberVO,String
-	 * title,String content,String category, HttpSession session) { String id =
-	 * memberVO.getId();
-	 * 
-	 * freeBoardService.registerFreeBoard(title, content,category, id); return
-	 * "redirect:freeBoardList"; }
-	 */
+
 	//글쓰기 이미지 추가
 	@PostMapping("write")
 	   public String write(FreeBoardVO freeBoardVO, HttpSession session, RedirectAttributes ra, @RequestParam("photo") MultipartFile file) {
