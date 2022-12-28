@@ -30,7 +30,9 @@
 	<tbody id="messageTbody">
 		<tr th:each="ms:${messageList}">
 			<td th:text="${ms.receiveId}"></td>
-			<td width="40%" style="text-align: left;" th:text="${ms.content}"></td>
+			<td width="40%" style="text-align: left;"><a class="line" style="color: #676766;"
+					th:href="@{/messageDetail2(receiveId= ${ms.receiveId}, content=${ms.content},messageNo=${ms.messageNo})}"
+					th:text="${ms.content}"></a></td>
 			<!-- <td> <a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
  -->			<td th:text="${ms.timePosted}"></td>
 			

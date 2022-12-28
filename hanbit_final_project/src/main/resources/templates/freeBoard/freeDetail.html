@@ -17,10 +17,25 @@
 			});//deleteForm
 
 			$("#updateForm").submit(function() {
-				return confirm("게시글을 수정하시겠습니까?");
+				return confirm("수정 화면으로 이동하시겠습니까?");
 			});//updateForm
+			
+			$("#registerConfirm").submit(function() {
+				return confirm("댓글 등록을 하시겠습니까?");
+			});//댓글등록시
+			
+			$("#commentDeleteConfirm").submit(function() {
+				return confirm("해당 댓글을 삭제하시겠습니까?");
+			});//댓글등록시
 
 		});//ready
+	</script>
+	<script type="text/javascript" >
+		$(document).ready(function() {
+			$("#reportConfirm").submit(function() {
+				return confirm("해당 게시물을 정말 삭제하시겠습니까?????");
+			});//submit
+		}); //ready
 	</script>
 
 
@@ -38,17 +53,18 @@
      <div><p class="hanbitText2" th:text="${freeDetail.content}"></p></div>
 	<br>
 	<div align="left">
-	<form th:action="@{freeReport?freeNo=}+${freeDetail.freeNo}"
+	<form th:action="@{freeReport?freeNo=}+${freeDetail.freeNo}" id="reportConfirm"
 		method="post" style="float: left; margin-right: 10px;">
 		<button class="btn btn-outline-success">신고</button>
 	</form>
 	<th:block th:if="${session.mvo!=null}">
 		<th:block th:if="${session.mvo.nick==freeDetail.memberVO.nick}">
 			<form th:action="@{freeDelete?freeNo=}+${freeDetail.freeNo}"
+			id="deleteForm"
 				method="post" style="float: left; margin-right: 10px;">
 				<button class="btn btn-outline-success">삭제</button>
 			</form>
-			<form id="freeDetailUpdateForm"
+			<form id="updateForm" 
 				th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}" style="float: left;">
 				<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
 				<button type="submit" class="btn btn-outline-success">수정</button>
@@ -59,11 +75,11 @@
 <br><br>
 	<!-------------- 댓글 ------------------>
 
-	<form th:action="@{/writeComment}" method="post" style="float: left;">
+	<form th:action="@{/writeComment}" id="registerConfirm" method="post" style="float: left;">
 		<div align="left" style="float: left;">
 		<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
-				<span style="font-size: 18px;">작성자 : <input name="id" th:value="${session.mvo.id}" readonly style="width: 100px; border: none;"></span>
-				<pre><textarea class="hanbitTextComment" name="content" cols="80" rows="2" placeholder="댓글을 남겨주세요"></textarea></pre>
+				<span style="font-size: 18px;">작성자 : <input name="id" th:value="${session.mvo.id}" readonly style="width: 120px; border: none;"></span>
+				<pre><textarea class="hanbitTextComment" name="content" cols="80" rows="2" placeholder="댓글을 남겨주세요" required="required"></textarea></pre>
 		</div>
 		<div style="float: right; margin-top: 50px; margin-left: 10px;">
 				<button type="submit" class="btn btn-outline-success" style="float: right;">댓글등록</button><br>
@@ -80,7 +96,7 @@
 	         <th:block th:if="${session.mvo!=null}">
 			 <th:block th:if="${session.mvo.id==co.id}">
          <td style="width: 10%;">
-	         <form th:action="@{/commentDelete}" method="post">
+	         <form th:action="@{/commentDelete}" method="post" id="commentDeleteConfirm">
          	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
          	 <input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
 			 <button class="btn btn-outline-success">삭제</button>

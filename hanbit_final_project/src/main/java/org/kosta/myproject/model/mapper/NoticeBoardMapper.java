@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.myproject.model.service.Criteria;
-import org.kosta.myproject.model.service.PagingBean;
-import org.kosta.myproject.model.vo.CommentVO;
 import org.kosta.myproject.model.vo.NoticeBoardVO;
 import org.kosta.myproject.model.vo.NoticeCommentVO;
 

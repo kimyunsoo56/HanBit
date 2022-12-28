@@ -36,7 +36,11 @@
 	<form style="float: left; margin-right: 10px;">
 		<img id="likeAjaxImg" th:src="@{/images/}+${likePic}" width="30" height="30">
 	</form>
+	<th:block th:if="${session.mvo!=null}">
+ <th:block th:if="${session.mvo.id!=matchDetail.memberVO.id}"> 
 		<a th:href="@{/SendMessage(yoyangsaName=${matchDetail.memberVO.name}, matchBoardId=${matchDetail.memberVO.id},matchNo=${matchNo})} " style="float: left; color: #A7CB03" class="line">쪽지보내기</a>
+	</th:block>
+	</th:block>
 	</div>
 	<br><br>
    <!-- 수정 삭제부분 시작  -->
@@ -47,8 +51,8 @@
             id="deleteConfirm" style="float: left; margin-right: 10px;">
             <button class="btn btn-outline-success">삭제</button>
          </form>
-			<form id="matchDetailUpdateForm"
-				th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}" style="float: left;">
+			<form id="updateConfirm"
+				th:action="@{/matchDetailUpdateForm?matchNo=}+${matchNo}"  style="float: left;">
 				<input type="hidden" name="matchNo" th:value="${matchNo}">
 				<button type="submit" class="btn btn-outline-success">수정</button>
 			</form>
@@ -61,6 +65,14 @@
 		$(document).ready(function() {
 			$("#deleteConfirm").submit(function() {
 				return confirm("해당 게시물을 정말 삭제하시겠습니까?????");
+			});//submit
+		}); //ready
+	</script>
+	
+		<script type="text/javascript" >
+		$(document).ready(function() {
+			$("#updateConfirm").submit(function() {
+				return confirm("수정 화면으로 이동하시겠습니까?");
 			});//submit
 		}); //ready
 	</script>

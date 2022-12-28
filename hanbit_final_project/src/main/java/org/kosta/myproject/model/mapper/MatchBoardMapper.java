@@ -44,7 +44,7 @@ public interface MatchBoardMapper {
 
 	List<Map<String, Object>> findAll(Criteria cri);
 
-	int getTotalPostCountByCategory(MatchBoardVO matchBoardVO);
+	//int getTotalPostCountByCategory(MatchBoardVO matchBoardVO);
 
 	List<MatchBoardVO> findMatchListBylgw(MatchBoardVO matchBoardVO);
 

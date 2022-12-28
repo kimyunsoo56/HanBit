@@ -9,7 +9,7 @@
 </head>
  <!--================Start layout Area =================-->
 <div layout:fragment="content">
-   <form th:action="@{freeUpdate}" method="post">
+   <form th:action="@{freeUpdate}" method="post" id="write_form">
    <input name="id" th:value="${session.mvo.id}" type = "hidden">
    <input name="freeNo" th:value="${param.freeNo}" type = "hidden">
  	<select name="category" required="required">

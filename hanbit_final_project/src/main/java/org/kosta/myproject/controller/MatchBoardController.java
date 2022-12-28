@@ -374,5 +374,19 @@ public class MatchBoardController {
 
 		return "matchBoard/myMessageDetail";
 	}
+	
+	@RequestMapping("messageDetail2")
+	public String myMessageDetail2(Model model, HttpSession session, String receiveId, String content, int messageNo) {
+		@SuppressWarnings("unchecked")
+		ArrayList<Integer> noListMessage = (ArrayList<Integer>) session.getAttribute("noListMessage");
+		if (noListMessage.contains(messageNo) == false) {
+			noListMessage.add(messageNo); // noList에 조회한 게시글 no 추가
+			matchBoardService.addChecking(messageNo);
+		}
+		model.addAttribute("receiveId", receiveId);
+		model.addAttribute("content", content);
+
+		return "matchBoard/myMessageDetail2";
+	}
 
 }

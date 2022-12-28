@@ -32,10 +32,12 @@ CREATE TABLE hanbit_notice_board(
 	id VARCHAR2(100) NOT NULL,
 	CONSTRAINT hanbit_notice_board_fk FOREIGN KEY(id) REFERENCES hanbit_member(id)
 )
-CREATE SEQUENCE hanbit_notice_board_seq;
+CREATE SEQUENCE hanbit_notice_board_seq start with 214;
 DROP TABLE hanbit_notice_board;
-DROP SEQUENCE hanbit_notice_board_seq;
 SELECT * FROM hanbit_notice_board;
+DELETE FROM hanbit_notice_board;
+SELECT MAX(notice_no) FROM hanbit_notice_board;
+alter table hanbit_notice_board MODIFY link varchar2(200);
 
 -- 알림 게시판 테이블 링크 컬럼 추가
 ALTER TABLE hanbit_notice_board ADD link VARCHAR  VARCHAR2(100);

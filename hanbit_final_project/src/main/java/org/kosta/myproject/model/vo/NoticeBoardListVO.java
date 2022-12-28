@@ -2,8 +2,6 @@ package org.kosta.myproject.model.vo;
 
 import java.util.List;
 
-import org.kosta.myproject.model.service.PagingBean;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +13,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoticeBoardListVO {
 	private List<NoticeBoardVO> list;
-	private PagingBean pagingBean;
+	
 }

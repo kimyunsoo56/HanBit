@@ -25,11 +25,11 @@
 <th:block th:if="${session.mvo!=null}">
 		<th:block th:if="${session.mvo.memberType == 3}">
 			<form th:action="@{noticeDelete?noticeNo=}+${detail.noticeNo}"
-				method="post" style="float: left; margin-right: 10px;">
+				method="post" style="float: left; margin-right: 10px;" id="deleteConfirm">
 				<button class="btn btn-outline-success">삭제</button>
 			</form>
-			<form th:action="@{noticeUpdateForm?noticeNo=}+${detail.noticeNo}" style="float: left;">
-			<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
+			<form th:action="@{noticeUpdateForm?noticeNo=}+${detail.noticeNo}" id="updateConfirm" style="float: left;">
+			<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}" >
 				<button class="btn btn-outline-success">수정</button>
 			</form>
 			</th:block>
@@ -37,11 +37,11 @@
 		</div>	
 <br><br>
 	<!-------------- 댓글 ------------------>
- <form th:action="@{/writenoticeComment}" method="post" style="float: left;">
+ <form th:action="@{/writenoticeComment}" id="registerConfirm" method="post" style="float: left;">
 		<div align="left" style="float: left;">
 		<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
-		<span style="font-size: 18px;">작성자 : <input name="id" th:value="${session.mvo.id}" readonly style="width: 100px; border: none;"></span>
-		<pre><textarea class="hanbitTextComment" name="content" cols="80" rows="2" placeholder="댓글을 남겨주세요"></textarea></pre>
+		<span style="font-size: 18px;">작성자 : <input name="id" th:value="${session.mvo.id}" readonly style="width: 120px; border: none;"></span>
+		<pre><textarea class="hanbitTextComment" name="content" cols="80" rows="2" placeholder="댓글을 남겨주세요" required="required"></textarea></pre>
 			</div>
 			<div style="float: right; margin-top: 50px; margin-left: 10px;">
 				<button type="submit" class="btn btn-outline-success" style="float: right;">댓글등록</button><br>
@@ -59,7 +59,7 @@
 			 <th:block th:if="${session.mvo.id==co.id}">
          <td style="width: 10%;">
 			 <!--  댓글 삭제 -->
-	         <form th:action="@{/commentnoticeDelete}" method="post">
+	         <form th:action="@{/commentnoticeDelete}" method="post" id="commentDeleteConfirm">
          	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
          	 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
 			 <button class="btn btn-outline-success">삭제</button>
@@ -72,5 +72,26 @@
 </table>
 </div>
 </div>
+<script type="text/javascript" >
+		$(document).ready(function() {
+			$("#deleteConfirm").submit(function() {
+				return confirm("해당 게시물을 정말 삭제하시겠습니까?????");
+			});//submit
+		}); //ready
+	</script>
+	<script type="text/javascript" >
+		$(document).ready(function() {
+			$("#updateConfirm").submit(function() {
+				return confirm("수정 화면으로 이동하시겠습니까?");
+			});//submit
+			$("#registerConfirm").submit(function() {
+				return confirm("댓글 등록을 하시겠습니까?");
+			});//댓글등록시
+			
+			$("#commentDeleteConfirm").submit(function() {
+				return confirm("해당 댓글을 삭제하시겠습니까?");
+			});//댓글삭제시
+		}); //ready
+	</script>
 </div>
 <!--================End layout Area =================-->
