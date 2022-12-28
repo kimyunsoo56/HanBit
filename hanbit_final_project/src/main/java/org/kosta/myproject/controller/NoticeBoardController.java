@@ -112,7 +112,7 @@ public class NoticeBoardController {
 		try (
 				// 윈도우일 경우
 				FileOutputStream fos = new FileOutputStream(
-						"C:\\kosta250\\git-final\\HanBit\\hanbit_final_project\\src\\main\\resources\\static\\images\\"
+						"C:\\kosta250\\hanbitImages\\"
 								+ fileName);
 
 				InputStream is = file.getInputStream();) {
