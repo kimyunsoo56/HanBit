@@ -11,6 +11,7 @@
 	<div align="center">
 	<div align="left">
 		<select id="category">
+			<option value="">전체</option>
 			<option th:value="공지사항">공지사항</option>
 			<option th:value="건강정보">건강정보</option>
 			<option th:value="알림정보">알림정보</option>
@@ -19,7 +20,7 @@
 		<button type="button" class="btn btn-outline-success" id="findNoticeByCategory">검색</button>
 		</div>
 		
-		
+		<br>
 		<table class="table" style="width: 1300px; word-break:break-all; text-align: center;">
 			<thead>
 				<tr>

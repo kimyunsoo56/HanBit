@@ -9,24 +9,22 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-
-	<h4>※ 쪽지 보내기 페이지입니다 ※</h4>
-	<br>
-
+	<div align="center">
 	<form th:action="@{/RealSendMessage}" method="post" id="message_form">
-		<br> <span th:text="${yoyangsaName}"></span> 요양 보호사님께!! <br>
-		<br> <span th:text="${matchBoardId}"></span> 아이디! 
-	
-		<input type = "hidden" name="receiveId" th:value="${matchBoardId}">
-		<input type = "hidden" name="sendId" th:value="${session.mvo.id}">
-		<input type = "hidden" name="matchNo" th:value="${param.matchNo}">
-		<br>
-
-		<textarea rows="8" cols="75" placeholder="쪽지 내용을 입력해주세요!" name="content"></textarea>
-		<br>
-		<button type="submit">쪽지 전송</button>
+		<div align="left" style="margin-left: 350px;">
+			<span style="font-size: 20px;">받는 사람 : </span>&nbsp;
+			<span style="font-size: 16px;" th:text="${matchBoardId}"></span>&nbsp;&nbsp;
+			<span style="font-size: 16px;" th:text="${yoyangsaName}"></span> 요양 보호사 <br>
+			<input type = "hidden" name="receiveId" th:value="${matchBoardId}">
+			<input type = "hidden" name="sendId" th:value="${session.mvo.id}">
+			<input type = "hidden" name="matchNo" th:value="${param.matchNo}">
+		</div>
+			<br>
+			<pre><textarea rows="10" cols="75" placeholder="쪽지 내용을 입력해주세요!" name="content"></textarea></pre>
+			<br>
+			<button type="submit" class="btn btn-outline-success btn-lg">쪽지 전송</button>
 	</form>
-	
+</div>	
 	 <script type="text/javascript">
      	$(document).ready(function() {
      		$("#message_form").submit(function() {

@@ -8,23 +8,19 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-
-	<h4>※ 쪽지보기 상세 페이지 입니다! ※</h4>
-	<br> <br> 
-	From : 
-	<h4 th:text="${receiveId}"></h4>
-	<br><br>
-	내용 :
-	<br><br>
-	<h4 th:text="${content}"></h4>
-	
-	<br><br>
-	
+<div align="center">
 	<form th:action="sendMessage2">
-	<button>답장하기</button>
+	<div align="left" style="margin-left: 350px;">
+	<span style="font-size: 20px;">보낸 사람 : </span>&nbsp;
+	<span style="font-size: 16px;" th:text="${receiveId}"></span>
+	<br>
+	<div><p class="hanbitTextMessage" th:text="${content}"></p></div>
+	</div>
+	<button class="btn btn-outline-success">답장하기</button>
 	<input type = "hidden" name="receiveId" th:value="${receiveId}">
 	<input type = "hidden" name="sendId" th:value="${session.mvo.id}">
 	</form>
+	</div>
 <!-- 	제목 :
 	<h4 th:text="${matchDetail.title}"></h4>
 	<br> <br> 

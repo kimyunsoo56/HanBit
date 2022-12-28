@@ -4085,6 +4085,12 @@ a.line:hover {
 	font-size: 15px;
 	border-style: ridge;
 }
+.hanbitTextMessage{
+	width: 600px;
+	height: 300px;
+	font-size: 15px;
+	border-style: ridge;
+}
 /*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */

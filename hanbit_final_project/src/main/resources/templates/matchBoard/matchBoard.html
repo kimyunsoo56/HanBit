@@ -9,22 +9,12 @@
 </head>
  <!--================Start layout Area =================-->
         <div layout:fragment="content">
-       
-        <h4> ※ 요양 보호사의 정보를 확인하여 원하는 요양 보호사와 매칭할 수 있는 게시판입니다 ※ </h4> <br><br>
-         <div class="row">
-         <br>
-       <h4>지역</h4> &nbsp; &nbsp;
+         <div class="row" style="margin-left: 5px;">
+       <span style="font-size: 20px; margin-top: 8px; margin-right: 8px;">지역</span>
         <select id="loc">
         <option value="">전체</option>
         <option th:value="서울">서울</option>
-        <option th:value="인천">인천</option>
         <option th:value="경기">경기</option>
-        <option th:value="부산">부산</option>
-        <option th:value="대구">대구</option>
-        <option th:value="광주">광주</option>
-        <option th:value="대전">대전</option>
-        <option th:value="울산">울산</option>
-        <option th:value="세종">세종</option>
         <option th:value="강원">강원</option>
         <option th:value="충북">충북</option>
         <option th:value="충남">충남</option>
@@ -34,51 +24,53 @@
         <option value="경남">경남</option>
         <option value="제주">제주</option>
         </select>
-        
-             &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp;     
-          <h4>성별</h4> &nbsp; &nbsp;
+          
+          <span style="font-size: 20px; margin-left: 20px; margin-top: 8px; margin-right: 8px;">성별</span>
         <select id="gen">
         <option value="">무관</option>
         <option value="남성">남성</option>
         <option value="여성">여성</option>
         </select>
-        &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp;     
-        <h4>근무형태</h4>  &nbsp; &nbsp;
+      
+        <span style="font-size: 20px; margin-left: 20px; margin-top: 8px; margin-right: 8px;">근무형태</span>
         <select id="wtype">
         <option value="">전체</option> 
         <option value="자택근무">자택근무</option>
         <option value="병원근무">병원근무</option>
         </select>
-        
-        &nbsp; &nbsp; &nbsp;     &nbsp; &nbsp; &nbsp; 
-        
-        <button type="button" id="searchList">검색</button>
-        
-        
-         
+        <button type="button" id="searchList" style="margin-left: 8px;" class="btn btn-outline-success">검색</button>
     </div>
-    <br><br>
-    
-    <table class="table table-bordered">
+    <br>
+    <table class="table" style="width: 1300px; word-break:break-all; text-align: center;">
 	<thead>
 		<tr>
-			<th>NO</th><th>지역</th><th>제목</th><th>작성자</th><th>작성시간</th><th>조회수</th>
+			<th>번호</th>
+			<th>지역</th>
+			<th style="text-align: left;">제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회수</th>
 		</tr>
 	</thead>
 	<tbody id="matchTbody">
 		<tr th:each="match:${matchList}">
 			<td th:text="${match.matchNo}"></td>
 			<td th:text="${match.memberVO.location}"></td>
-			<td> <a th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
+			<td width="40%" style="text-align: left;"> <a class="line" style="color: #676766;" th:href="@{/matchDetail?matchNo=} + ${match.matchNo}" th:text="${match.title}"></a></td>
 			<td th:text="${match.memberVO.name}"></td>
 			<td th:text="${match.timePosted}"></td>
 		  <td th:text="${match.hits}"></td>   
 		</tr>
-
 	</tbody>
 </table>
 <br>
-
+<th:block th:if="${session.mvo!=null}">
+ <th:block th:if="${session.mvo.memberType==2}"> 
+ <form th:action="@{/WriteMatchBoardForm}" style="float: right;">
+<button class="btn btn-outline-success">글쓰기</button>
+</form>
+ </th:block>
+ </th:block>
 <!--  페이지네이션 시도 -->
 <ul class="pagination justify-content-center">
 		<th:block th:if="${paging.prev}">
@@ -95,19 +87,6 @@
 
 
 <!-- 페이지네이션 시도 -->
-
-
-<th:block th:if="${session.mvo!=null}">
- <th:block th:if="${session.mvo.memberType==2}"> 
- <form th:action="@{/WriteMatchBoardForm}">
-<button>
-글쓰기
-</button>
-
-</form>
- </th:block>
- </th:block>
-
 <!-- <h4 th:text="${session.mvo.memberType}"></h4>
 <h4 th:text="${session.mvo.id}"></h4> -->
 <script type="text/javascript">

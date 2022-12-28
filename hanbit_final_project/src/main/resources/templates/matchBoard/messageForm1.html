@@ -9,22 +9,20 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-
-	<h4>※ 답장하기! ※</h4>
-	<br>
-
+	<div align="center">
 	<form th:action="@{/RealSendMessage1}" method="post" id="message_form1">
-		<br> <span th:text="${receiveId}"></span> 님께!! <br>
+		<div align="left" style="margin-left: 350px;">
+		<span style="font-size: 20px;">받는 사람 : </span>&nbsp;
+		<span th:text="${receiveId}"></span> 님 <br>
 		<input type = "hidden" name="receiveId" th:value="${receiveId}">
 		<input type = "hidden" name="sendId" th:value="${session.mvo.id}">
-		<!-- <input type = "hidden" name="matchNo" th:value="${param.matchNo}"> -->
+		</div>		
 		<br>
-
-		<textarea rows="8" cols="75" placeholder="답장 내용을 입력해주세요!" name="content"></textarea>
+		<pre><textarea rows="10" cols="75" placeholder="쪽지 내용을 입력해주세요!" name="content"></textarea></pre>
 		<br>
-		<button type="submit">답장하기</button>
+		<button type="submit" class="btn btn-outline-success btn-lg">쪽지 전송</button>
 	</form>
-	
+	</div>
 	 <script type="text/javascript">
      	$(document).ready(function() {
      		$("#message_form1").submit(function() {

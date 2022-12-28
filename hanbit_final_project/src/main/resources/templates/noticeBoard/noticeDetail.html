@@ -15,7 +15,7 @@
 <span style="font-size: 20px;">조회수 : </span><span style="font-size: 20px;" th:text="${detail.hits}"></span>
 <br><br>
 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
-<img th:src = "@{/images/} + ${detail.image}" class="img-fluid" style="width: 600px; height: 500px;"><br>
+<img th:src = "@{/images/} + ${detail.image}" style="width: 600px; height: 500px;"><br>
 <br>
 <div><p class="hanbitText2" th:text="${detail.content}"></p></div>
 <p>자세한 내용은 링크에서 확인하세요 &nbsp;&nbsp;
@@ -70,6 +70,7 @@
       </tr>
    </tbody>
 </table>
-	</div>
+</div>
+</div>
 </div>
 <!--================End layout Area =================-->

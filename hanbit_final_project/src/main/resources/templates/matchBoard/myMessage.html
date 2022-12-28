@@ -8,29 +8,22 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-
-	<h4>※ 쪽지함입니다. ※</h4>
-	<br> <br>
-
-	<h4>받은 쪽지함</h4>
-
+<div style="float: left; margin-left: 90px;">
+	<span style="font-size: 20px; float: left;">받은 쪽지함</span>
 	<!-- <form th:action="myMessage">
 <button>받은쪽지</button>
 </form> -->
-
-	<form th:action="myMessage2">
-		<button>보낸쪽지함 보기</button>
+	<form th:action="myMessage2" style="float: left;">
+		<button class="btn btn-outline-success" style="margin-top: -5px; margin-left: 8px;">보낸쪽지함 보기</button>
 	</form>
-	&nbsp;&nbsp;
+	</div>
 	<!-- <button type="button" id="messageCategory1">쪽지조회</button> -->
-
-	<br> <br>
-
-	<table class="table table-bordered">
+	<br><br>
+	<table class="table" style="width: 1100px; word-break:break-all; text-align: center; margin-left: 90px;">
 		<thead>
 			<tr>
 				<th>보낸사람</th>
-				<th>내용</th>
+				<th style="text-align: left;">내용</th>
 				<th>날짜</th>
 				<th>읽음여부</th>
 			</tr>
@@ -38,8 +31,7 @@
 		<tbody id="messageTbody">
 			<tr th:each="ms:${messageList}">
 				<td th:text="${ms.sendId}"></td>
-
-				<td><a
+				<td width="40%" style="text-align: left;"><a class="line" style="color: #676766;"
 					th:href="@{/messageDetail(receiveId= ${ms.sendId}, content=${ms.content},messageNo=${ms.messageNo})}"
 					th:text="${ms.content}"></a></td>
 				<!-- <td> <a th:href="@{/messageDetail?receiveId=} + ${ms.sendId}" th:text="${ms.content}"></a></td> -->

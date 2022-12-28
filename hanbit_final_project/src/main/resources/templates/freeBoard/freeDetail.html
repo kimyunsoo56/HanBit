@@ -31,7 +31,9 @@
          <span style="font-size: 20px;">작성일 : </span><span style="font-size: 20px;" th:text="${freeDetail.timePosted}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
          <span style="font-size: 20px;">조회수 : </span><span style="font-size: 20px;" th:text="${freeDetail.hits}"></span>
  	<br><br>
-    <img th:src = "@{/images/} + ${freeDetail.image}" class="img-fluid" style="width: 600px; height: 500px;"><br>
+ 	<th:block th:if=${freeDetail.image}!=null>
+    	<img th:src = "@{/images/} + ${freeDetail.image}" style="width: 600px; height: 500px;"><br>
+    </th:block>
     <br>
      <div><p class="hanbitText2" th:text="${freeDetail.content}"></p></div>
 	<br>
