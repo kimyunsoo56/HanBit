@@ -11,9 +11,10 @@
 	  <form th:action="@{/noticeWrite}" method="post" id="write_form" enctype="multipart/form-data">
 	<br>
 	<select name = "category" required="required">
-		<option value= "알림정보">알림정보</option>
-		<option value= "건강정보">건강정보</option>
-		<option value= "공지사항">공지사항</option>
+		<option value= "공지">공지</option>
+		<option value= "건강">건강</option>
+		<option value= "교육">교육</option>
+		<option value= "복지">복지</option>
 	</select> <br> <br><br>
 	<span style="font-size: 20px;">제목 : </span> 
      <input style="border:none; width:500px; height: 40px;" type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>

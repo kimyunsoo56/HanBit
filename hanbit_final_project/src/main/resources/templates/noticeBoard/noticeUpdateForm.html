@@ -13,9 +13,10 @@
    <input name="noticeNo" th:value="${detail.noticeNo}" type = "hidden">
 	 <input name="id" th:value="${session.mvo.id}" type = "hidden">
 	<select name = "category">
-		<option value= "알림 정보">알림 정보</option>
-		<option value= "건강 정보">건강 정보</option>
-		<option value= "공지사항">공지 사항</option>
+		<option value= "공지">공지</option>
+		<option value= "건강">건강</option>
+		<option value= "교육">교육</option>
+		<option value= "복지">복지</option>
 	</select> <br> <br><br>
 	<span style="font-size: 20px;">제목 : </span>
      <input style="border:none; width:500px; height: 40px;" type="text" name="title" th:value=${detail.title} required="required"> <br>
