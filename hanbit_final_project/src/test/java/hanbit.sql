@@ -27,20 +27,18 @@ CREATE TABLE hanbit_notice_board(
 	time_posted DATE DEFAULT SYSDATE,
 	hits NUMBER DEFAULT 0,
 	category VARCHAR2(100), 
-	image VARCHAR2(100),
-	link VARCHAR2(100),
+	image VARCHAR2(1000),
+	link VARCHAR2(200),
 	id VARCHAR2(100) NOT NULL,
 	CONSTRAINT hanbit_notice_board_fk FOREIGN KEY(id) REFERENCES hanbit_member(id)
 )
-CREATE SEQUENCE hanbit_notice_board_seq start with 214;
+CREATE SEQUENCE hanbit_notice_board_seq;
 DROP TABLE hanbit_notice_board;
 SELECT * FROM hanbit_notice_board;
-DELETE FROM hanbit_notice_board;
-SELECT MAX(notice_no) FROM hanbit_notice_board;
-alter table hanbit_notice_board MODIFY link varchar2(200);
+DROP SEQUENCE hanbit_notice_board_seq;
 
--- 알림 게시판 테이블 링크 컬럼 추가
-ALTER TABLE hanbit_notice_board ADD link VARCHAR  VARCHAR2(100);
+
+
 
 -- 한빛 자유 게시판 테이블 생성
 CREATE TABLE hanbit_free_board(
@@ -50,7 +48,7 @@ CREATE TABLE hanbit_free_board(
 	time_posted DATE DEFAULT SYSDATE,
 	hits NUMBER DEFAULT 0,
 	category VARCHAR2(100), 
-	image VARCHAR2(100),
+	image VARCHAR2(1000),
 	id VARCHAR2(100) NOT NULL,
 	CONSTRAINT hanbit_free_board_fk FOREIGN KEY(id) REFERENCES hanbit_member(id)
 )
@@ -67,12 +65,11 @@ CREATE TABLE hanbit_notice_comment(
 	id VARCHAR2(100) NOT NULL,
 	notice_no NUMBER NOT NULL,
 	CONSTRAINT hanbit_notice_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
-	CONSTRAINT hanbit_notice_comment_no_fk FOREIGN KEY(notice_no) REFERENCES hanbit_notice_board(notice_no)
+	CONSTRAINT hanbit_notice_comment_no_fk FOREIGN KEY(notice_no) REFERENCES hanbit_notice_board(notice_no) ON DELETE CASCADE
 )
-
 CREATE SEQUENCE hanbit_notice_comment_seq;
-DROP TABLE hanbit_notice_commentt;
-DROP SEQUENCEhanbit_notice_comment_seq;
+DROP TABLE hanbit_notice_comment;
+DROP SEQUENCE hanbit_notice_comment_seq;
 SELECT * FROM hanbit_notice_comment;
 
 -- 한빛 자유 댓글 테이블 생성
@@ -83,27 +80,13 @@ CREATE TABLE hanbit_comment(
 	id VARCHAR2(100) NOT NULL,
 	free_no NUMBER NOT NULL,
 	CONSTRAINT hanbit_free_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
-	CONSTRAINT hanbit_free_comment_no_fk FOREIGN KEY(free_no) REFERENCES hanbit_free_board(free_no)
+	CONSTRAINT hanbit_free_comment_no_fk FOREIGN KEY(free_no) REFERENCES hanbit_free_board(free_no) ON DELETE CASCADE
 )
 CREATE SEQUENCE hanbit_comment_seq;
 DROP TABLE hanbit_comment;
 DROP SEQUENCE hanbit_comment_seq;
 SELECT * FROM hanbit_comment;
 
--- 한빛 알림 댓글 테이블 생성
-CREATE TABLE hanbit_notice_comment(
-	comment_no NUMBER PRIMARY KEY,
-	content CLOB NOT NULL,
-	time_posted DATE DEFAULT SYSDATE,
-	id VARCHAR2(100) NOT NULL,
-	notice_no NUMBER NOT NULL,
-	CONSTRAINT hanbit_free_comment_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
-	CONSTRAINT hanbit_free_comment_no_fk FOREIGN KEY(free_no) REFERENCES hanbit_free_board(free_no)
-)
-CREATE SEQUENCE hanbit_comment_seq;
-DROP TABLE hanbit_comment;
-DROP SEQUENCE hanbit_comment_seq;
-SELECT * FROM hanbit_comment;
 
 -- 한빛 매칭 게시판 테이블 생성
 CREATE TABLE hanbit_match_board(
@@ -112,7 +95,7 @@ CREATE TABLE hanbit_match_board(
 	content CLOB NOT NULL,
 	time_posted DATE DEFAULT SYSDATE,
 	hits NUMBER DEFAULT 0,
-	image VARCHAR2(100),
+	image VARCHAR2(1000),
 	id VARCHAR2(100) NOT NULL,
 	CONSTRAINT hanbit_match_board_fk FOREIGN KEY(id) REFERENCES hanbit_member(id)
 )
@@ -120,22 +103,21 @@ CREATE SEQUENCE hanbit_match_board_seq;
 DROP TABLE hanbit_match_board;
 DROP SEQUENCE hanbit_match_board_seq;
 SELECT * FROM hanbit_match_board;
-insert into hanbit_match_board values (hanbit_match_board_seq.nextval,'경력 10년의 요양보호사 입니다!','소개글 내용입니다!',sysdate,5,'colde.png','java')
-insert into hanbit_match_board values (hanbit_match_board_seq.nextval,'경력 12년의 요양보호사 입니다!','소개글 내용입니다!',sysdate,9,'colde1.png','java3')
+
 
 -- 한빛 매칭 좋아요 테이블 생성
 CREATE TABLE hanbit_likes(
 	id VARCHAR2(100),
 	match_no NUMBER,
 	CONSTRAINT hanbit_likes_id_fk FOREIGN KEY(id) REFERENCES hanbit_member(id),
-	CONSTRAINT hanbit_likes_no_fk FOREIGN KEY(match_no) REFERENCES hanbit_match_board(match_no),
-	CONSTRAINT hanbit_likes_pk PRIMARY KEY(id,match_no)
+	CONSTRAINT hanbit_likes_no_fk FOREIGN KEY(match_no) REFERENCES hanbit_match_board(match_no) ON DELETE CASCADE,
+	CONSTRAINT hanbit_likes_pk PRIMARY KEY(id,match_no) 
 )
 
 DROP TABLE hanbit_likes;
 SELECT * FROM hanbit_likes;
 
--- 한빛 쪽지 테이블 생성 
+-- 한빛 쪽지 테이블 생성  // 캐스케이드 고려안함
 CREATE TABLE hanbit_message(
 	message_no NUMBER PRIMARY KEY,
 	content CLOB NOT NULL,
@@ -151,6 +133,8 @@ DROP TABLE hanbit_message;
 DROP SEQUENCE hanbit_message_seq;
 SELECT * FROM hanbit_message;
 
+INSERT INTO hanbit_member(id, password, name, nick, question, answer,tel,enabled,member_type)
+VALUES('admin','a','관리자','관리자','ㅇㅇ','ㅁㄴ',010011111,1,3);
 
 
 
