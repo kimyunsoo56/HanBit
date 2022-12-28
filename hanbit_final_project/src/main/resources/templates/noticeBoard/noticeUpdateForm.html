@@ -8,50 +8,31 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<h4>※ 알림 글수정※</h4>
 	  <form th:action="@{/noticeUpdate}" method="post" id="update_form" enctype="multipart/form-data">
    <input name="noticeNo" th:value="${param.noticeNo}" type = "hidden">
    <input name="noticeNo" th:value="${detail.noticeNo}" type = "hidden">
 	 <input name="id" th:value="${session.mvo.id}" type = "hidden">
-	<br>
 	<select name = "category">
 		<option value= "알림 정보">알림 정보</option>
 		<option value= "건강 정보">건강 정보</option>
 		<option value= "공지사항">공지 사항</option>
 	</select> <br> <br><br>
-	제목 &nbsp; &nbsp;
-     <input type="text" name="title" th:value=${detail.title} required="required"> <br>
+	<span style="font-size: 20px;">제목 : </span>
+     <input style="border:none; width:500px; height: 40px;" type="text" name="title" th:value=${detail.title} required="required"> <br>
      <br>
-	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" th:text=${detail.content}></textarea>
-		<br><br>
-	 <div class="form-group row">
-<!--     <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>  -->   
-          <div class="col-sm-10">
-            <br><br>
-      링크 <input type="text" name="link" placeholder="링크를 입력하세요" required="required"> <br>
-      		<br><br>
-      		링크 양식 예시: 
-      		<br> https://www.naver.com 
-      		<br> https://www.seouldementia.or.kr/info/notice.asp?pagename=view&num=237528&page=1&search=
-      		<br><br>4444
-         </div>
-      </div>
-      <br><br>
-      <br><br>
-  	<div>
-    file : <input type="file" name="photo" accept="image/*">
-  	</div>
-  	<input type="submit">
-  		<button type = "submit"  class="btn btn-outline-dark"> 
-		등록
-		</button> 
+	 <pre><textarea cols="90" rows="15" name="content" class="hanbitText" required="required" th:text=${detail.content}></textarea></pre>
+      <span style="font-size: 20px;">링크 : </span>
+      <input style="border:none; width:500px; height: 40px;" type="text" name="link" th:value="${detail.link}" required="required"> <br>
+  		<div align="center">
+  		<button type = "submit" class="btn btn-outline-success btn-lg">수정</button> 
+  		</div>
 	</form>
 
 	 <!-- jQuery Ajax -->
      <script type="text/javascript">
      	$(document).ready(function() {
      		$("#update_form").submit(function() {
-     			return confirm("글을 등록하시겠습니까?"); 
+     			return confirm("글을 수정하시겠습니까?"); 
 			});//submit
      	}); //ready
     </script>

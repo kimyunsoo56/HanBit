@@ -25,65 +25,63 @@
 
 
 	<!-- container-fluid: 화면 너비와 상관없이 항상 100% -->
-
+	<div align="left">
          <span style="font-size: 20px;">제목 : </span><span style="font-size: 20px;" th:text="${freeDetail.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
          <span style="font-size: 20px;">작성자 : </span><span style="font-size: 20px;" th:text="${freeDetail.memberVO.nick}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+         <span style="font-size: 20px;">작성일 : </span><span style="font-size: 20px;" th:text="${freeDetail.timePosted}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
          <span style="font-size: 20px;">조회수 : </span><span style="font-size: 20px;" th:text="${freeDetail.hits}"></span>
- 	<br>
-    <img th:src = "@{/images/} + ${freeDetail.image}" class="img-fluid" ><br>
-     <div><textarea cols="90" rows="15" name="content" class="hanbitText" th:text="${freeDetail.content}" readonly="readonly"></textarea></div>
-	<div>
+ 	<br><br>
+    <img th:src = "@{/images/} + ${freeDetail.image}" class="img-fluid" style="width: 600px; height: 500px;"><br>
+    <br>
+     <div><p class="hanbitText2" th:text="${freeDetail.content}"></p></div>
+	<br>
+	<div align="left">
 	<form th:action="@{freeReport?freeNo=}+${freeDetail.freeNo}"
-		method="post" style="float: left;">
+		method="post" style="float: left; margin-right: 10px;">
 		<button class="btn btn-outline-success">신고</button>
 	</form>
-	<div align="right">
 	<th:block th:if="${session.mvo!=null}">
 		<th:block th:if="${session.mvo.nick==freeDetail.memberVO.nick}">
 			<form th:action="@{freeDelete?freeNo=}+${freeDetail.freeNo}"
-				method="post" style="float: right; padding-right: 20px;">
+				method="post" style="float: left; margin-right: 10px;">
 				<button class="btn btn-outline-success">삭제</button>
 			</form>
-			&nbsp;&nbsp;&nbsp;&nbsp;
 			<form id="freeDetailUpdateForm"
-				th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}" style="float: right; padding-right: 10px;">
+				th:action="@{freeDetailUpdateForm?freeNo=}+${freeDetail.freeNo}" style="float: left;">
 				<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
 				<button type="submit" class="btn btn-outline-success">수정</button>
 			</form>
 		</th:block>
 	</th:block>
 	</div>
-</div>
 <br><br>
 	<!-------------- 댓글 ------------------>
 
-	<form th:action="@{/writeComment}" method="post">
-		<div class="comment-box">
+	<form th:action="@{/writeComment}" method="post" style="float: left;">
+		<div align="left" style="float: left;">
 		<input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
-			<div class="comment-name">
 				<span style="font-size: 18px;">작성자 : <input name="id" th:value="${session.mvo.id}" readonly style="width: 100px; border: none;"></span>
-			</div>
-			<div>
 				<pre><textarea class="hanbitTextComment" name="content" cols="80" rows="2" placeholder="댓글을 남겨주세요"></textarea></pre>
-				<button type="submit" class="btn btn-outline-success" style="float: right; margin-right: 20px; margin-top: -15px;">댓글등록</button><br>
-			</div>
+		</div>
+		<div style="float: right; margin-top: 50px; margin-left: 10px;">
+				<button type="submit" class="btn btn-outline-success" style="float: right;">댓글등록</button><br>
 		</div>
 	</form>
 	<div>
 	<br>
-<table class="table table-borderless" style="text-align: center;">
+<table class="table table-borderless" style="text-align: left; width: 1200px;">
    <tbody >
       <tr th:each="co:${commentList}">
          <td style="font-size: 18px;" th:text="${co.id}"></td>
-         <td style="font-size: 18px;" th:text="${co.content}"></td>
+         <td style="font-size: 18px; width: 60%;" th:text="${co.content}"></td>
          <td style="font-size: 18px;" th:text="${co.timePosted}"></td>
 	         <th:block th:if="${session.mvo!=null}">
 			 <th:block th:if="${session.mvo.id==co.id}">
-         <td>
+         <td style="width: 10%;">
 	         <form th:action="@{/commentDelete}" method="post">
          	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
          	 <input type="hidden" name="freeNo" th:value="${freeDetail.freeNo}">
-			 <button >삭제</button>
+			 <button class="btn btn-outline-success">삭제</button>
 			 </form>
          </td>
 	         </th:block>
@@ -91,6 +89,7 @@
       </tr>
    </tbody>
 </table>
+</div>
 	</div>
 </div>
 

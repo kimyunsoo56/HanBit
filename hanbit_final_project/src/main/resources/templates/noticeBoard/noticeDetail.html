@@ -8,69 +8,61 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<br>
-	<br>
-<h4 th:text="${detail.title}"></h4>&nbsp;
+<div align="left">
+<span style="font-size: 20px;">제목 : </span><span style="font-size: 20px;" th:text="${detail.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 20px;">작성자 : </span><span style="font-size: 20px;" th:text="${detail.memberVO.nick}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 20px;">작성일 : </span><span style="font-size: 20px;" th:text="${detail.timePosted}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 20px;">조회수 : </span><span style="font-size: 20px;" th:text="${detail.hits}"></span>
+<br><br>
 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
-<p th:text="${detail.category}"></p>
-<p th:text="${detail.memberVO.nick}"></p>
-<p th:text="${detail.timePosted}"></p>
-<p th:text="${detail.hits}"></p><br>
-<p th:text="${detail.content}"></p><br>
-<img th:src = "@{/images/} + ${detail.image}" class="img-fluid"><br>
-<br> 자세한 내용은 아래 링크에서 확인하세요 <br>
-<a th:href="${detail.link}">홈페이지 바로가기</a>
-
+<img th:src = "@{/images/} + ${detail.image}" class="img-fluid" style="width: 600px; height: 500px;"><br>
+<br>
+<div><p class="hanbitText2" th:text="${detail.content}"></p></div>
+<p>자세한 내용은 링크에서 확인하세요 &nbsp;&nbsp;
+<a th:href="${detail.link}" style="color: #A7CB03" class="line" target="_blank">홈페이지 바로가기</a>
+<br>
+<div align="left">
 <th:block th:if="${session.mvo!=null}">
 		<th:block th:if="${session.mvo.memberType == 3}">
 			<form th:action="@{noticeDelete?noticeNo=}+${detail.noticeNo}"
-				method="post">
-				<button class="btn btn-outline-dark">삭제</button>&nbsp;
+				method="post" style="float: left; margin-right: 10px;">
+				<button class="btn btn-outline-success">삭제</button>
 			</form>
-			<form th:action="@{noticeUpdateForm?noticeNo=}+${detail.noticeNo}">
+			<form th:action="@{noticeUpdateForm?noticeNo=}+${detail.noticeNo}" style="float: left;">
 			<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
-				<button class="btn btn-outline-dark">수정</button>
+				<button class="btn btn-outline-success">수정</button>
 			</form>
 			</th:block>
 			</th:block>
-			
+		</div>	
+<br><br>
 	<!-------------- 댓글 ------------------>
- <form th:action="@{/writenoticeComment}" method="post">
-		<div class="comment-box">
+ <form th:action="@{/writenoticeComment}" method="post" style="float: left;">
+		<div align="left" style="float: left;">
 		<input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
-			<div class="comment-name">
-				작성자 : <input name="id" th:value="${session.mvo.id}"
-					class="form-control"  readonly
-					style="width: 100px; border: none;">
+		<span style="font-size: 18px;">작성자 : <input name="id" th:value="${session.mvo.id}" readonly style="width: 100px; border: none;"></span>
+		<pre><textarea class="hanbitTextComment" name="content" cols="80" rows="2" placeholder="댓글을 남겨주세요"></textarea></pre>
 			</div>
-			<div class="comment-sbox">
-				<textarea class="comment-input" name="content" cols="80" rows="2"></textarea>
-			</div>
-			<div>
-				<button type="submit">댓글등록</button><br>
-			</div>
+			<div style="float: right; margin-top: 50px; margin-left: 10px;">
+				<button type="submit" class="btn btn-outline-success" style="float: right;">댓글등록</button><br>
 		</div>
 	</form>
 	<div >
-	<table class="table table-borderless">
-   <thead>
-      <tr>
-         <th>아이디</th><th>내용</th><th>시간</th>
-      </tr>
-   </thead>
+	<br>
+	<table class="table table-borderless" style="text-align: left; width: 1200px;">
    <tbody >
       <tr th:each="co:${commentList}">
-         <td th:text="${co.id}"></td>
-         <td th:text="${co.content}"></td>
-         <td th:text="${co.timePosted}"></td>
-         <td>
+         <td style="font-size: 18px;" th:text="${co.id}"></td>
+         <td style="font-size: 18px;" th:text="${co.content}"></td>
+         <td style="font-size: 18px;" th:text="${co.timePosted}"></td>
          	 <th:block th:if="${session.mvo!=null}">
 			 <th:block th:if="${session.mvo.id==co.id}">
+         <td style="width: 10%;">
 			 <!--  댓글 삭제 -->
 	         <form th:action="@{/commentnoticeDelete}" method="post">
          	 <input type="hidden" name="commentNo" th:value="${co.commentNo}">
          	 <input type="hidden" name="noticeNo" th:value="${detail.noticeNo}">
-			 <button >삭제</button>
+			 <button class="btn btn-outline-success">삭제</button>
 			 </form>
          </td>
 	         </th:block>

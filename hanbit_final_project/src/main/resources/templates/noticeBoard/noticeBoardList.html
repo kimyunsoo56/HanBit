@@ -8,49 +8,49 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-
-	<br> <br>
-	<div class="row">
-		<br> <select id="category"  class="custom-select-sm">
+	<div align="center">
+	<div align="left">
+		<select id="category">
 			<option th:value="공지사항">공지사항</option>
 			<option th:value="건강정보">건강정보</option>
 			<option th:value="알림정보">알림정보</option>
-		</select> <br> <br> <br>
-		<button type="button" id="findNoticeByCategory" class="btn btn-outline-dark">
-		검색
-		</button>
-		<br> <br>
-		<table class="table table-hover">
+		</select>
+		&nbsp;
+		<button type="button" class="btn btn-outline-success" id="findNoticeByCategory">검색</button>
+		</div>
+		
+		
+		<table class="table" style="width: 1300px; word-break:break-all; text-align: center;">
 			<thead>
 				<tr>
-					<th>NO</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성시간</th>
-					<th>조회수</th>
+					<th>번호</th>
 					<th>카테고리</th>
+					<th style="text-align: left;">제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody id="noticeTbody">
 				<tr th:each="nb:${nblvo}">
 					<td th:text="${nb.noticeNo}"></td>
-					<td><a th:href="@{/noticeDetail?noticeNo=} + ${nb.noticeNo}" 
-						th:text="${nb.title}"></a></td>
+					<td th:text="${nb.category}"></td>
+					<td width="40%" style="text-align: left;"><a class="line" style="color: #676766;" th:href="@{/noticeDetail?noticeNo=} + ${nb.noticeNo}" th:text="${nb.title}"></a></td>
 					<td th:text="${nb.memberVO.nick}"></td>
 					<td th:text="${nb.timePosted}"></td>
 					<td th:text="${nb.hits}"></td>
-					<td th:text="${nb.category}"></td>
 				</tr>
 			</tbody>
 		</table>
-		<br>
-		<th:block th:if="${session.mvo!=null}">
-			<th:block th:if="${session.mvo.memberType == 3}">
-				<form th:action="@{writeNoticeForm}">
-					<button type = "submit"  class="btn btn-outline-dark">글쓰기</button>&nbsp;&nbsp;&nbsp;
-				</form>
+		<div align="right">
+			<th:block th:if="${session.mvo!=null}">
+				<th:block th:if="${session.mvo.memberType == 3}">
+					<form th:action="@{writeNoticeForm}">
+						<button type = "submit" class="btn btn-outline-success">글쓰기</button>
+					</form>
+				</th:block>
 			</th:block>
-		</th:block>
+		</div>
 	<!--  <ul class="pagination justify-content-center">
 			<th:block th:if="${paging.prev}">
 				<li class="page-item active"><a class="page-link"

@@ -8,40 +8,28 @@
 </head>
 <!--================Start layout Area =================-->
 <div layout:fragment="content">
-	<h4>※ 알림 글쓰기※</h4>
 	  <form th:action="@{/noticeWrite}" method="post" id="write_form" enctype="multipart/form-data">
 	<br>
-	<select name = "category">
+	<select name = "category" required="required">
 		<option value= "알림정보">알림정보</option>
 		<option value= "건강정보">건강정보</option>
 		<option value= "공지사항">공지사항</option>
 	</select> <br> <br><br>
-	제목 &nbsp; &nbsp;
-     <input type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
+	<span style="font-size: 20px;">제목 : </span> 
+     <input style="border:none; width:500px; height: 40px;" type="text" name="title" placeholder="게시글 제목을 입력하세요" required="required"> <br>
      <br>
-	 <textarea cols="90" rows="15" name="content" class="form-control" required="required"  style="border:none" placeholder="본문내용을 입력하세요"></textarea>
-		<br><br>
-	 <div class="form-group row">
-<!--     <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>  -->   
-          <div class="col-sm-10">
-            <br><br>
-      링크 <input type="text" name="link" placeholder="링크를 입력하세요" required="required"> <br>
-      		<br><br>
-      		링크 양식 예시: 
-      		<br> https://www.naver.com 
-      		<br> https://www.seouldementia.or.kr/info/notice.asp?pagename=view&num=237528&page=1&search=
-      		<br><br>
-         </div>
-      </div>
-      <br><br>
-      <br><br>
-  	<div>
-    file : <input type="file" name="photo" accept="image/*">
-  	</div>
-  	<input type="submit">
-  		<button type = "submit"  class="btn btn-outline-dark">
-		등록
-		</button> 
+	<div>     
+	<span style="font-size: 20px;">file : </span>
+	<input type="file" name="photo" accept="image/*">
+	</div>
+	<br>
+	 <pre><textarea cols="90" rows="15" name="content" class="hanbitText" required="required"  style="border:none" placeholder="본문내용을 입력하세요"></textarea></pre>
+       <span style="font-size: 20px;">링크 : </span>
+       <input style="border:none; width:500px; height: 40px;" type="text" name="link" placeholder="링크를 입력하세요" required="required"> <br>
+      		<br>
+      <div align="center">
+  		<button type = "submit" class="btn btn-outline-success btn-lg">등록</button> 
+  		</div>
 	</form>
 
 	 <!-- jQuery Ajax -->

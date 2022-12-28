@@ -23,8 +23,7 @@
      <input type="hidden" name="no" th:value="${freeDetail.freeNo}">
   	 <pre><textarea cols="90" rows="15" name="content" class="hanbitText" th:text=${freeDetail.content} required="required"></textarea></pre>
 	<div align="center">
-     <button type="submit" class="btn btn-outline-success btn-lg">확인</button>  
-     <button type="reset" class="btn btn-outline-success btn-lg">취소</button>   
+     <button type="submit" class="btn btn-outline-success btn-lg">수정</button>  
      </div>
      </form>
   	
@@ -36,7 +35,7 @@
      		//submit 버튼의 아이디를 처리할 때는 form의 아이디로 select한다.
      		$("#write_form").submit(function() {
      			//취소를 누르면 return false로 submit되지 않는다.
-     			return confirm("글을 등록하시겠습니까?"); 
+     			return confirm("글을 수정하시겠습니까?"); 
 			});//submit
      		
      	});ready

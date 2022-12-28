@@ -4073,9 +4073,15 @@ a.line:hover {
 	font-size: 20px;
 	border-style: ridge;
 }
+.hanbitText2{
+	word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 20px;
+}
 .hanbitTextComment{
-	width: 1250px;
-	height: 100px;
+	width: 900px;
+	height: 90px;
 	font-size: 15px;
 	border-style: ridge;
 }
